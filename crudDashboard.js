@@ -30,18 +30,31 @@ document
       const data = await response.json();
 
       if (response.ok) {
-        document.getElementById(
-          "responseMessage"
-        ).innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+        // Success message with SweetAlert2
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: data.message,
+          showConfirmButton: false,
+          timer: 1500, // Auto-close after 1.5 seconds
+        });
       } else {
-        document.getElementById(
-          "responseMessage"
-        ).innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+        // Error message with SweetAlert2
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.message,
+          showConfirmButton: true,
+        });
       }
     } catch (error) {
       console.error("Error:", error);
-      document.getElementById(
-        "responseMessage"
-      ).innerHTML = `<div class="alert alert-danger">Something went wrong. Please try again later.</div>`;
+      // General error message with SweetAlert2
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong. Please try again later.",
+        showConfirmButton: true,
+      });
     }
   });
