@@ -5,6 +5,12 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    // Show loading indicator
+    const loader = document.getElementById("loadingSpinner");
+    loader.style.display = "block";
+    loader.style.marginLeft = "30px";
+    loader.style.marginTop = "8px";
+
     const formData = new FormData();
     formData.append("file", document.getElementById("imageUrl").files[0]);
 
@@ -34,7 +40,11 @@ document
           timer: 1500,
         });
 
-        displayImageCard(data.imageUrl, data.id); // Assuming response contains `imageUrl` and `id`
+        // Display the uploaded image in the gallery
+        displayImageCard(data.imageUrl, data.id);
+
+        // Reset the form
+        document.getElementById("uploadForm").reset();
       } else {
         Swal.fire({
           icon: "error",
@@ -51,6 +61,9 @@ document
         text: "Something went wrong. Please try again later.",
         showConfirmButton: true,
       });
+    } finally {
+      // Hide loading indicator after upload attempt finishes
+      document.getElementById("loadingSpinner").style.display = "none";
     }
   });
 
@@ -64,7 +77,7 @@ async function loadGallery() {
 
     if (response.ok) {
       data.forEach((image) => {
-        displayImageCard(image.imageUrl, image.id); // Assuming `id` is returned with each image
+        displayImageCard(image.imageUrl, image.id);
       });
     } else {
       console.error("Failed to load gallery images:", data.message);
