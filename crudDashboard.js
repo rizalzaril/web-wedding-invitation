@@ -8,7 +8,7 @@ document
 
     try {
       const response = await fetch(
-        "https://backend-undangan-pernikahan-opang.vercel.app/uploadGallery",
+        "https://backend-undangan-pernikahan-opang.vercel.app/postImage",
         {
           method: "POST",
           body: formData,
