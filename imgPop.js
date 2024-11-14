@@ -14,7 +14,8 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getGallery")
         "rounded-lg",
         "col",
         "mt-3",
-        "p-1"
+        "p-1",
+        "gallery-shadow-img"
       ); // Optional: To make the images responsive
 
       const colDiv = document.createElement("div");
