@@ -7,28 +7,36 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getGallery")
   })
   .then((data) => {
     const gallery = document.getElementById("imgGallery");
-    gallery.innerHTML = "";
+    gallery.innerHTML = ""; // Clear the gallery before adding new images
 
-    // Iterate over the images in the data and add them to the page
-    data.forEach((image) => {
-      const col = document.createElement("div");
-      col.classList.add(
-        "col",
-        "mt-3",
-        "col-home-scroll-up",
-        "gallery-shadow-img",
-        "transition-flip-360",
-        "p-3"
-      );
+    // Check if the data array is not empty
+    if (Array.isArray(data) && data.length > 0) {
+      // Iterate over the images in the data and add them to the page
+      data.forEach((image) => {
+        const col = document.createElement("div");
+        col.classList.add(
+          "col",
+          "mt-3",
+          "col-home-scroll-up",
+          "gallery-shadow-img",
+          "transition-flip-360",
+          "p-3"
+        );
 
-      const img = document.createElement("img");
-      img.classList.add("img-thumbnail", "rounded-lg");
-      img.src = image.imageUrl; // Use image.imageUrl to set the image source
-      img.alt = `Image with ID: ${image.id}`; // Optionally set an alt text with the image ID
+        const img = document.createElement("img");
+        img.classList.add("img-thumbnail", "rounded-lg");
+        img.src = image.imageUrl; // Use image.imageUrl to set the image source
+        img.alt = `Image with ID: ${image.id}`; // Optionally set an alt text with the image ID
 
-      col.appendChild(img); // Append the img to the col
-      gallery.appendChild(col); // Append the col to the gallery
-    });
+        col.appendChild(img); // Append the img to the col
+        gallery.appendChild(col); // Append the col to the gallery
+      });
+    } else {
+      // Handle case when the data array is empty
+      const noImagesMessage = document.createElement("p");
+      noImagesMessage.textContent = "No images available at the moment.";
+      gallery.appendChild(noImagesMessage);
+    }
   })
   .catch((error) => {
     console.error("Terjadi kesalahan:", error.message);

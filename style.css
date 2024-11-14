@@ -512,7 +512,7 @@ h1 {
   width: 100%; /* Full width */
   height: 200%; /* Full height */
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    /* Dark gradient overlay */ url("./img/opening.webp");
+    /* Dark gradient overlay */ url("./img/");
 
   background-size: cover; /* Scales image to cover the area */
   background-position: center; /* Centers the background image */
