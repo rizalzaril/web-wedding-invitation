@@ -1,0 +1,15 @@
+div .img-thumbnail {
+  width: 150px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+}
+
+.absolute-top {
+  position: relative;
+  top: -65px;
+  left: 100px;
+  display: inline-block;
+  flex-direction: column;
+  z-index: 1;
+}

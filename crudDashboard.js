@@ -76,15 +76,23 @@ async function loadGallery() {
 
 function displayImageCard(imageUrl, imageId) {
   const card = document.createElement("div");
-  card.classList.add("image-card");
 
   const image = document.createElement("img");
   image.src = imageUrl;
   image.alt = "Uploaded Image";
+  image.classList.add(
+    "img-thumbnail",
+    "rounded-lg",
+    "col",
+    "mt-1",
+    "p-1",
+    "gallery-shadow-img"
+  );
 
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Delete";
-  deleteButton.classList.add("delete-btn");
+  deleteButton.classList.add("btn", "btn-danger", "mt-3", "absolute-top");
+  deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
   deleteButton.addEventListener("click", () => {
     deleteImageCard(card, imageId);
   });
