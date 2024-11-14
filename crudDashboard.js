@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", loadGallery);
+
 document
   .getElementById("uploadForm")
   .addEventListener("submit", async function (event) {
@@ -12,34 +14,28 @@ document
         {
           method: "POST",
           body: formData,
-          headers: {
-            // Add any necessary headers here, like authorization if needed
-            // "Authorization": "Bearer <your-token>"
-          },
         }
       );
 
-      // Check if the response is a JSON or HTML response
       const contentType = response.headers.get("Content-Type");
 
       if (!contentType || !contentType.includes("application/json")) {
-        // If it's not JSON, assume it's an error page or non-JSON response
         throw new Error("Unexpected response format: " + contentType);
       }
 
       const data = await response.json();
 
       if (response.ok) {
-        // Success message with SweetAlert2
         Swal.fire({
           icon: "success",
           title: "Success",
           text: data.message,
           showConfirmButton: false,
-          timer: 1500, // Auto-close after 1.5 seconds
+          timer: 1500,
         });
+
+        displayImageCard(data.imageUrl);
       } else {
-        // Error message with SweetAlert2
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -49,7 +45,6 @@ document
       }
     } catch (error) {
       console.error("Error:", error);
-      // General error message with SweetAlert2
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -58,3 +53,49 @@ document
       });
     }
   });
+
+async function loadGallery() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getGallery"
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      data.forEach((image) => {
+        displayImageCard(image.imageUrl);
+      });
+    } else {
+      console.error("Failed to load gallery images:", data.message);
+    }
+  } catch (error) {
+    console.error("Error loading gallery images:", error);
+  }
+}
+
+function displayImageCard(imageUrl) {
+  const card = document.createElement("div");
+  card.classList.add("image-card");
+
+  const image = document.createElement("img");
+  image.src = imageUrl;
+  image.alt = "Uploaded Image";
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.classList.add("delete-btn");
+  deleteButton.addEventListener("click", () => {
+    deleteImageCard(card);
+  });
+
+  card.appendChild(image);
+  card.appendChild(deleteButton);
+
+  document.getElementById("galleryContainer").appendChild(card);
+}
+
+function deleteImageCard(card) {
+  card.remove();
+  // Optionally, add a request to delete the image from the server here
+}
