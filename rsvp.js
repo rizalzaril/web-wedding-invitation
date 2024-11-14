@@ -44,7 +44,7 @@ async function saveFormData(event) {
 
   try {
     const response = await fetch(
-      "https://backend-wedding-2l6u74uuq-rizalzarils-projects.vercel.app/invitations",
+      "https://backend-undangan-pernikahan-opang.vercel.app/invitations",
       {
         method: "POST",
         headers: {
@@ -89,7 +89,7 @@ async function fetchData() {
   try {
     // Make a GET request to fetch data from your API
     const response = await fetch(
-      "https://backend-wedding-2l6u74uuq-rizalzarils-projects.vercel.app/invitations"
+      "https://backend-undangan-pernikahan-opang.vercel.app/invitations"
     );
 
     if (!response.ok) {
