@@ -106,8 +106,8 @@ async function deleteImageCard(card, imageId) {
       card.remove();
       Swal.fire({
         icon: "success",
-        title: "Deleted!",
-        text: "The image has been deleted.",
+        title: "Terhapus!",
+        text: "Photo berhasil di hapus",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -125,7 +125,7 @@ async function deleteImageCard(card, imageId) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Something went wrong. Please try again later.",
+      text: "Server Bermasalah.",
       showConfirmButton: true,
     });
   }
