@@ -34,7 +34,7 @@ document
           timer: 1500,
         });
 
-        displayImageCard(data.imageUrl);
+        displayImageCard(data.imageUrl, data.id); // Assuming response contains `imageUrl` and `id`
       } else {
         Swal.fire({
           icon: "error",
@@ -64,7 +64,7 @@ async function loadGallery() {
 
     if (response.ok) {
       data.forEach((image) => {
-        displayImageCard(image.imageUrl);
+        displayImageCard(image.imageUrl, image.id); // Assuming `id` is returned with each image
       });
     } else {
       console.error("Failed to load gallery images:", data.message);
@@ -74,7 +74,7 @@ async function loadGallery() {
   }
 }
 
-function displayImageCard(imageUrl) {
+function displayImageCard(imageUrl, imageId) {
   const card = document.createElement("div");
   card.classList.add("image-card");
 
@@ -86,7 +86,7 @@ function displayImageCard(imageUrl) {
   deleteButton.textContent = "Delete";
   deleteButton.classList.add("delete-btn");
   deleteButton.addEventListener("click", () => {
-    deleteImageCard(card);
+    deleteImageCard(card, imageId);
   });
 
   card.appendChild(image);
@@ -95,7 +95,38 @@ function displayImageCard(imageUrl) {
   document.getElementById("galleryContainer").appendChild(card);
 }
 
-function deleteImageCard(card) {
-  card.remove();
-  // Optionally, add a request to delete the image from the server here
+async function deleteImageCard(card, imageId) {
+  try {
+    const response = await fetch(
+      `https://backend-undangan-pernikahan-opang.vercel.app/deleteGallery/${imageId}`,
+      { method: "DELETE" }
+    );
+
+    if (response.ok) {
+      card.remove();
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "The image has been deleted.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      const data = await response.json();
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: data.message || "Failed to delete image.",
+        showConfirmButton: true,
+      });
+    }
+  } catch (error) {
+    console.error("Error deleting image:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong. Please try again later.",
+      showConfirmButton: true,
+    });
+  }
 }
