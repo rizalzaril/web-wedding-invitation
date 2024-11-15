@@ -218,7 +218,7 @@ const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // R
 // Function to generate invitation URL
 function generateInvitationUrl(name) {
   const encodedName = encodeURIComponent(name);
-  return `https://web-wedding-invitation-umber.vercel.app/content.html/to=${encodedName}`;
+  return `https://web-wedding-invitation-umber.vercel.app/to=${encodedName}`;
 }
 
 // Handle form submission to create the invitation
@@ -290,6 +290,9 @@ async function saveInvitationData() {
 }
 
 //GET DATA UNDANGAN//
+
+const textTamu = document.getElementById("textTamu");
+
 $(document).ready(function () {
   fetchDataUndangan();
 });
