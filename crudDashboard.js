@@ -218,11 +218,7 @@ const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // R
 
 // Function to generate invitation URL
 function generateInvitationUrl(name) {
-  // Replace spaces with +, then encode the entire string
-  const formattedName = encodeURIComponent(name.replace(/\s+/g, "+")).replace(
-    /%26/g,
-    "&"
-  );
+  const formattedName = name.replace(/\s+/g, "+"); // Replace spaces with + and add &partner
   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
 }
 
