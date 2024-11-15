@@ -214,38 +214,36 @@ async function fetchData() {
 
 // API URL for storing the invitation data
 
-const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // Replace with your actual API endpoint
+const API_ENDPOINTS = {
+  saveInvitation: "https://backend-undangan-pernikahan-opang.vercel.app/tamu",
+  getGuests: "https://backend-undangan-pernikahan-opang.vercel.app/getTamu",
+};
 
-// Function to generate invitation URL
 function generateInvitationUrl(name) {
-  const formattedName = name.replace(/\s+/g, "+"); // Replace spaces with + and add &partner
+  const formattedName = name.trim().replace(/\s+/g, "+");
   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
 }
 
-// Handle form submission to create the invitation
 document
   .getElementById("invitationForm")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", async (event) => {
     event.preventDefault();
-
     const guestName = document.getElementById("guestName").value;
-    const invitationUrl = generateInvitationUrl(guestName);
 
-    // Display the generated URL
-    document.getElementById(
-      "generatedUrl"
-    ).textContent = `Generated URL: ${invitationUrl}`;
+    if (!guestName) {
+      Swal.fire("Error", "Please enter a guest name.", "error");
+      return;
+    }
 
-    // Save invitation data
-    saveInvitationData();
+    try {
+      await saveInvitationData(guestName);
+    } catch (err) {
+      console.error(err);
+    }
   });
 
-// Function to save invitation data
-async function saveInvitationData() {
-  const guestName = document.getElementById("guestName").value;
+async function saveInvitationData(guestName) {
   const invitationUrl = generateInvitationUrl(guestName);
-
-  // Prepare data to send
   const invitationData = {
     nama_tamu: guestName,
     timestamp: new Date().toISOString(),
@@ -253,112 +251,70 @@ async function saveInvitationData() {
   };
 
   try {
-    const response = await fetch(apiUrl, {
+    const response = await fetch(API_ENDPOINTS.saveInvitation, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(invitationData),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Invitation Data Saved:", data);
+    if (!response.ok) throw new Error("Failed to save data.");
 
-      // Panggil fetchDataUndangan untuk memperbarui data di tabel
-      fetchDataUndangan();
+    await fetchDataUndangan();
 
-      // Show success message with SweetAlert2
-      Swal.fire({
-        icon: "success",
-        title: "Undangan Tersimpan!",
-        text: "Data undangan berhasil disimpan!",
-      });
-    } else {
-      console.error("Failed to save invitation data.");
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Gagal simpan data. Anda harus mengisi nama tamu terlebih dahulu!",
-      });
-    }
+    Swal.fire("Success", "Invitation saved successfully!", "success");
   } catch (error) {
-    console.error("Error sending invitation data:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "There was an error sending the invitation data.",
-    });
+    console.error(error);
+    Swal.fire("Error", "Failed to save invitation. Try again later.", "error");
   }
 }
 
-//GET DATA UNDANGAN//
 async function fetchDataUndangan() {
   try {
-    const response = await fetch(
-      "https://backend-undangan-pernikahan-opang.vercel.app/getTamu"
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
+    const response = await fetch(API_ENDPOINTS.getGuests);
+    if (!response.ok) throw new Error("Failed to fetch data");
 
     const data = await response.json();
-    console.log("Fetched data:", data);
-
-    const tableBody = $("#tbUndangan tbody");
-    tableBody.empty();
-
-    if (data.length === 0) {
-      tableBody.append(
-        `<tr><td colspan="3" class="text-center">Tidak ada data undangan.</td></tr>`
-      );
-      return;
-    }
-
-    data.forEach((tamu) => {
-      const date = new Date(tamu.timestamp);
-      const formattedDate = date.toLocaleDateString("id-ID", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-
-      const row = `<tr>
-                      <td>${tamu.nama_tamu}</td>
-                      <td>
-                        ${tamu.url}
-                        <button class="copy-btn btn btn-dark btn-sm" data-url="${tamu.url}">Copy <i class="fa-solid fa-copy"></i></button>
-                      </td>
-                      <td>${formattedDate}</td>
-                   </tr>`;
-      tableBody.append(row);
-    });
-
-    if ($.fn.DataTable.isDataTable("#tbUndangan")) {
-      $("#tbUndangan").DataTable().destroy();
-    }
-    $("#tbUndangan").DataTable();
-
-    $(".copy-btn").click(function () {
-      const url = $(this).data("url");
-      copyToClipboard(url);
-    });
+    populateTable(data);
   } catch (error) {
-    console.error("Error fetching or processing data:", error);
+    console.error("Fetch error:", error);
   }
 }
 
-// Function to copy text to clipboard
-function copyToClipboard(text) {
-  const textArea = document.createElement("textarea");
-  textArea.value = text;
-  document.body.appendChild(textArea);
-  textArea.select();
-  document.execCommand("copy");
-  document.body.removeChild(textArea);
-  alert("URL copied to clipboard!");
+function populateTable(data) {
+  const tableBody = document.querySelector("#tbUndangan tbody");
+  tableBody.innerHTML = data.length
+    ? data
+        .map(
+          ({ nama_tamu, url, timestamp }) => `
+      <tr>
+        <td>${nama_tamu}</td>
+        <td>
+          <a href="${url}" target="_blank">${url}</a>
+          <button class="copy-btn btn btn-sm btn-dark" data-url="${url}">
+            Copy <i class="fa fa-copy"></i>
+          </button>
+        </td>
+        <td>${new Date(timestamp).toLocaleDateString("id-ID", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}</td>
+      </tr>`
+        )
+        .join("")
+    : `<tr><td colspan="3" class="text-center">No invitations yet.</td></tr>`;
+
+  document
+    .querySelectorAll(".copy-btn")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => copyToClipboard(btn.dataset.url))
+    );
 }
 
-// Panggil fetchDataUndangan saat halaman dimuat
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    Swal.fire("Copied!", "URL successfully copied to clipboard.", "success");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", fetchDataUndangan);
