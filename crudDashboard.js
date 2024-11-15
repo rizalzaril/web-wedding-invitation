@@ -225,7 +225,7 @@ const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // R
 function generateInvitationUrl(name) {
   const formattedName = name
     .trim()
-    .replace(/&/g, "and") // Ganti `&` dengan `and`
+    .replace(/&/g, "&") // Ganti `&` dengan `and`
     .replace(/\s+/g, "+")
     .replace(/[^a-zA-Z0-9\-_+]/g, "");
 
