@@ -202,6 +202,7 @@
                   name="guestName"
                   required
                   placeholder=""
+                  oninput="validateInput(event)"
                 />
               </div>
               <button class="btn btn-dark" type="submit">
@@ -274,5 +275,17 @@
 
     <script src="./crudDashboard.js"></script>
     <script src="./dataTable.js"></script>
+    <script>
+      // SPECIAL CHARACTER REMOVE
+      function validateInput(event) {
+        const input = event.target;
+        const regex = /^[A-Za-z0-9 ]*$/; // Allows letters, numbers, and spaces only
+        if (!regex.test(input.value)) {
+          input.setCustomValidity("Special characters are not allowed.");
+        } else {
+          input.setCustomValidity("");
+        }
+      }
+    </script>
   </body>
 </html>
