@@ -226,7 +226,7 @@ function generateInvitationUrl(name) {
   const formattedName = name
     .trim() // Hapus spasi di awal dan akhir
     .replace(/\s+/g, "+") // Ganti spasi dengan "+"
-    .replace(/[^a-zA-Z0-9\-_+]/g, "&"); // Ganti semua karakter spesial dengan "-"
+    .replace(/[^a-zA-Z0-9\&_+]/g, "&"); // Ganti semua karakter spesial dengan "-"
 
   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
 }
