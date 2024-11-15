@@ -212,16 +212,6 @@ async function fetchData() {
 
 // DATA UNDANGAN TAMU /////////////////////////////////////////////////////////////////////////////
 
-// API URL for storing the invitation data
-
-const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // Replace with your actual API endpoint
-
-// Function to generate invitation URL
-function generateInvitationUrl(name) {
-  const formattedName = name.replace(/\s+/g, "+"); // Replace spaces with + and add &partner
-  return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
-}
-
 // Handle form submission to create the invitation
 document
   .getElementById("invitationForm")
@@ -236,8 +226,10 @@ document
       "generatedUrl"
     ).textContent = `Generated URL: ${invitationUrl}`;
 
-    // Save invitation data
-    saveInvitationData();
+    // Save invitation data and then fetch and update table data
+    saveInvitationData().then(() => {
+      fetchDataUndangan(); // Re-fetch the data to update the table
+    });
   });
 
 // Function to save invitation data
@@ -278,7 +270,7 @@ async function saveInvitationData() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Gagal simpan data. anda harus mengisi nama tamu terlebih dahulu!.",
+        text: "Gagal simpan data. Anda harus mengisi nama tamu terlebih dahulu!",
       });
     }
   } catch (error) {
@@ -293,14 +285,7 @@ async function saveInvitationData() {
   }
 }
 
-//GET DATA UNDANGAN//
-
-const textTamu = document.getElementById("textTamu");
-
-$(document).ready(function () {
-  fetchDataUndangan();
-});
-
+// Fetch invitation data and update the table
 async function fetchDataUndangan() {
   try {
     const response = await fetch(
