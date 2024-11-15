@@ -223,7 +223,6 @@ function generateInvitationUrl(name) {
 }
 
 // Handle form submission to create the invitation
-// Handle form submission to create the invitation
 document
   .getElementById("invitationForm")
   .addEventListener("submit", function (event) {
@@ -237,12 +236,15 @@ document
       "generatedUrl"
     ).textContent = `Generated URL: ${invitationUrl}`;
 
-    // Save invitation data and immediately update the table
-    saveInvitationData(guestName, invitationUrl);
+    // Save invitation data
+    saveInvitationData();
   });
 
-// Function to save invitation data and update the table
-async function saveInvitationData(guestName, invitationUrl) {
+// Function to save invitation data
+async function saveInvitationData() {
+  const guestName = document.getElementById("guestName").value;
+  const invitationUrl = generateInvitationUrl(guestName);
+
   // Prepare data to send
   const invitationData = {
     nama_tamu: guestName,
@@ -266,39 +268,8 @@ async function saveInvitationData(guestName, invitationUrl) {
       // Show success message with SweetAlert2
       Swal.fire({
         icon: "success",
-        title: "Undangan Tersimpan!",
+        title: "Undanga Tersimpan!",
         text: "Data undangan berhasil disimpan!.",
-      });
-
-      // Add the new invitation directly to the table
-      const date = new Date(invitationData.timestamp);
-      const formattedDate = date.toLocaleDateString("id-ID", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-
-      const tableBody = $("#tbUndangan tbody");
-      const row = `<tr>
-                      <td>${guestName}</td>
-                      <td>
-                        ${invitationUrl}
-                        <button class="copy-btn btn btn-dark btn-sm" data-url="${invitationUrl}">Copy <i class="fa-solid fa-copy"></i></button>
-                      </td>
-                      <td>${formattedDate}</td>
-                   </tr>`;
-      tableBody.append(row);
-
-      // Re-initialize DataTable in case new rows are added
-      if ($.fn.DataTable.isDataTable("#tbUndangan")) {
-        $("#tbUndangan").DataTable().destroy();
-      }
-      $("#tbUndangan").DataTable();
-
-      // Add event listener for copy buttons
-      $(".copy-btn").click(function () {
-        const url = $(this).data("url");
-        copyToClipboard(url);
       });
     } else {
       console.error("Failed to save invitation data.");
@@ -307,7 +278,7 @@ async function saveInvitationData(guestName, invitationUrl) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Gagal simpan data. Anda harus mengisi nama tamu terlebih dahulu!",
+        text: "Gagal simpan data. anda harus mengisi nama tamu terlebih dahulu!.",
       });
     }
   } catch (error) {
@@ -319,6 +290,71 @@ async function saveInvitationData(guestName, invitationUrl) {
       title: "Error",
       text: "There was an error sending the invitation data.",
     });
+  }
+}
+
+//GET DATA UNDANGAN//
+
+const textTamu = document.getElementById("textTamu");
+
+$(document).ready(function () {
+  fetchDataUndangan();
+});
+
+async function fetchDataUndangan() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getTamu"
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data = await response.json();
+    console.log("Fetched data:", data); // Log fetched data for verification
+
+    const tableBody = $("#tbUndangan tbody");
+    tableBody.empty();
+
+    if (data.length === 0) {
+      console.warn("No data to display in table");
+      return;
+    }
+
+    data.forEach((tamu) => {
+      const date = new Date(tamu.timestamp);
+      const formattedDate = date.toLocaleDateString("id-ID", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      const row = `<tr>
+                      <td>${tamu.nama_tamu}</td>
+                      <td>
+                        ${tamu.url}
+                        <button class="copy-btn btn btn-dark btn-sm" data-url="${tamu.url}">Copy <i class="fa-solid fa-copy"></i></button>
+                      </td>
+                      <td>${formattedDate}</td>
+                   </tr>`;
+      tableBody.append(row);
+    });
+
+    // Destroy any existing DataTable instance, then initialize a new one
+    if ($.fn.DataTable.isDataTable("#tbUndangan")) {
+      $("#tbUndangan").DataTable().destroy();
+    }
+
+    $("#tbUndangan").DataTable();
+
+    // Add event listener for copy buttons
+    $(".copy-btn").click(function () {
+      const url = $(this).data("url");
+      copyToClipboard(url);
+    });
+  } catch (error) {
+    console.error("Error fetching or processing data:", error);
   }
 }
 
