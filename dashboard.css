@@ -73,3 +73,39 @@ div .img-thumbnail {
 .nav-link {
   color: white;
 }
+
+/* footer {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+} */
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  footer p {
+    font-size: 1.1rem; /* Slightly smaller on medium screens */
+  }
+}
+
+@media (max-width: 992px) {
+  footer p {
+    font-size: 1rem; /* Smaller on tablet-sized screens */
+  }
+}
+
+@media (max-width: 768px) {
+  footer p {
+    font-size: 0.9rem; /* Smaller on mobile-sized screens */
+  }
+}
+
+@media (max-width: 576px) {
+  footer p {
+    font-size: 0.8rem; /* Even smaller on smaller mobile screens */
+  }
+}
