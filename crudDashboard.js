@@ -378,10 +378,115 @@ function sortData(order) {
   populateTableWithDataTables(sortedData);
 }
 
-// Add event listeners for sorting buttons
+// ***************************************** JADWAL AKAD SETTINGS ************************************ \\
+
+// Fetch data from the API and populate the form
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalAkad")
+  .then((response) => response.json())
+  .then((data) => {
+    if (data && data.length > 0) {
+      const { id, tanggal, jam } = data[0]; // Assuming you want the first item
+
+      // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
+      const [day, month, year] = tanggal.split("-");
+      const formattedDate = `${year}-${month}-${day}`; // Format for <input type="date">
+
+      const formattedTime = jam.replace(".", ":"); // Convert time format
+
+      // Populate the form fields with the fetched data
+      document.getElementById("idJadwalAkad").value = id;
+      document.getElementById("tglJadwalAkad").value = formattedDate;
+      document.getElementById("jamJadwalAkad").value = formattedTime;
+    } else {
+      console.log("No jadwal data available.");
+    }
+  })
+  .catch((error) => console.error("Error fetching data:", error));
+
+// Handle form submission to update data
 document
-  .getElementById("sortAZ")
-  .addEventListener("click", () => sortData("asc"));
-document
-  .getElementById("sortZA")
-  .addEventListener("click", () => sortData("desc"));
+  .getElementById("jadwalAkadForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const id = document.getElementById("idJadwalAkad").value;
+    const tanggal = document.getElementById("tglJadwalAkad").value;
+    const jam = document.getElementById("jamJadwalAkad").value;
+
+    // Prepare the data to send in the update request
+    const updatedData = {
+      id,
+      tanggal,
+      jam,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Jadwal Akad?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Send a PUT request to update the data on the server
+        fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateJadwalAkad/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedData),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Update successful:", data);
+            Swal.fire(
+              "Updated!",
+              "The Jadwal Akad has been updated successfully.",
+              "success"
+            );
+          })
+          .catch((error) => {
+            console.error("Error updating data:", error);
+            Swal.fire(
+              "Error!",
+              "There was an error updating the Jadwal Akad.",
+              "error"
+            );
+          });
+      }
+    });
+  });
+
+// Check if the browser supports input[type="time"]
+function isTimeInputSupported() {
+  const input = document.createElement("input");
+  input.setAttribute("type", "time");
+  return input.type === "time";
+}
+
+if (!isTimeInputSupported()) {
+  // Fallback: Use a text input and custom validation for browsers that don't support time input
+  const timeInput = document.getElementById("jamJadwalAkad");
+
+  timeInput.setAttribute("type", "text");
+  timeInput.setAttribute("placeholder", "HH:MM");
+  timeInput.setAttribute("pattern", "^([01]?[0-9]|2[0-3]):([0-5][0-9])$");
+
+  // Optional: Add custom validation on form submit
+  document
+    .getElementById("jadwalAkadForm")
+    .addEventListener("submit", function (event) {
+      const timeValue = timeInput.value;
+      const timePattern = new RegExp(timeInput.getAttribute("pattern"));
+
+      if (!timePattern.test(timeValue)) {
+        event.preventDefault();
+        alert("Please enter a valid time in HH:MM format.");
+      }
+    });
+}

@@ -50,7 +50,7 @@
           aria-controls="home-tab-pane"
           aria-selected="true"
         >
-          Data Gallery
+          Gallery <i class="fa-solid fa-gear"></i>
         </button>
       </li>
       <li class="nav-item bg-dark" role="presentation">
@@ -64,7 +64,7 @@
           aria-controls="ucapan-tab-pane"
           aria-selected="false"
         >
-          Data Ucapan
+          Ucapan <i class="fa-solid fa-gear"></i>
         </button>
       </li>
       <li class="nav-item bg-dark" role="presentation">
@@ -78,21 +78,21 @@
           aria-controls="contact-tab-pane"
           aria-selected="false"
         >
-          Data Undangan
+          Undangan <i class="fa-solid fa-gear"></i>
         </button>
       </li>
       <li class="nav-item bg-dark" role="presentation">
         <button
           class="nav-link"
-          id="disabled-tab"
+          id="jadwal-tab"
           data-bs-toggle="tab"
-          data-bs-target="#disabled-tab-pane"
+          data-bs-target="#jadwal-tab-pane"
           type="button"
           role="tab"
-          aria-controls="disabled-tab-pane"
+          aria-controls="jadwal-tab-pane"
           aria-selected="false"
         >
-          Disabled
+          Jadwal <i class="fa-solid fa-gear"></i>
         </button>
       </li>
     </ul>
@@ -252,12 +252,102 @@
       </div>
       <div
         class="tab-pane fade"
-        id="disabled-tab-pane"
+        id="jadwal-tab-pane"
         role="tabpanel"
         aria-labelledby="disabled-tab"
         tabindex="0"
       >
-        ...
+        <div class="container">
+          <div class="container" style="margin-top: 120px">
+            <div class="card">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+                <h2 class="mb-5">Update Jadwal Akad</h2>
+                <form action="" id="jadwalAkadForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idJadwalAkad"
+                      name="idJadwalAkad"
+                      readonly
+                    />
+                  </div>
+                  <div class="mb-5">
+                    <label for="tglJadwalAkad" class="form-label"
+                      >Tgl/Bln/Thn</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="tglJadwalAkad"
+                      name="tglJadwalAkad"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="mb-5">
+                    <label for="jamJadwalAkad" class="form-label"
+                      >Atur Jam</label
+                    >
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="jamJadwalAkad"
+                      name="jamJadwalAkad"
+                      required
+                      placeholder="HH:MM"
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <!-- JADWAL RESEPSI -->
+            <div class="card mt-5">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+                <h2 class="mb-5">Update Jadwal Resepsi</h2>
+                <form action="" id="jadwalResepsiForm" class="mb-5">
+                  <div class="mb-5">
+                    <label for="tglJadwalResepsi" class="form-label"
+                      >Tgl/Bln/Thn</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="tglJadwalResepsi"
+                      name="tglJadwalResepsi"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="mb-5">
+                    <label for="jamJadwalResepsi" class="form-label"
+                      >Atur Jam</label
+                    >
+                    <input
+                      type="time"
+                      class="form-control"
+                      id="jamJadwalResepsi"
+                      name="jamJadwalResepsi"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <div style="margin-top: 200px">.</div>
+          </div>
+        </div>
       </div>
     </div>
 
