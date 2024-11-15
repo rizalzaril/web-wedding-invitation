@@ -222,25 +222,6 @@ function generateInvitationUrl(name) {
   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
 }
 
-// function generateInvitationUrl(name) {
-//   const formattedName = name
-//     .trim() // Hapus spasi di awal dan akhir
-//     .replace(/\s+/g, "+") // Ganti spasi dengan "+"
-//     .replace(/[^a-zA-Z0-9\&_+]/g, "&"); // Ganti semua karakter spesial dengan "-"
-
-//   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
-// }
-
-// function generateInvitationUrl(name) {
-//   const formattedName = name
-//     .trim()
-//     // .replace(/&/g, "&") // Ganti `&` dengan `and`
-//     .replace(/\s+/g, "+")
-//     .replace(/[^a-zA-Z0-9\-_+]/g, "");
-
-//   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
-// }
-
 // Handle form submission to create the invitation
 document
   .getElementById("invitationForm")
