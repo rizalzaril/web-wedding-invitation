@@ -342,3 +342,46 @@ function hideLoading() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchDataUndangan);
+
+// DATA SORTIR ///////////////////////////
+
+let currentData = []; // To store fetched data for sorting purposes
+
+// Update the fetch function to save data locally
+async function fetchDataUndangan() {
+  showLoading();
+
+  try {
+    const response = await fetch(API_ENDPOINTS.getGuests);
+    if (!response.ok) throw new Error("Failed to fetch data");
+
+    const data = await response.json();
+    currentData = data; // Store the data for sorting
+    populateTableWithDataTables(data);
+  } catch (error) {
+    console.error("Fetch error:", error);
+  } finally {
+    hideLoading();
+  }
+}
+
+// Function to sort data A-Z or Z-A and repopulate the table
+function sortData(order) {
+  const sortedData = [...currentData].sort((a, b) => {
+    const nameA = a.nama_tamu.toLowerCase();
+    const nameB = b.nama_tamu.toLowerCase();
+    if (order === "asc") return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+    if (order === "desc") return nameA > nameB ? -1 : nameA < nameB ? 1 : 0;
+    return 0;
+  });
+
+  populateTableWithDataTables(sortedData);
+}
+
+// Add event listeners for sorting buttons
+document
+  .getElementById("sortAZ")
+  .addEventListener("click", () => sortData("asc"));
+document
+  .getElementById("sortZA")
+  .addEventListener("click", () => sortData("desc"));
