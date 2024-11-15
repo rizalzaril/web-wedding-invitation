@@ -212,6 +212,17 @@ async function fetchData() {
 
 // DATA UNDANGAN TAMU /////////////////////////////////////////////////////////////////////////////
 
+// API URL for storing the invitation data
+
+const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // Replace with your actual API endpoint
+
+// Function to generate invitation URL
+function generateInvitationUrl(name) {
+  const formattedName = name.replace(/\s+/g, "+"); // Replace spaces with + and add &partner
+  return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
+}
+
+// Handle form submission to create the invitation
 // Handle form submission to create the invitation
 document
   .getElementById("invitationForm")
