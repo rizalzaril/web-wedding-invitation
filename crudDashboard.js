@@ -209,3 +209,135 @@ async function fetchData() {
     console.error("Error fetching or processing data:", error);
   }
 }
+
+// DATA UNDANGAN TAMU /////////////////////////////////////////////////////////////////////////////
+
+// API URL for storing the invitation data
+const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // Replace with your actual API endpoint
+
+// Function to generate invitation URL
+function generateInvitationUrl(name) {
+  const encodedName = encodeURIComponent(name);
+  return `https://web-wedding-invitation-umber.vercel.app/content.html/to=${encodedName}`;
+}
+
+// Handle form submission to create the invitation
+document
+  .getElementById("invitationForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const guestName = document.getElementById("guestName").value;
+    const invitationUrl = generateInvitationUrl(guestName);
+
+    // Display the generated URL
+    document.getElementById(
+      "generatedUrl"
+    ).textContent = `Generated URL: ${invitationUrl}`;
+  });
+
+// Function to save invitation data
+async function saveInvitationData() {
+  const guestName = document.getElementById("guestName").value;
+  const invitationUrl = generateInvitationUrl(guestName);
+
+  // Prepare data to send
+  const invitationData = {
+    nama_tamu: guestName,
+    timestamp: new Date().toISOString(),
+    url: invitationUrl,
+  };
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(invitationData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Invitation Data Saved:", data);
+
+      // Show success message with SweetAlert2
+      Swal.fire({
+        icon: "success",
+        title: "Undanga Tersimpan!",
+        text: "Data undangan berhasil disimpan!.",
+      });
+    } else {
+      console.error("Failed to save invitation data.");
+
+      // Show error message with SweetAlert2
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to save invitation data.",
+      });
+    }
+  } catch (error) {
+    console.error("Error sending invitation data:", error);
+
+    // Show error message with SweetAlert2
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "There was an error sending the invitation data.",
+    });
+  }
+}
+
+//GET DATA UNDANGAN//
+$(document).ready(function () {
+  fetchDataUndangan();
+});
+
+async function fetchDataUndangan() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getTamu"
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data = await response.json();
+    console.log("Fetched data:", data); // Log fetched data for verification
+
+    const tableBody = $("#tbUndangan tbody");
+    tableBody.empty();
+
+    if (data.length === 0) {
+      console.warn("No data to display in table");
+      return;
+    }
+
+    data.forEach((tamu) => {
+      const date = new Date(tamu.timestamp);
+      const formattedDate = date.toLocaleDateString("id-ID", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      const row = `<tr>
+                      <td>${tamu.nama_tamu}</td>
+                      <td>${tamu.url}</td>
+                      <td>${formattedDate}</td>
+                   </tr>`;
+      tableBody.append(row);
+    });
+
+    // Destroy any existing DataTable instance, then initialize a new one
+    if ($.fn.DataTable.isDataTable("#tbUndangan")) {
+      $("#tbUndangan").DataTable().destroy();
+    }
+
+    $("#tbUndangan").DataTable();
+  } catch (error) {
+    console.error("Error fetching or processing data:", error);
+  }
+}
