@@ -365,19 +365,6 @@ async function fetchDataUndangan() {
   }
 }
 
-// Function to sort data A-Z or Z-A and repopulate the table
-function sortData(order) {
-  const sortedData = [...currentData].sort((a, b) => {
-    const nameA = a.nama_tamu.toLowerCase();
-    const nameB = b.nama_tamu.toLowerCase();
-    if (order === "asc") return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
-    if (order === "desc") return nameA > nameB ? -1 : nameA < nameB ? 1 : 0;
-    return 0;
-  });
-
-  populateTableWithDataTables(sortedData);
-}
-
 // ***************************************** JADWAL AKAD SETTINGS ************************************ \\
 
 // Fetch data from the API and populate the form
