@@ -269,19 +269,31 @@ async function saveInvitationData(guestName) {
 }
 
 async function fetchDataUndangan() {
+  showLoading();
+
   try {
     const response = await fetch(API_ENDPOINTS.getGuests);
     if (!response.ok) throw new Error("Failed to fetch data");
 
     const data = await response.json();
-    populateTable(data);
+    populateTableWithDataTables(data);
   } catch (error) {
     console.error("Fetch error:", error);
+  } finally {
+    hideLoading();
   }
 }
 
-function populateTable(data) {
-  const tableBody = document.querySelector("#tbUndangan tbody");
+function populateTableWithDataTables(data) {
+  const tableId = "#tbUndangan";
+
+  // Check if DataTable instance exists and destroy it
+  if ($.fn.DataTable.isDataTable(tableId)) {
+    $(tableId).DataTable().clear().destroy();
+  }
+
+  // Populate the table body
+  const tableBody = document.querySelector(`${tableId} tbody`);
   tableBody.innerHTML = data.length
     ? data
         .map(
@@ -304,6 +316,10 @@ function populateTable(data) {
         .join("")
     : `<tr><td colspan="3" class="text-center">No invitations yet.</td></tr>`;
 
+  // Reinitialize DataTable
+  $(tableId).DataTable();
+
+  // Add copy functionality to buttons
   document
     .querySelectorAll(".copy-btn")
     .forEach((btn) =>
@@ -315,6 +331,14 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
     Swal.fire("Copied!", "URL successfully copied to clipboard.", "success");
   });
+}
+
+function showLoading() {
+  document.getElementById("loadingSpinner").style.display = "block";
+}
+
+function hideLoading() {
+  document.getElementById("loadingSpinner").style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", fetchDataUndangan);
