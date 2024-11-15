@@ -265,26 +265,25 @@ async function saveInvitationData() {
       const data = await response.json();
       console.log("Invitation Data Saved:", data);
 
+      // Panggil fetchDataUndangan untuk memperbarui data di tabel
+      fetchDataUndangan();
+
       // Show success message with SweetAlert2
       Swal.fire({
         icon: "success",
-        title: "Undanga Tersimpan!",
-        text: "Data undangan berhasil disimpan!.",
+        title: "Undangan Tersimpan!",
+        text: "Data undangan berhasil disimpan!",
       });
     } else {
       console.error("Failed to save invitation data.");
-
-      // Show error message with SweetAlert2
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Gagal simpan data. anda harus mengisi nama tamu terlebih dahulu!.",
+        text: "Gagal simpan data. Anda harus mengisi nama tamu terlebih dahulu!",
       });
     }
   } catch (error) {
     console.error("Error sending invitation data:", error);
-
-    // Show error message with SweetAlert2
     Swal.fire({
       icon: "error",
       title: "Error",
@@ -294,13 +293,6 @@ async function saveInvitationData() {
 }
 
 //GET DATA UNDANGAN//
-
-const textTamu = document.getElementById("textTamu");
-
-$(document).ready(function () {
-  fetchDataUndangan();
-});
-
 async function fetchDataUndangan() {
   try {
     const response = await fetch(
@@ -312,13 +304,15 @@ async function fetchDataUndangan() {
     }
 
     const data = await response.json();
-    console.log("Fetched data:", data); // Log fetched data for verification
+    console.log("Fetched data:", data);
 
     const tableBody = $("#tbUndangan tbody");
     tableBody.empty();
 
     if (data.length === 0) {
-      console.warn("No data to display in table");
+      tableBody.append(
+        `<tr><td colspan="3" class="text-center">Tidak ada data undangan.</td></tr>`
+      );
       return;
     }
 
@@ -341,14 +335,11 @@ async function fetchDataUndangan() {
       tableBody.append(row);
     });
 
-    // Destroy any existing DataTable instance, then initialize a new one
     if ($.fn.DataTable.isDataTable("#tbUndangan")) {
       $("#tbUndangan").DataTable().destroy();
     }
-
     $("#tbUndangan").DataTable();
 
-    // Add event listener for copy buttons
     $(".copy-btn").click(function () {
       const url = $(this).data("url");
       copyToClipboard(url);
@@ -368,3 +359,6 @@ function copyToClipboard(text) {
   document.body.removeChild(textArea);
   alert("URL copied to clipboard!");
 }
+
+// Panggil fetchDataUndangan saat halaman dimuat
+document.addEventListener("DOMContentLoaded", fetchDataUndangan);
