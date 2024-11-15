@@ -151,3 +151,61 @@ async function deleteImageCard(card, imageId) {
     });
   }
 }
+
+// DATA UCAPAN ***********************************************************************************************\\\\\
+$(document).ready(function () {
+  fetchData();
+});
+
+async function fetchData() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/invitations"
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data = await response.json();
+    console.log("Fetched data:", data); // Log fetched data for verification
+
+    const tableBody = $("#example tbody");
+    tableBody.empty();
+
+    if (data.length === 0) {
+      console.warn("No data to display in table");
+      return;
+    }
+
+    data.forEach((item) => {
+      const date = new Date(item.timestamp);
+      const formattedDate = date.toLocaleDateString("id-ID", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      const row = `<tr>
+                      <td>${item.nama}</td>
+                      <td>${
+                        item.status === "1"
+                          ? '<i class="fa-solid fa-square-check text-success fa-xl"></i>'
+                          : '<i class="fa-solid fa-square-xmark text-danger fa-xl"></i>'
+                      }</td>
+                      <td>${item.pesan}</td>
+                      <td>${formattedDate}</td>
+                   </tr>`;
+      tableBody.append(row);
+    });
+
+    // Destroy any existing DataTable instance, then initialize a new one
+    if ($.fn.DataTable.isDataTable("#example")) {
+      $("#example").DataTable().destroy();
+    }
+
+    $("#example").DataTable();
+  } catch (error) {
+    console.error("Error fetching or processing data:", error);
+  }
+}

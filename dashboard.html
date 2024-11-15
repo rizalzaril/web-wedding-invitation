@@ -14,6 +14,16 @@
 
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css"
+    />
+
+    <link
+      rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
     />
 
@@ -40,21 +50,21 @@
           aria-controls="home-tab-pane"
           aria-selected="true"
         >
-          Atur Gallery
+          Data Gallery
         </button>
       </li>
       <li class="nav-item bg-dark" role="presentation">
         <button
           class="nav-link"
-          id="profile-tab"
+          id="ucapan-tab"
           data-bs-toggle="tab"
-          data-bs-target="#profile-tab-pane"
+          data-bs-target="#ucapan-tab-pane"
           type="button"
           role="tab"
-          aria-controls="profile-tab-pane"
+          aria-controls="ucapan-tab-pane"
           aria-selected="false"
         >
-          Profile
+          Data Ucapan
         </button>
       </li>
       <li class="nav-item bg-dark" role="presentation">
@@ -86,6 +96,8 @@
         </button>
       </li>
     </ul>
+
+    <!-- TAB CONTENT -->
     <div class="tab-content" id="myTabContent">
       <div
         class="tab-pane fade show active"
@@ -130,15 +142,41 @@
           </section>
         </div>
       </div>
+
+      <!-- data ucapan -->
       <div
         class="tab-pane fade"
-        id="profile-tab-pane"
+        id="ucapan-tab-pane"
         role="tabpanel"
-        aria-labelledby="profile-tab"
+        aria-labelledby="ucapan-tab"
         tabindex="0"
       >
-        <div class="container">b</div>
+        <div class="container">
+          <div class="container mt-5">
+            <table id="example" class="table table-striped" style="width: 100%">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Status</th>
+                  <th>Pesan</th>
+                  <th>Time Stamp</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <th>Nama</th>
+                  <th>Status</th>
+                  <th>Pesan</th>
+                  <th>Time Stamp</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
       </div>
+
+      <!-- data undangan -->
       <div
         class="tab-pane fade"
         id="contact-tab-pane"
@@ -167,6 +205,12 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
     <script src="./crudDashboard.js"></script>
+    <script src="./dataTable.js"></script>
   </body>
 </html>
