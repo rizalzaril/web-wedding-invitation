@@ -274,7 +274,7 @@ async function saveInvitationData() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Failed to save invitation data.",
+        text: "Gagal simpan data. anda harus mengisi nama tamu terlebih dahulu!.",
       });
     }
   } catch (error) {
@@ -325,7 +325,10 @@ async function fetchDataUndangan() {
 
       const row = `<tr>
                       <td>${tamu.nama_tamu}</td>
-                      <td>${tamu.url}</td>
+                      <td>
+                        ${tamu.url}
+                        <button class="copy-btn btn btn-dark btn-sm" data-url="${tamu.url}">Copy <i class="fa-solid fa-copy"></i></button>
+                      </td>
                       <td>${formattedDate}</td>
                    </tr>`;
       tableBody.append(row);
@@ -337,7 +340,24 @@ async function fetchDataUndangan() {
     }
 
     $("#tbUndangan").DataTable();
+
+    // Add event listener for copy buttons
+    $(".copy-btn").click(function () {
+      const url = $(this).data("url");
+      copyToClipboard(url);
+    });
   } catch (error) {
     console.error("Error fetching or processing data:", error);
   }
+}
+
+// Function to copy text to clipboard
+function copyToClipboard(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+  alert("URL copied to clipboard!");
 }
