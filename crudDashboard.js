@@ -217,19 +217,19 @@ async function fetchData() {
 const apiUrl = "https://backend-undangan-pernikahan-opang.vercel.app/tamu"; // Replace with your actual API endpoint
 
 // Function to generate invitation URL
-// function generateInvitationUrl(name) {
-//   const formattedName = name.replace(/\s+/g, "+"); // Replace spaces with + and add &partner
-//   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
-// }
-
 function generateInvitationUrl(name) {
-  const formattedName = name
-    .trim() // Hapus spasi di awal dan akhir
-    .replace(/\s+/g, "+") // Ganti spasi dengan "+"
-    .replace(/[^a-zA-Z0-9\&_+]/g, "&"); // Ganti semua karakter spesial dengan "-"
-
+  const formattedName = name.replace(/\s+/g, "+"); // Replace spaces with + and add &partner
   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
 }
+
+// function generateInvitationUrl(name) {
+//   const formattedName = name
+//     .trim() // Hapus spasi di awal dan akhir
+//     .replace(/\s+/g, "+") // Ganti spasi dengan "+"
+//     .replace(/[^a-zA-Z0-9\&_+]/g, "&"); // Ganti semua karakter spesial dengan "-"
+
+//   return `https://web-wedding-invitation-umber.vercel.app/?to=${formattedName}`;
+// }
 
 // function generateInvitationUrl(name) {
 //   const formattedName = name
