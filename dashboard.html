@@ -259,7 +259,11 @@
       >
         <div class="container">
           <div class="container" style="margin-top: 120px">
-            <div class="card">
+            <a class="mb-5" href="./content.html"
+              >Lihat perubahan <i class="fa-solid fa-eye"></i>
+            </a>
+
+            <div class="card mt-3">
               <div class="card-body bg-light shadow-lg">
                 <!-- FORM -->
                 <h2 class="mb-5">Update Jadwal Akad</h2>
@@ -275,7 +279,7 @@
                   </div>
                   <div class="mb-5">
                     <label for="tglJadwalAkad" class="form-label"
-                      >Tgl/Bln/Thn</label
+                      >Atur Tanggal</label
                     >
                     <input
                       type="date"
@@ -311,10 +315,18 @@
               <div class="card-body bg-light shadow-lg">
                 <!-- FORM -->
                 <h2 class="mb-5">Update Jadwal Resepsi</h2>
+
                 <form action="" id="jadwalResepsiForm" class="mb-5">
                   <div class="mb-5">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idJadwalResepsi"
+                      name="idJadwalResepsi"
+                      readonly
+                    />
                     <label for="tglJadwalResepsi" class="form-label"
-                      >Tgl/Bln/Thn</label
+                      >Atur Tanggal</label
                     >
                     <input
                       type="date"
@@ -335,7 +347,7 @@
                       id="jamJadwalResepsi"
                       name="jamJadwalResepsi"
                       required
-                      placeholder=""
+                      placeholder="HH:MM"
                     />
                   </div>
                   <button class="btn btn-dark" type="submit">Submit</button>

@@ -369,26 +369,43 @@ async function fetchDataUndangan() {
 
 // Fetch data from the API and populate the form
 fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalAkad")
-  .then((response) => response.json())
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then((data) => {
     if (data && data.length > 0) {
-      const { id, tanggal, jam } = data[0]; // Assuming you want the first item
+      // Extract data from the first item
+      const { id, tanggal, jam } = data[0];
 
       // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
       const [day, month, year] = tanggal.split("-");
-      const formattedDate = `${year}-${month}-${day}`; // Format for <input type="date">
+      const formattedDate = `${year}-${month}-${day}`;
 
-      const formattedTime = jam.replace(".", ":"); // Convert time format
+      // Convert time format from "HH.MM" to "HH:MM"
+      const formattedTime = jam.replace(".", ":");
 
-      // Populate the form fields with the fetched data
-      document.getElementById("idJadwalAkad").value = id;
-      document.getElementById("tglJadwalAkad").value = formattedDate;
-      document.getElementById("jamJadwalAkad").value = formattedTime;
+      const idInput = document.getElementById("idJadwalAkad");
+      const dateInput = document.getElementById("tglJadwalAkad");
+      const timeInput = document.getElementById("jamJadwalAkad");
+
+      if (idInput && dateInput && timeInput) {
+        idInput.value = id;
+        dateInput.value = formattedDate;
+        timeInput.value = formattedTime;
+      } else {
+        console.warn("One or more form elements not found.");
+      }
     } else {
       console.log("No jadwal data available.");
     }
   })
-  .catch((error) => console.error("Error fetching data:", error));
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+  });
 
 // Handle form submission to update data
 document
@@ -467,6 +484,136 @@ if (!isTimeInputSupported()) {
   // Optional: Add custom validation on form submit
   document
     .getElementById("jadwalAkadForm")
+    .addEventListener("submit", function (event) {
+      const timeValue = timeInput.value;
+      const timePattern = new RegExp(timeInput.getAttribute("pattern"));
+
+      if (!timePattern.test(timeValue)) {
+        event.preventDefault();
+        alert("Please enter a valid time in HH:MM format.");
+      }
+    });
+}
+
+// ******************************************** JADWAL RESEPSI SETTING ************************************* \\
+
+// Fetch data from the API and populate the form
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (data && data.length > 0) {
+      // Extract data from the first item
+      const { id, tanggal, jam } = data[0];
+
+      // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
+      const [day, month, year] = tanggal.split("-");
+      const formattedDate = `${year}-${month}-${day}`;
+
+      // Convert time format from "HH.MM" to "HH:MM"
+      const formattedTime = jam.replace(".", ":");
+
+      const idInput = document.getElementById("idJadwalResepsi");
+      const dateInput = document.getElementById("tglJadwalResepsi");
+      const timeInput = document.getElementById("jamJadwalResepsi");
+
+      if (idInput && dateInput && timeInput) {
+        idInput.value = id;
+        dateInput.value = formattedDate;
+        timeInput.value = formattedTime;
+      } else {
+        console.warn("One or more form elements not found.");
+      }
+    } else {
+      console.log("No jadwal data available.");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+  });
+
+// Handle form submission to update data
+document
+  .getElementById("jadwalResepsiForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const id = document.getElementById("idJadwalResepsi").value;
+    const tanggal = document.getElementById("tglJadwalResepsi").value;
+    const jam = document.getElementById("jamJadwalResepsi").value;
+
+    // Prepare the data to send in the update request
+    const updatedData = {
+      id,
+      tanggal,
+      jam,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Jadwal Resepsi?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Send a PUT request to update the data on the server
+        fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateJadwalResepsi/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedData),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Update successful:", data);
+            Swal.fire(
+              "Updated!",
+              "The Jadwal Resepsi has been updated successfully.",
+              "success"
+            );
+          })
+          .catch((error) => {
+            console.error("Error updating data:", error);
+            Swal.fire(
+              "Error!",
+              "There was an error updating the Resepsi Akad.",
+              "error"
+            );
+          });
+      }
+    });
+  });
+
+// Check if the browser supports input[type="time"]
+function isTimeInputSupported() {
+  const input = document.createElement("input");
+  input.setAttribute("type", "time");
+  return input.type === "time";
+}
+
+if (!isTimeInputSupported()) {
+  // Fallback: Use a text input and custom validation for browsers that don't support time input
+  const timeInput = document.getElementById("jamJadwalAkad");
+
+  timeInput.setAttribute("type", "text");
+  timeInput.setAttribute("placeholder", "HH:MM");
+  timeInput.setAttribute("pattern", "^([01]?[0-9]|2[0-3]):([0-5][0-9])$");
+
+  // Optional: Add custom validation on form submit
+  document
+    .getElementById("jadwalResepsiForm")
     .addEventListener("submit", function (event) {
       const timeValue = timeInput.value;
       const timePattern = new RegExp(timeInput.getAttribute("pattern"));
