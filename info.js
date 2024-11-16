@@ -132,3 +132,30 @@ async function fetchJadwalResepsi() {
 }
 
 fetchJadwalResepsi();
+
+// *************** MAPS ************** //
+
+// Fetch data from the API
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMaps")
+  .then((response) => response.json())
+  .then((data) => {
+    const linksContainer = document.getElementById("maps-links");
+
+    // Iterate over the data and create an anchor tag for each map URL
+    data.forEach((item) => {
+      // Create an anchor tag
+      const linkElement = document.createElement("a");
+      linkElement.href = item.url; // Set the URL to the href attribute
+      linkElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> Buka Maps `; // Set the text content
+      linkElement.classList.add("btn", "btn-dark", "mt-4", "btn-lg");
+
+      // Append the link to the container
+      linksContainer.appendChild(linkElement);
+
+      // Add a line break for better readability
+      linksContainer.appendChild(document.createElement("br"));
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+  });

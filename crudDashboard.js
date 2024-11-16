@@ -1,71 +1,85 @@
 document.addEventListener("DOMContentLoaded", loadGallery);
 
-document
-  .getElementById("uploadForm")
-  .addEventListener("submit", async function (event) {
-    event.preventDefault();
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB limit
+const uploadForm = document.getElementById("uploadForm");
+const fileInput = document.getElementById("imageUrl");
+const loader = document.getElementById("loadingSpinner");
 
-    // Show loading indicator
-    const loader = document.getElementById("loadingSpinner");
-    loader.style.display = "block";
-    loader.style.marginLeft = "30px";
-    loader.style.marginTop = "8px";
+uploadForm.addEventListener("submit", async function (event) {
+  event.preventDefault(); // Prevent the form from submitting
 
-    const formData = new FormData();
-    formData.append("file", document.getElementById("imageUrl").files[0]);
+  // File size validation
+  const file = fileInput.files[0];
+  if (file && file.size > MAX_FILE_SIZE) {
+    Swal.fire({
+      icon: "error",
+      title: "File Size Error",
+      text: "File size exceeds the 50MB limit.",
+      showConfirmButton: true,
+    });
+    return; // Stop further execution if file size exceeds limit
+  }
 
-    try {
-      const response = await fetch(
-        "https://backend-undangan-pernikahan-opang.vercel.app/uploadGallery",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+  // Show loading indicator
+  loader.style.display = "block";
+  loader.style.marginLeft = "30px";
+  loader.style.marginTop = "8px";
 
-      const contentType = response.headers.get("Content-Type");
+  const formData = new FormData();
+  formData.append("file", file);
 
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Unexpected response format: " + contentType);
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/uploadGallery",
+      {
+        method: "POST",
+        body: formData,
       }
+    );
 
-      const data = await response.json();
+    const contentType = response.headers.get("Content-Type");
 
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: data.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("Unexpected response format: " + contentType);
+    }
 
-        // Display the uploaded image in the gallery
-        displayImageCard(data.imageUrl, data.id);
+    const data = await response.json();
 
-        // Reset the form
-        document.getElementById("uploadForm").reset();
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: data.message,
-          showConfirmButton: true,
-        });
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    if (response.ok) {
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      // Display the uploaded image in the gallery
+      displayImageCard(data.imageUrl, data.id);
+
+      // Reset the form
+      uploadForm.reset();
+    } else {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "Something went wrong. Please try again later.",
+        title: "Error",
+        text: data.message,
         showConfirmButton: true,
       });
-    } finally {
-      // Hide loading indicator after upload attempt finishes
-      document.getElementById("loadingSpinner").style.display = "none";
     }
-  });
+  } catch (error) {
+    console.error("Error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong. Please try again later.",
+      showConfirmButton: true,
+    });
+  } finally {
+    // Hide loading indicator after upload attempt finishes
+    loader.style.display = "none";
+  }
+});
 
 async function loadGallery() {
   try {
@@ -624,3 +638,102 @@ if (!isTimeInputSupported()) {
       }
     });
 }
+
+// ********************* MAPS *********************** \\
+
+// Fetch data from the API and populate the form
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMaps")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Extract data from the first item
+      const { url, id } = data[0];
+
+      const lokasiInput = document.getElementById("lokasiResepsi");
+      const idLokasi = document.getElementById("idLokasi");
+
+      lokasiInput.value = url;
+      idLokasi.value = id;
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+document
+  .getElementById("formLokasi")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const id = document.getElementById("idLokasi").value;
+    const url = document.getElementById("lokasiResepsi").value;
+
+    // Basic validation to check if fields are filled
+    if (!id || !url) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    // Prepare the data to send in the update request
+    const updatedMaps = {
+      id,
+      url,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Maps Link?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Send a PUT request to update the data on the server
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateMaps/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedMaps),
+          }
+        );
+
+        // Handle server response
+        const data = await response.json();
+        if (response.ok) {
+          console.log("Update successful:", data);
+          Swal.fire(
+            "Updated!",
+            "The Maps Link has been updated successfully.",
+            "success"
+          );
+        } else {
+          // If response is not OK, display error
+          throw new Error(data.message || "Error updating data.");
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the Maps Link.",
+          "error"
+        );
+      }
+    }
+  });
