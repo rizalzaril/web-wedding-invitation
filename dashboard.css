@@ -83,7 +83,31 @@ div .img-thumbnail {
 html,
 body {
   min-height: 100vh;
-  margin: 0;
+  background-color: white;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/042/664/604/non_2x/calmness-in-circular-artistry-geometric-mandala-with-muted-tones-blank-horizontal-background-vector.jpg");
+}
+
+.bg {
+  min-height: 100vh;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative; /* Ubah ke relative */
+  width: 100%;
+  overflow: hidden; /* Untuk memastikan overlay tetap terlihat */
+}
+
+.bg::before {
+  content: "";
+  background-image: url("./img/opening.webp");
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Warna overlay gelap */
+  z-index: 1; /* Pastikan overlay berada di atas background */
+  pointer-events: none; /* Agar overlay tidak mengganggu klik */
 }
 
 @media (max-width: 1200px) {
