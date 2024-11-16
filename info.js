@@ -67,3 +67,68 @@ async function fetchJadwalAkad() {
 fetchJadwalAkad();
 
 // ************************************ JADWAL RESEPSI FRONT END FUNCTION *********************************** \\
+
+const apiUrlResepsi =
+  "https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi";
+
+function getFormattedDate(dateString) {
+  const date = new Date(dateString);
+  const dayNames = [
+    "Minggu",
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat",
+    "Sabtu",
+  ];
+  const monthNames = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+
+  const dayName = dayNames[date.getDay()];
+  const day = date.getDate();
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${dayName}, ${day} ${month} ${year}`;
+}
+
+async function fetchJadwalResepsi() {
+  try {
+    const response = await fetch(apiUrlResepsi);
+    if (!response.ok) {
+      throw new Error("Gagal mengambil data dari API");
+    }
+
+    const data = await response.json();
+    if (data && data.length > 0) {
+      const { jam, tanggal } = data[0];
+      const formattedDate = getFormattedDate(tanggal);
+      const txtTglResepsi = document.getElementById("tglResepsi");
+      const txtJamResepsi = document.getElementById("jamResepsi");
+      txtTglResepsi.innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${formattedDate}`;
+      txtJamResepsi.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam}`;
+    } else {
+      document.getElementById("jadwal-akad").textContent =
+        "Jadwal tidak ditemukan.";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    document.getElementById("jadwal-akad").textContent =
+      "Terjadi kesalahan saat memuat jadwal.";
+  }
+}
+
+fetchJadwalResepsi();
