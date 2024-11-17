@@ -737,3 +737,108 @@ document
       }
     }
   });
+
+//*******************************/ Mempelai Pria ****************************\\
+
+// Fetch data from the API and populate the form
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      const { imageUrl, id, caption, nama } = data[0];
+
+      const imgElement = document.getElementById("imagePreview");
+      const namaMempelaiPria = document.getElementById("namaMempelaiPria");
+      const idMempelaiPria = document.getElementById("idMempelaiPria");
+      const captionMempelaiPria = document.getElementById(
+        "captionMempelaiPria"
+      );
+      const imgFile = document.getElementById("imageUrl");
+
+      // Set image source
+      imgElement.src = imageUrl;
+      idMempelaiPria.value = id;
+      captionMempelaiPria.value = caption;
+      namaMempelaiPria.value = nama;
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+document
+  .getElementById("mempelaiPriaForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const id = document.getElementById("idMempelaiPria").value;
+    const img = document.getElementById("imageUrl").value;
+    const caption = document.getElementById("captionMempelaiPria").value;
+    const nama = document.getElementById("namaMempelaiPria").value;
+
+    // Basic validation to check if fields are filled
+    if (!id || !imageUrl || !caption || !nama) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    // Prepare the data to send in the update request
+    const updatedMaps = {
+      id,
+      imageUrl,
+      nama,
+      caption,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Data?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Send a PUT request to update the data on the server
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateMempelaiPria/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedMaps),
+          }
+        );
+
+        // Handle server response
+        const data = await response.json();
+        if (response.ok) {
+          console.log("Update successful:", data);
+          Swal.fire("Updated!", "Data been updated successfully.", "success");
+        } else {
+          // If response is not OK, display error
+          throw new Error(data.message || "Error updating data.");
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the Maps Link.",
+          "error"
+        );
+      }
+    }
+  });

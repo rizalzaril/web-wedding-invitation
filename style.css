@@ -373,8 +373,28 @@ h1 {
   background-repeat: no-repeat; /* Prevent repeating the image */
 }
 
-.mempelai .figure-img {
-  width: 50%;
+.mempelai #imgMempelaiPria .img-thumbnail {
+  overflow: hidden;
+  width: 300px;
+  height: 400px;
+  /* transform: translateX(100px); */
+  margin-left: 230px;
+}
+
+.mempelai #imgMempelaiPria img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.mempelai #imgMempelaiWanita .img-thumbnail {
+  overflow: hidden;
+  width: 300px;
+  height: 400px;
+}
+
+.mempelai #imgMempelaiWanita img {
+  object-fit: cover;
+  width: 100%;
 }
 
 .story {
@@ -795,6 +815,10 @@ h1 {
 @media (max-width: 768px) {
   html {
     font-size: 65%;
+  }
+
+  .mempelai #imgMempelaiPria .img-thumbnail {
+    margin-left: 0px;
   }
 
   .simply-countdown > .simply-section {

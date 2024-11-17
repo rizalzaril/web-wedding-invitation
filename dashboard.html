@@ -456,8 +456,8 @@
                     <input
                       type="hidden"
                       class="form-control"
-                      id="idJadwalAkad"
-                      name="idJadwalAkad"
+                      id="idMempelaiPria"
+                      name="idMempelaiPria"
                       readonly
                     />
                   </div>
@@ -465,6 +465,7 @@
                   <div class="mb-3">
                     <label for="imageUrl" class="form-label"
                       >Pilih gambar dari perangkat anda
+                      <span><b>"Ukuran maksimal file 5MB"</b></span>
                     </label>
                     <input
                       type="file"
@@ -476,19 +477,38 @@
                   </div>
                   <section class="imageUpload">
                     <div
-                      id="mempelaiPhotoContainer"
+                      id="imageFile"
                       class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
                     ></div>
                   </section>
+                  <img
+                    id="imagePreview"
+                    alt="Mempelai Pria"
+                    class="mb-5"
+                    style="width: 200px; height: auto"
+                  />
                   <div class="mb-5">
                     <label for="jamJadwalAkad" class="form-label"
+                      >Nama Mempelai Pria</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="namaMempelaiPria"
+                      name="namaMempelaiPria"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="mb-5">
+                    <label for="captionMempelaiPria" class="form-label"
                       >Caption Mempelai Pria</label
                     >
                     <input
                       type="text"
                       class="form-control"
-                      id="jamJadwalAkad"
-                      name="jamJadwalAkad"
+                      id="captionMempelaiPria"
+                      name="captionMempelaiPria"
                       required
                       placeholder=""
                     />
