@@ -35,9 +35,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria/")
   });
 
 // Fetch images from the endpoint
-fetch(
-  "https://backend-undangan-pernikahan-opang.vercel.app//getMempelaiWanita/"
-)
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiWanita/")
   .then((response) => response.json()) // Parse the JSON data
   .then((data) => {
     const galleryContainer = document.getElementById("imgMempelaiWanita");
