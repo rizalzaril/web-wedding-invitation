@@ -1,5 +1,5 @@
 // Fetch images from the endpoint
-fetch("http://localhost:5000/getMempelaiPria/")
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria/")
   .then((response) => response.json()) // Parse the JSON data
   .then((data) => {
     const galleryContainer = document.getElementById("imgMempelaiPria");
@@ -35,7 +35,9 @@ fetch("http://localhost:5000/getMempelaiPria/")
   });
 
 // Fetch images from the endpoint
-fetch("http://localhost:5000/getMempelaiWanita/")
+fetch(
+  "https://backend-undangan-pernikahan-opang.vercel.app//getMempelaiWanita/"
+)
   .then((response) => response.json()) // Parse the JSON data
   .then((data) => {
     const galleryContainer = document.getElementById("imgMempelaiWanita");
