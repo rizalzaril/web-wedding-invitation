@@ -449,12 +449,19 @@
             <div class="card mt-3">
               <div class="card-body bg-light shadow-lg">
                 <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
                 <h2 class="mb-5">Update Mempelai Pria</h2>
 
                 <form action="" id="mempelaiPriaForm" class="mb-5">
                   <div class="mb-5">
                     <input
-                      type="hidden"
+                      type="text"
                       class="form-control"
                       id="idMempelaiPria"
                       name="idMempelaiPria"
@@ -463,16 +470,16 @@
                   </div>
 
                   <div class="mb-3">
-                    <label for="imageUrl" class="form-label"
+                    <label for="imageMempelaiPria" class="form-label"
                       >Pilih gambar dari perangkat anda
                       <span><b>"Ukuran maksimal file 5MB"</b></span>
                     </label>
                     <input
                       type="file"
                       class="form-control"
-                      id="imageUrl"
-                      name="imageUrl"
-                      required
+                      id="imageMempelaiPria"
+                      name="imageMempelaiPria"
+                      accept="image/*"
                     />
                   </div>
                   <section class="imageUpload">
@@ -520,7 +527,7 @@
               </div>
             </div>
 
-            <!-- JADWAL RESEPSI -->
+            <!-- MEMPELAI WANITA -->
             <div class="card mt-5">
               <div class="card-body bg-light shadow-lg">
                 <!-- FORM -->

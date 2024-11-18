@@ -741,6 +741,7 @@ document
 //*******************************/ Mempelai Pria ****************************\\
 
 // Fetch data from the API and populate the form
+// Fetch initial data (no changes here)
 fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria")
   .then((response) => {
     if (!response.ok) {
@@ -758,9 +759,8 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria")
       const captionMempelaiPria = document.getElementById(
         "captionMempelaiPria"
       );
-      const imgFile = document.getElementById("imageUrl");
 
-      // Set image source
+      // Set initial image source
       imgElement.src = imageUrl;
       idMempelaiPria.value = id;
       captionMempelaiPria.value = caption;
@@ -775,34 +775,61 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria")
     Swal.fire("Error!", "There was an issue fetching the data.", "error");
   });
 
+// Handle file input change event to update image preview
+document
+  .getElementById("imageMempelaiPria")
+  .addEventListener("change", function (event) {
+    const file = event.target.files[0];
+
+    if (file) {
+      // Create a URL for the selected file and update the preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgElement = document.getElementById("imagePreview");
+        imgElement.src = e.target.result; // Update the image preview with the selected file
+      };
+      reader.readAsDataURL(file); // Read the file as a data URL
+    }
+  });
+
+// Form submission logic (with spinner display)
+// Form submission logic (with spinner display)
 document
   .getElementById("mempelaiPriaForm")
   .addEventListener("submit", async function (event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); // Prevent default form submission
 
     const id = document.getElementById("idMempelaiPria").value;
-    const imageUrl = document.getElementById("imageUrl").value;
     const caption = document.getElementById("captionMempelaiPria").value;
     const nama = document.getElementById("namaMempelaiPria").value;
+    const imageInput = document.getElementById("imageMempelaiPria");
 
-    // Basic validation to check if fields are filled
-    if (!id || !imageUrl || !caption || !nama) {
+    // Basic validation
+    if (!id || !caption || !nama) {
       Swal.fire("Error!", "Please fill in all fields.", "error");
       return;
     }
 
-    // Prepare the data to send in the update request
-    const updatedMaps = {
-      id,
-      imageUrl,
-      nama,
-      caption,
-    };
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("caption", caption);
+    formData.append("nama", nama);
+
+    // If an image file is selected, append it to the formData
+    const file = imageInput.files[0];
+    if (file) {
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire("Error!", "File size must not exceed 5MB.", "error");
+        return;
+      }
+      formData.append("file", file); // Add the image to formData if selected
+    }
 
     // Show SweetAlert2 confirmation before updating
     const result = await Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to update the Data?",
+      text: "Do you want to update the data?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, update it!",
@@ -810,35 +837,40 @@ document
     });
 
     if (result.isConfirmed) {
+      // Show the loading spinner
+      document.getElementById("loadingSpinner").style.display = "flex";
+
       try {
-        // Send a PUT request to update the data on the server
         const response = await fetch(
           `https://backend-undangan-pernikahan-opang.vercel.app/updateMempelaiPria/${id}`,
           {
             method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedMaps),
+            body: formData,
           }
         );
 
-        // Handle server response
-        const data = await response.json();
-        if (response.ok) {
-          console.log("Update successful:", data);
-          Swal.fire("Updated!", "Data been updated successfully.", "success");
-        } else {
-          // If response is not OK, display error
-          throw new Error(data.message || "Error updating data.");
+        // Check if the response is OK (status code 200-299)
+        if (!response.ok) {
+          const errorText = await response.text(); // Read the raw response text
+          console.error("Server Error Response:", errorText);
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
+
+        // Attempt to parse JSON if the response is okay
+        const data = await response.json();
+
+        // Display success message if the data was updated successfully
+        Swal.fire("Updated!", "Data has been updated successfully.", "success");
       } catch (error) {
         console.error("Error updating data:", error);
         Swal.fire(
           "Error!",
-          "There was an error updating the Maps Link.",
+          "There was an error updating the data. Check the console for details.",
           "error"
         );
+      } finally {
+        // Hide the loading spinner
+        document.getElementById("loadingSpinner").style.display = "none";
       }
     }
   });
