@@ -484,7 +484,6 @@
                   </div>
                   <section class="imageUpload">
                     <div
-                      id="imageFile"
                       class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
                     ></div>
                   </section>
@@ -495,7 +494,7 @@
                     style="width: 200px; height: auto"
                   />
                   <div class="mb-5">
-                    <label for="jamJadwalAkad" class="form-label"
+                    <label for="namaMempelaiPria" class="form-label"
                       >Nama Mempelai Pria</label
                     >
                     <input
@@ -533,41 +532,67 @@
                 <!-- FORM -->
                 <h2 class="mb-5">Update Mempelai Wanita</h2>
 
-                <form action="" id="jadwalResepsiForm" class="mb-5">
+                <form action="" id="mempelaiWanitaForm" class="mb-5">
                   <div class="mb-5">
                     <input
                       type="hidden"
                       class="form-control"
-                      id="idJadwalResepsi"
-                      name="idJadwalResepsi"
+                      id="idMempelaiWanita"
+                      name="idMempelaiWanita"
                       readonly
                     />
-                    <label for="tglJadwalResepsi" class="form-label"
-                      >Atur Tanggal</label
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="imageMempelaiWanita" class="form-label"
+                      >Pilih gambar dari perangkat anda
+                      <span><b>"Ukuran maksimal file 5MB"</b></span>
+                    </label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="imageMempelaiWanita"
+                      name="imageMempelaiWanita"
+                      accept="image/*"
+                    />
+                  </div>
+                  <section class="imageUpload">
+                    <div
+                      class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
+                    ></div>
+                  </section>
+                  <img
+                    id="imagePreview2"
+                    alt="Mempelai Wanita"
+                    class="mb-5"
+                    style="width: 200px; height: auto"
+                  />
+                  <div class="mb-5">
+                    <label for="namaMempelaiWanita" class="form-label"
+                      >Nama Mempelai Pria</label
                     >
                     <input
-                      type="date"
+                      type="text"
                       class="form-control"
-                      id="tglJadwalResepsi"
-                      name="tglJadwalResepsi"
+                      id="namaMempelaiWanita"
+                      name="namaMempelaiWanita"
                       required
                       placeholder=""
                     />
                   </div>
                   <div class="mb-5">
-                    <label for="jamJadwalResepsi" class="form-label"
-                      >Atur Jam</label
+                    <label for="captionMempelaiPria" class="form-label"
+                      >Caption Mempelai Pria</label
                     >
                     <input
-                      type="time"
+                      type="text"
                       class="form-control"
-                      id="jamJadwalResepsi"
-                      name="jamJadwalResepsi"
+                      id="captionMempelaiWanita"
+                      name="captionMempelaiWanita"
                       required
-                      placeholder="HH:MM"
+                      placeholder=""
                     />
                   </div>
-
                   <button class="btn btn-dark" type="submit">Submit</button>
                 </form>
 
