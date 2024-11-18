@@ -781,7 +781,7 @@ document
     event.preventDefault(); // Prevent the default form submission
 
     const id = document.getElementById("idMempelaiPria").value;
-    const img = document.getElementById("imageUrl").value;
+    const imageUrl = document.getElementById("imageUrl").value;
     const caption = document.getElementById("captionMempelaiPria").value;
     const nama = document.getElementById("namaMempelaiPria").value;
 
