@@ -41,34 +41,6 @@
     <ul class="nav nav-tabs bg-dark fixed-top" id="myTab" role="tablist">
       <li class="nav-item bg-dark" role="presentation">
         <button
-          class="nav-link active"
-          id="home-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#home-tab-pane"
-          type="button"
-          role="tab"
-          aria-controls="home-tab-pane"
-          aria-selected="true"
-        >
-          Gallery <i class="fa-solid fa-gear"></i>
-        </button>
-      </li>
-      <li class="nav-item bg-dark" role="presentation">
-        <button
-          class="nav-link"
-          id="ucapan-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#ucapan-tab-pane"
-          type="button"
-          role="tab"
-          aria-controls="ucapan-tab-pane"
-          aria-selected="false"
-        >
-          Ucapan <i class="fa-solid fa-gear"></i>
-        </button>
-      </li>
-      <li class="nav-item bg-dark" role="presentation">
-        <button
           class="nav-link"
           id="contact-tab"
           data-bs-toggle="tab"
@@ -79,6 +51,20 @@
           aria-selected="false"
         >
           Undangan <i class="fa-solid fa-gear"></i>
+        </button>
+      </li>
+      <li class="nav-item bg-dark" role="presentation">
+        <button
+          class="nav-link"
+          id="sampul-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#sampul-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="sampul-tab-pane"
+          aria-selected="false"
+        >
+          Sampul <i class="fa-solid fa-gear"></i>
         </button>
       </li>
       <li class="nav-item bg-dark" role="presentation">
@@ -109,106 +95,55 @@
           Mempelai <i class="fa-solid fa-gear"></i>
         </button>
       </li>
+
+      <li class="nav-item bg-dark" role="presentation">
+        <button
+          class="nav-link"
+          id="mempelai-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#mempelai-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="mempelai-tab-pane"
+          aria-selected="false"
+        >
+          Story <i class="fa-solid fa-gear"></i>
+        </button>
+      </li>
+
+      <li class="nav-item bg-dark" role="presentation">
+        <button
+          class="nav-link active"
+          id="home-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#home-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="home-tab-pane"
+          aria-selected="true"
+        >
+          Gallery <i class="fa-solid fa-gear"></i>
+        </button>
+      </li>
+
+      <li class="nav-item bg-dark" role="presentation">
+        <button
+          class="nav-link"
+          id="ucapan-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#ucapan-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="ucapan-tab-pane"
+          aria-selected="false"
+        >
+          Ucapan <i class="fa-solid fa-gear"></i>
+        </button>
+      </li>
     </ul>
 
     <!-- TAB CONTENT -->
     <div class="tab-content" id="myTabContent">
-      <!-- data gallery -->
-
-      <div
-        class="tab-pane fade show active"
-        id="home-tab-pane"
-        role="tabpanel"
-        aria-labelledby="home-tab"
-        tabindex="0"
-      >
-        <div class="container" style="margin-top: 150px">
-          <div class="card">
-            <div class="card-body">
-              <h2>Upload a Gallery Photo</h2>
-              <form id="uploadForm" enctype="multipart/form-data">
-                <div class="mb-3">
-                  <label for="imageUrl" class="form-label"
-                    >Pilih gambar dari perangkat anda
-                    <span> <b>"Maksimal 8 photo"</b> </span></label
-                  >
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="imageUrl"
-                    name="imageUrl"
-                    required
-                  />
-                </div>
-                <div class="d-flex">
-                  <button type="submit" class="btn h-100 btn-primary">
-                    Upload
-                  </button>
-
-                  <div id="loadingSpinner" class="loader" style="display: none">
-                    <div class="loader"></div>
-                  </div>
-                </div>
-              </form>
-
-              <section class="imageUpload">
-                <div class="mt-4 mb-4">
-                  <a class="mt-5" href="./content.html"
-                    >Kunjungi Halaman <i class="fa-solid fa-eye"></i
-                  ></a>
-                </div>
-                <div
-                  id="galleryContainer"
-                  class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
-                ></div>
-              </section>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- data ucapan -->
-      <div
-        class="tab-pane fade"
-        id="ucapan-tab-pane"
-        role="tabpanel"
-        aria-labelledby="ucapan-tab"
-        tabindex="0"
-      >
-        <div class="container">
-          <div class="container" style="margin-top: 150px">
-            <div class="card">
-              <div class="card-body">
-                <table
-                  id="example"
-                  class="table table-striped"
-                  style="width: 100%"
-                >
-                  <thead>
-                    <tr>
-                      <th>Nama</th>
-                      <th>Status</th>
-                      <th>Pesan</th>
-                      <th>Time Stamp</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                  <tfoot>
-                    <tr>
-                      <th>Nama</th>
-                      <th>Status</th>
-                      <th>Pesan</th>
-                      <th>Time Stamp</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
-            <div style="margin-top: 200px">.</div>
-          </div>
-        </div>
-      </div>
-
       <!-- data undangan -->
       <div
         class="tab-pane fade"
@@ -597,6 +532,102 @@
                 </form>
 
                 <!-- END FORM -->
+              </div>
+            </div>
+            <div style="margin-top: 200px">.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- data gallery -->
+
+      <div
+        class="tab-pane fade show active"
+        id="home-tab-pane"
+        role="tabpanel"
+        aria-labelledby="home-tab"
+        tabindex="0"
+      >
+        <div class="container" style="margin-top: 150px">
+          <div class="card">
+            <div class="card-body">
+              <h2>Upload a Gallery Photo</h2>
+              <form id="uploadForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="imageUrl" class="form-label"
+                    >Pilih gambar dari perangkat anda
+                    <span> <b>"Maksimal 8 photo"</b> </span></label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="imageUrl"
+                    name="imageUrl"
+                    required
+                  />
+                </div>
+                <div class="d-flex">
+                  <button type="submit" class="btn h-100 btn-primary">
+                    Upload
+                  </button>
+
+                  <div id="loadingSpinner" class="loader" style="display: none">
+                    <div class="loader"></div>
+                  </div>
+                </div>
+              </form>
+
+              <section class="imageUpload">
+                <div class="mt-4 mb-4">
+                  <a class="mt-5" href="./content.html"
+                    >Kunjungi Halaman <i class="fa-solid fa-eye"></i
+                  ></a>
+                </div>
+                <div
+                  id="galleryContainer"
+                  class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
+                ></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- data ucapan -->
+      <div
+        class="tab-pane fade"
+        id="ucapan-tab-pane"
+        role="tabpanel"
+        aria-labelledby="ucapan-tab"
+        tabindex="0"
+      >
+        <div class="container">
+          <div class="container" style="margin-top: 150px">
+            <div class="card">
+              <div class="card-body">
+                <table
+                  id="example"
+                  class="table table-striped"
+                  style="width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Status</th>
+                      <th>Pesan</th>
+                      <th>Time Stamp</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Status</th>
+                      <th>Pesan</th>
+                      <th>Time Stamp</th>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
             <div style="margin-top: 200px">.</div>
