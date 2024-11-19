@@ -880,7 +880,6 @@ h1 {
   }
 
   .text-quotes {
-    padding-top: 100px;
     width: 300px;
     display: flex;
     justify-content: center; /* Horizontal centering */
