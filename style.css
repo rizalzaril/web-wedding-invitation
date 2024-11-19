@@ -1037,6 +1037,10 @@ h1 {
     width: 300px;
   }
 
+  .info-acara::before {
+    height: 150%;
+  }
+
   .timeline li .timeline-img {
     width: 100px;
     height: 100px;
