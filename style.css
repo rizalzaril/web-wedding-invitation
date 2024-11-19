@@ -1074,7 +1074,7 @@ h1 {
   }
 
   .gallery::before {
-    height: 200%;
+    height: 50%;
   }
 
   #imgGallery .img-thumbnail {
