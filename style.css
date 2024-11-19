@@ -1078,7 +1078,7 @@ h1 {
   }
 
   .rsvp {
-    min-height: 100vh;
+    min-height: 150vh;
   }
 
   .rsvp::before {
