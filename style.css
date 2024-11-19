@@ -1011,6 +1011,10 @@ h1 {
     height: 150%;
   }
 
+  .mempelai {
+    min-height: 150vh;
+  }
+
   .img-floral-story-up {
     width: 50%;
   }
