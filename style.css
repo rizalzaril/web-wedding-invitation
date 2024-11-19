@@ -1007,6 +1007,10 @@ h1 {
     height: 200px;
   }
 
+  .mempelai::before {
+    height: 150%;
+  }
+
   .img-floral-story-up {
     width: 50%;
   }
