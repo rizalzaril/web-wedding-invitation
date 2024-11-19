@@ -1009,3 +1009,385 @@ document
       }
     }
   });
+
+// **************************************** SAMPUL SETTING ******************************* \\
+
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getSampul")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      const { imageUrl, id, caption, nama } = data[0];
+
+      const imgElement = document.getElementById("imageSampulPreview");
+      const idMempelaiPria = document.getElementById("idSampul");
+
+      // Set initial image source
+      imgElement.src = imageUrl;
+      idMempelaiPria.value = id;
+    } else {
+      console.log("No Sampul data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+// Handle file input change event to update image preview
+document
+  .getElementById("imageSampul")
+  .addEventListener("change", function (event) {
+    const file = event.target.files[0];
+
+    if (file) {
+      // Create a URL for the selected file and update the preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgElement = document.getElementById("imageSampulPreview");
+        imgElement.src = e.target.result; // Update the image preview with the selected file
+      };
+      reader.readAsDataURL(file); // Read the file as a data URL
+    }
+  });
+
+// Form submission logic (with spinner display)
+document
+  .getElementById("sampulForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const id = document.getElementById("idSampul").value;
+    const imageInput = document.getElementById("imageSampul");
+
+    // // Basic validation
+    // if (!id || !caption || !nama) {
+    //   Swal.fire("Error!", "Please fill in all fields.", "error");
+    //   return;
+    // }
+
+    const formData = new FormData();
+    formData.append("id", id);
+
+    // If an image file is selected, append it to the formData
+    const file = imageInput.files[0];
+    if (file) {
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire("Error!", "File size must not exceed 5MB.", "error");
+        return;
+      }
+      formData.append("file", file); // Add the image to formData if selected
+    }
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the data?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      // Show the loading spinner
+      document.getElementById("loadingSpinner").style.display = "flex";
+
+      try {
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateSampul/${id}`,
+          {
+            method: "PUT",
+            body: formData,
+          }
+        );
+
+        // Check if the response is OK (status code 200-299)
+        if (!response.ok) {
+          const errorText = await response.text(); // Read the raw response text
+          console.error("Server Error Response:", errorText);
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        // Attempt to parse JSON if the response is okay
+        const data = await response.json();
+
+        // Display success message if the data was updated successfully
+        Swal.fire("Updated!", "Data has been updated successfully.", "success");
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the data. Check the console for details.",
+          "error"
+        );
+      } finally {
+        // Hide the loading spinner
+        document.getElementById("loadingSpinner").style.display = "none";
+      }
+    }
+  });
+
+// **************************************** FIRST STORY  SETTING ******************************* \\
+
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstStory")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      const { imageUrl, id, caption } = data[0];
+
+      const imgElement = document.getElementById("imagePreviewStoryPertama");
+      const idStoryPertama = document.getElementById("idStoryPertama");
+      const captionStoryPertama = document.getElementById(
+        "captionStoryPertama"
+      );
+
+      // Set initial image source
+      imgElement.src = imageUrl;
+      idStoryPertama.value = id;
+      captionStoryPertama.value = caption;
+    } else {
+      console.log("No Story Pertama data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+// Handle file input change event to update image preview
+document
+  .getElementById("imageStoryPertama")
+  .addEventListener("change", function (event) {
+    const file = event.target.files[0];
+
+    if (file) {
+      // Create a URL for the selected file and update the preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgElement = document.getElementById("imagePreviewStoryPertama");
+        imgElement.src = e.target.result; // Update the image preview with the selected file
+      };
+      reader.readAsDataURL(file); // Read the file as a data URL
+    }
+  });
+
+// Form submission logic (with spinner display)
+document
+  .getElementById("storyPertamaForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const id = document.getElementById("idStoryPertama").value;
+    const imageInput = document.getElementById("imageStoryPertama");
+    const caption = document.getElementById("captionStoryPertama").value;
+
+    // Basic validation
+    if (!id || !caption) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("caption", caption);
+
+    // Check if an image file is selected and validate its size
+    const file = imageInput.files[0];
+    if (file) {
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire("Error!", "File size must not exceed 5MB.", "error");
+        return;
+      }
+      formData.append("file", file); // Add the image to formData if selected
+    }
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the data?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      // Show the loading spinner
+      document.getElementById("loadingSpinner").style.display = "flex";
+
+      try {
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateFirstStory/${id}`,
+          {
+            method: "PUT",
+            body: formData,
+          }
+        );
+
+        // Check if the response is OK (status code 200-299)
+        if (!response.ok) {
+          const errorText = await response.text(); // Read the raw response text
+          console.error("Server Error Response:", errorText);
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        // Attempt to parse JSON if the response is okay
+        const data = await response.json();
+
+        // Display success message if the data was updated successfully
+        Swal.fire("Updated!", "Data has been updated successfully.", "success");
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the data. Check the console for details.",
+          "error"
+        );
+      } finally {
+        // Hide the loading spinner
+        document.getElementById("loadingSpinner").style.display = "none";
+      }
+    }
+  });
+
+// **************************************** SECOND STORY  SETTING ******************************* \\
+
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getSecondStory")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      const { imageUrl, id, caption } = data[0];
+
+      const imgElement = document.getElementById("imagePreviewStoryKedua");
+      const idStoryPertama = document.getElementById("idStoryKedua");
+      const captionStoryPertama = document.getElementById("captionStoryKedua");
+
+      // Set initial image source
+      imgElement.src = imageUrl;
+      idStoryPertama.value = id;
+      captionStoryPertama.value = caption;
+    } else {
+      console.log("No Story Pertama data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+// Handle file input change event to update image preview
+document
+  .getElementById("imageStoryKedua")
+  .addEventListener("change", function (event) {
+    const file = event.target.files[0];
+
+    if (file) {
+      // Create a URL for the selected file and update the preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgElement = document.getElementById("imagePreviewStoryKedua");
+        imgElement.src = e.target.result; // Update the image preview with the selected file
+      };
+      reader.readAsDataURL(file); // Read the file as a data URL
+    }
+  });
+
+// Form submission logic (with spinner display)
+document
+  .getElementById("storyKeduaForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const id = document.getElementById("idStoryKedua").value;
+    const imageInput = document.getElementById("imageStoryKedua");
+    const caption = document.getElementById("captionStoryKedua").value;
+
+    // Basic validation
+    if (!id || !caption) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("caption", caption);
+
+    // Check if an image file is selected and validate its size
+    const file = imageInput.files[0];
+    if (file) {
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire("Error!", "File size must not exceed 5MB.", "error");
+        return;
+      }
+      formData.append("file", file); // Add the image to formData if selected
+    }
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the data?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      // Show the loading spinner
+      document.getElementById("loadingSpinner").style.display = "flex";
+
+      try {
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateSecondStory/${id}`,
+          {
+            method: "PUT",
+            body: formData,
+          }
+        );
+
+        // Check if the response is OK (status code 200-299)
+        if (!response.ok) {
+          const errorText = await response.text(); // Read the raw response text
+          console.error("Server Error Response:", errorText);
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        // Attempt to parse JSON if the response is okay
+        const data = await response.json();
+
+        // Display success message if the data was updated successfully
+        Swal.fire("Updated!", "Data has been updated successfully.", "success");
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the data. Check the console for details.",
+          "error"
+        );
+      } finally {
+        // Hide the loading spinner
+        document.getElementById("loadingSpinner").style.display = "none";
+      }
+    }
+  });

@@ -41,7 +41,7 @@
     <ul class="nav nav-tabs bg-dark fixed-top" id="myTab" role="tablist">
       <li class="nav-item bg-dark" role="presentation">
         <button
-          class="nav-link"
+          class="nav-link active"
           id="contact-tab"
           data-bs-toggle="tab"
           data-bs-target="#contact-tab-pane"
@@ -113,7 +113,7 @@
 
       <li class="nav-item bg-dark" role="presentation">
         <button
-          class="nav-link active"
+          class="nav-link"
           id="home-tab"
           data-bs-toggle="tab"
           data-bs-target="#home-tab-pane"
@@ -161,7 +161,7 @@
     <div class="tab-content" id="myTabContent">
       <!-- data undangan -->
       <div
-        class="tab-pane fade"
+        class="tab-pane fade show active"
         id="contact-tab-pane"
         role="tabpanel"
         aria-labelledby="contact-tab"
@@ -237,6 +237,82 @@
                 </table>
               </div>
             </div>
+            <div style="margin-top: 200px">.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- data sampul -->
+
+      <div
+        class="tab-pane fade"
+        id="sampul-tab-pane"
+        role="tabpanel"
+        aria-labelledby="disabled-tab"
+        tabindex="0"
+      >
+        <div class="container">
+          <div class="container" style="margin-top: 120px">
+            <a class="mb-3 btn btn-dark" href="./content.html"
+              >Lihat perubahan <i class="fa-solid fa-eye"></i>
+            </a>
+
+            <div class="card mt-3">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
+                <h2 class="mb-5">Update photo sampul</h2>
+
+                <form action="" id="sampulForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idSampul"
+                      name="idSampul"
+                      readonly
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="imageSampul" class="form-label"
+                      >Pilih gambar dari perangkat anda
+                      <span><b>"Ukuran maksimal file 5MB"</b></span>
+                    </label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="imageSampul"
+                      name="imageSampul"
+                      accept="image/*"
+                    />
+                  </div>
+                  <section class="imageUpload">
+                    <div
+                      class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
+                    ></div>
+                  </section>
+                  <img
+                    id="imageSampulPreview"
+                    alt="Sampul Image"
+                    class="mb-5"
+                    style="width: 200px; height: auto"
+                  />
+
+                  <div class="mb-1"></div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
             <div style="margin-top: 200px">.</div>
           </div>
         </div>
@@ -554,10 +630,242 @@
         </div>
       </div>
 
+      <!-- data mempelai -->
+
+      <div
+        class="tab-pane fade"
+        id="story-tab-pane"
+        role="tabpanel"
+        aria-labelledby="disabled-tab"
+        tabindex="0"
+      >
+        <div class="container">
+          <div class="container" style="margin-top: 120px">
+            <a class="mb-3 btn btn-dark" href="./content.html"
+              >Lihat perubahan <i class="fa-solid fa-eye"></i>
+            </a>
+
+            <!-- FIRST STORY -->
+            <div class="card mt-3">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
+                <h2 class="mb-5">Update First Story</h2>
+
+                <form action="" id="storyPertamaForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idStoryPertama"
+                      name="idStoryPertama"
+                      readonly
+                      disabled
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="imageStoryPertama" class="form-label"
+                      >Pilih gambar dari perangkat anda
+                      <span><b>"Ukuran maksimal file 5MB"</b></span>
+                    </label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="imageStoryPertama"
+                      name="imageStoryPertama"
+                      accept="image/*"
+                    />
+                  </div>
+                  <section class="imageUpload">
+                    <div
+                      class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
+                    ></div>
+                  </section>
+                  <img
+                    id="imagePreviewStoryPertama"
+                    alt="Story 1"
+                    class="mb-5"
+                    style="width: 200px; height: auto"
+                  />
+
+                  <div class="mb-5">
+                    <label for="captionStoryPertama" class="form-label"
+                      >Caption First Story</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="captionStoryPertama"
+                      name="captionStoryPertama"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <!-- SECOND STORY -->
+
+            <div class="card mt-3">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
+                <h2 class="mb-5">Update Second Story</h2>
+
+                <form action="" id="storyKeduaForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="idStoryKedua"
+                      name="idStoryKedua"
+                      readonly
+                      disabled
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="imageStoryKedua" class="form-label"
+                      >Pilih gambar dari perangkat anda
+                      <span><b>"Ukuran maksimal file 5MB"</b></span>
+                    </label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="imageStoryKedua"
+                      name="imageStoryKedua"
+                      accept="image/*"
+                    />
+                  </div>
+                  <section class="imageUpload">
+                    <div
+                      class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
+                    ></div>
+                  </section>
+                  <img
+                    id="imagePreviewStoryKedua"
+                    alt="story 2"
+                    class="mb-5"
+                    style="width: 200px; height: auto"
+                  />
+
+                  <div class="mb-5">
+                    <label for="captionStoryKedua" class="form-label"
+                      >Caption Second Story</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="captionStoryKedua"
+                      name="captionStoryKedua"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <!-- LAST STORY -->
+
+            <div class="card mt-3">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
+                <h2 class="mb-5">Update Last Story</h2>
+
+                <form action="" id="storyLastForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="idStoryLast"
+                      name="idStoryLast"
+                      readonly
+                      disabled
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="imageStoryLast" class="form-label"
+                      >Pilih gambar dari perangkat anda
+                      <span><b>"Ukuran maksimal file 5MB"</b></span>
+                    </label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="imageStoryLast"
+                      name="imageStoryLast"
+                      accept="image/*"
+                    />
+                  </div>
+                  <section class="imageUpload">
+                    <div
+                      class="row p-3 row-cols-md-4 row-cols-sm-3 row-cols-2"
+                    ></div>
+                  </section>
+                  <img
+                    id="imagePreviewStoryLast"
+                    alt="story 3"
+                    class="mb-5"
+                    style="width: 200px; height: auto"
+                  />
+
+                  <div class="mb-5">
+                    <label for="captionStoryLast" class="form-label"
+                      >Caption Last Story</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="captionStoryLast"
+                      name="captionStoryLast"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <div style="margin-top: 200px">.</div>
+          </div>
+        </div>
+      </div>
+
       <!-- data gallery -->
 
       <div
-        class="tab-pane fade show active"
+        class="tab-pane fade"
         id="home-tab-pane"
         role="tabpanel"
         aria-labelledby="home-tab"
