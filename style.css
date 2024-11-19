@@ -1070,11 +1070,11 @@ h1 {
   }
 
   .gallery {
-    min-height: 150vh;
+    min-height: 200vh;
   }
 
   .gallery::before {
-    height: 200%;
+    height: 100%;
   }
 
   #imgGallery .img-thumbnail {
