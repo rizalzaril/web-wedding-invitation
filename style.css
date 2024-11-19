@@ -1061,6 +1061,14 @@ h1 {
     top: 31px;
   }
 
+  .story {
+    min-height: 150vh;
+  }
+
+  .story::before {
+    height: 150%;
+  }
+
   /* .pembukaan {
     min-height: 125vh;
   }
