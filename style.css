@@ -1070,11 +1070,11 @@ h1 {
   }
 
   .gallery {
-    min-height: 100vh;
+    min-height: 300vh;
   }
 
   .gallery::before {
-    height: 10%;
+    height: 100%;
   }
 
   .rsvp {
