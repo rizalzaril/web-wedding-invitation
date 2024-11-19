@@ -1077,6 +1077,11 @@ h1 {
     height: 100%;
   }
 
+  #imGallery {
+    width: 150px;
+    height: 200px;
+  }
+
   .rsvp {
     min-height: 150vh;
   }
