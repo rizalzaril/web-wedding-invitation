@@ -1131,61 +1131,14 @@ h1 {
     border: solid 0.3rem white;
   }
 
-  /* .mempelai {
-    min-height: 120vh;
-  }
-
-  .mempelai::before {
-    height: 130%;
-  }
-
-  .info-acara {
-    min-height: 120vh;
-  }
-
-  .info-acara::before {
-    height: 150%;
-  }
-
-  .story {
-    min-height: 130vh;
-  }
-
-  .story::before {
-    height: 145%;
-  }
-
-  .card-info {
-    width: 250px;
-  }
-
-  .gallery {
-    min-height: 220vh;
-  }
-
   .gallery::before {
     height: 100%;
   }
 
-  
-
-  .rsvp {
-    min-height: 200vh;
+  #imgGallery .img-thumbnail {
+    width: 150px;
+    height: 200px;
   }
-
-  .rsvp::before {
-    height: 200%;
-  }
-
-  .closing {
-    min-height: 100vh;
-    margin-top: 300px;
-  }
-
-  .closing::before {
-    height: 100%;
-    margin-top: 200px;
-  } */
 
   .gallery img {
     width: 100%;
@@ -1207,6 +1160,22 @@ h1 {
     transition: transform 3s ease-in-out; /* Smooth slide effect */
     width: 100%;
     height: auto;
+  }
+
+  .rsvp {
+    min-height: 170vh;
+  }
+
+  .rsvp::before {
+    height: 220%;
+  }
+
+  .closing {
+    min-height: 50vh;
+  }
+
+  .closing::before {
+    height: 50%;
   }
 }
 
