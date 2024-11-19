@@ -1070,7 +1070,7 @@ h1 {
   }
 
   .gallery {
-    min-height: 200vh;
+    min-height: 150vh;
   }
 
   .gallery::before {
