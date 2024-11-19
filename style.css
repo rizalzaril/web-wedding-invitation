@@ -1089,6 +1089,14 @@ h1 {
   .rsvp::before {
     height: 200%;
   }
+
+  .closing {
+    min-height: 100vh;
+  }
+
+  .closing::before {
+    height: 100%;
+  }
 }
 
 @media (max-width: 450px) {
