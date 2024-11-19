@@ -1010,7 +1010,7 @@ h1 {
   }
 
   .mempelai #imgMempelaiWanita .img-thumbnail {
-    width: 130px;
+    width: 150px;
     height: 200px;
   }
 
@@ -1019,7 +1019,7 @@ h1 {
   }
 
   .mempelai {
-    min-height: 150vh;
+    min-height: 130vh;
   }
 
   .img-floral-story-up {
