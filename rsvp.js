@@ -110,7 +110,7 @@ async function fetchData() {
       const timeAgoText = timeAgo(new Date(timestamp)); // Get relative time
 
       dataCarousel.innerHTML += ` 
-        <div class="card p-3 mt-2">
+        <div class="card p-3 mt-1">
             <p><strong>${nama}</strong> 
               <span> 
                 ${
