@@ -1189,44 +1189,12 @@ h1 {
     margin: 1;
   }
 
-  /* .pembukaan {
-    min-height: 100vh;
-  }
-
-  .pembukaan::before {
-    height: 100%;
-  } */
-
-  /* .mempelai {
-    min-height: 120vh;
-  }
-
-  .mempelai::before {
-    height: 130%;
-  }
-
-  .info-acara {
-    min-height: 120vh;
-  }
-
-  .info-acara::before {
-    height: 135%;
-  }
-
-  .story {
-    min-height: 140vh;
-  }
-
-  .story::before {
-    height: 160%;
-  } */
-
   .card-info {
     width: 250px;
   }
 
   .gallery {
-    min-height: 100vh;
+    min-height: 150vh;
   }
 
   .gallery::before {
@@ -1234,20 +1202,18 @@ h1 {
   }
 
   .rsvp {
-    min-height: 200vh;
+    min-height: 170vh;
   }
 
   .rsvp::before {
-    height: 200%;
+    height: 220%;
   }
 
   .closing {
-    min-height: 100vh;
-    margin-top: 300px;
+    min-height: 50vh;
   }
 
   .closing::before {
-    height: 100%;
-    margin-top: 200px;
+    height: 50%;
   }
 }
