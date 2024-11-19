@@ -1070,20 +1070,20 @@ h1 {
   }
 
   .gallery {
-    min-height: 300vh;
+    min-height: 100vh;
   }
 
   .gallery::before {
     height: 100%;
   }
 
-  /* .rsvp {
-    min-height: 300vh;
+  .rsvp {
+    min-height: 100vh;
   }
 
   .rsvp::before {
-    height: 250%;
-  } */
+    height: 100%;
+  }
 }
 
 @media (max-width: 450px) {
