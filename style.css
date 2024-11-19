@@ -1015,11 +1015,11 @@ h1 {
   }
 
   .mempelai::before {
-    height: 140%;
+    height: 100%;
   }
 
   .mempelai {
-    min-height: 130vh;
+    min-height: 100vh;
   }
 
   .img-floral-story-up {
