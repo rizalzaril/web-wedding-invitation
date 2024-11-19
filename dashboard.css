@@ -126,6 +126,10 @@ body {
   footer p {
     font-size: 0.9rem; /* Smaller on mobile-sized screens */
   }
+
+  .mt-mobile {
+    margin-top: 150px;
+  }
 }
 
 @media (max-width: 576px) {
