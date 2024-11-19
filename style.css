@@ -1082,7 +1082,7 @@ h1 {
   }
 
   .rsvp::before {
-    height: 10%;
+    height: 100%;
   }
 }
 
