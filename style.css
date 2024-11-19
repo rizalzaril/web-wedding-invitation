@@ -996,6 +996,13 @@ h1 {
     width: 100%;
   }
 
+  .pembukaan::before {
+  }
+
+  .pembukaan {
+    min-height: 150vh;
+  }
+
   .mempelai #imgMempelaiPria .img-thumbnail {
     margin-left: 0px;
     width: 150px;
