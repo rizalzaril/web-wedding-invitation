@@ -972,7 +972,7 @@
               >Lihat perubahan <i class="fa-solid fa-eye"></i>
             </a>
 
-            <!-- FIRST REKENING -->
+            <!-- SECOND REKENING -->
             <div class="card mt-3">
               <div class="card-body bg-light shadow-lg">
                 <!-- FORM -->
@@ -984,6 +984,74 @@
                   <span>Saving data...</span>
                 </div>
                 <h2 class="mb-5">Update Rekening Pertama</h2>
+
+                <form action="" id="firstRekeningForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idFirstRekening"
+                      name="idFirstRekening"
+                      readonly
+                      disabled
+                    />
+                  </div>
+
+                  <div class="mb-5">
+                    <label for="" class="form-label">Pilih Bank</label>
+                    <select id="databank" class="form-select">
+                      <option disabled>Pilih Salah Satu</option>
+                      <!-- <option>BCA</option>
+                      <option>Mandiri</option> -->
+                    </select>
+                  </div>
+
+                  <div class="mb-5">
+                    <label for="namaFirstRekening" class="form-label"
+                      >Nama Akun Rekening Anda</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="namaFirstRekening"
+                      name="namaFirstRekening"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+
+                  <div class="mb-5">
+                    <label for="nomorFirstRekening" class="form-label"
+                      >Nomor Rekening Anda</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nomorFirstRekening"
+                      name="nomorFirstRekening"
+                      required
+                      placeholder="xxxxxxxxxx"
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <!-- FIRST REKENING -->
+            <div class="card mt-3">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
+                <h2 class="mb-5">Update Rekening Kedua</h2>
 
                 <form action="" id="firstRekeningForm" class="mb-5">
                   <div class="mb-5">
