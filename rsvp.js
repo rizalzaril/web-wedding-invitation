@@ -170,14 +170,24 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
   .then((data) => {
     if (Array.isArray(data) && data.length > 0) {
       // Extract data from the first item
-      const { namaRekening, nomorRekening } = data[0];
+      const { namaRekening, nomorRekening, bankLogo } = data[0];
 
       const nama = document.querySelector(".bank-name");
       const nomor = document.querySelector(".bank-number");
+      const logoElement = document.createElement("img");
+      const logoBankContainer = document.getElementById("logoBankContainer");
 
       // Update the text content of the elements
       nama.textContent = namaRekening;
       nomor.textContent = nomorRekening;
+      logoElement.src = bankLogo;
+      logoElement.classList.add("bank-logo");
+
+      const colDiv = document.createElement("div");
+      colDiv.classList.add("col"); // This ensures the images are responsive based on the grid
+
+      colDiv.appendChild(logoElement);
+      logoBankContainer.appendChild(colDiv);
     } else {
       console.log("No map data available.");
       Swal.fire("Error!", "No map data found.", "error");
@@ -204,14 +214,26 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getSecondRekening")
   .then((data) => {
     if (Array.isArray(data) && data.length > 0) {
       // Extract data from the first item
-      const { namaRekening, nomorRekening } = data[0];
+      const { namaRekening, nomorRekening, bankLogo } = data[0];
 
       const nama = document.querySelector(".bank-name-second");
       const nomor = document.querySelector(".bank-number-second");
+      const logoBankContainer = document.getElementById(
+        "logoBankContainerSecond"
+      );
+      const logoElement = document.createElement("img");
 
       // Update the text content of the elements
       nama.textContent = namaRekening;
       nomor.textContent = nomorRekening;
+      logoElement.src = bankLogo;
+      logoElement.classList.add("bank-logo");
+
+      const colDiv = document.createElement("div");
+      colDiv.classList.add("col"); // This ensures the images are responsive based on the grid
+
+      colDiv.appendChild(logoElement);
+      logoBankContainer.appendChild(colDiv);
     } else {
       console.log("No map data available.");
       Swal.fire("Error!", "No map data found.", "error");
