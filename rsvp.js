@@ -110,7 +110,7 @@ async function fetchData() {
       const timeAgoText = timeAgo(new Date(timestamp)); // Get relative time
 
       dataCarousel.innerHTML += ` 
-        <div class="card p-3 mt-1">
+        <div class="card p-3 mt-1 mb-5">
             <p><strong>${nama}</strong> 
               <span> 
                 ${
@@ -155,3 +155,38 @@ document.getElementById("formSubmit").addEventListener("submit", saveFormData);
 
 // Fetch data when the page loads
 fetchData();
+
+// ***************************************** GET REKENING ****************************** \\
+
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Extract data from the first item
+      const { namaRekening, nomorRekening } = data[0];
+
+      const nama = document.querySelector(".bank-name");
+      const nomor = document.querySelector(".bank-number");
+
+      // Update the text content of the elements
+      nama.textContent = namaRekening;
+      nomor.textContent = nomorRekening;
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire(
+      "Error!",
+      `There was an issue fetching the data: ${error.message}`,
+      "error"
+    );
+  });

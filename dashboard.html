@@ -957,6 +957,84 @@
           </div>
         </div>
       </div>
+
+      <!-- data rekening -->
+      <div
+        class="tab-pane fade"
+        id="gift-tab-pane"
+        role="tabpanel"
+        aria-labelledby="disabled-tab"
+        tabindex="0"
+      >
+        <div class="container mt-mobile">
+          <div class="container" style="margin-top: 120px">
+            <a class="mb-3 btn btn-dark" href="./content.html"
+              >Lihat perubahan <i class="fa-solid fa-eye"></i>
+            </a>
+
+            <!-- FIRST REKENING -->
+            <div class="card mt-3">
+              <div class="card-body bg-light shadow-lg">
+                <!-- FORM -->
+
+                <div id="loadingSpinner" class="spinner" style="display: none">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span>Saving data...</span>
+                </div>
+                <h2 class="mb-5">Update Rekening BCA</h2>
+
+                <form action="" id="firstRekeningForm" class="mb-5">
+                  <div class="mb-5">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idFirstRekening"
+                      name="idFirstRekening"
+                      readonly
+                      disabled
+                    />
+                  </div>
+
+                  <div class="mb-5">
+                    <label for="namaFirstRekening" class="form-label"
+                      >Nama Akun Rekening BCA anda</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="namaFirstRekening"
+                      name="namaFirstRekening"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+
+                  <div class="mb-5">
+                    <label for="nomorFirstRekening" class="form-label"
+                      >Nomor Rekening BCA anda</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nomorFirstRekening"
+                      name="nomorFirstRekening"
+                      required
+                      placeholder=""
+                    />
+                  </div>
+                  <button class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+                <!-- END FORM -->
+              </div>
+            </div>
+
+            <div style="margin-top: 200px">.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->

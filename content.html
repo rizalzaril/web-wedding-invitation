@@ -197,14 +197,13 @@
 
           <div class="row">
             <div class="col">
-              <ul class="timeline transition-flip-360">
+              <ul class="timeline col-home-scroll-up">
                 <li class="text-start">
                   <div class="timeline-img img-thumbnail first"></div>
                   <!-- Kelas 'first' -->
                   <div class="timeline-panel">
                     <div class="timeline-heading">
                       <h3>Pertama Bertemu</h3>
-                      <span>1 Juni 2021</span>
                     </div>
                     <div class="timeline-body">
                       <p class="timeline-caption-first"></p>
@@ -217,7 +216,6 @@
                   <div class="timeline-panel">
                     <div class="timeline-heading">
                       <h3>Mulai Serius</h3>
-                      <span>2 Juni 2021</span>
                     </div>
                     <div class="timeline-body">
                       <p class="timeline-caption-second"></p>
@@ -225,12 +223,14 @@
                   </div>
                 </li>
                 <li class="text-start">
-                  <div class="timeline-img img-thumbnail last"></div>
+                  <div
+                    class="timeline-img img-thumbnail last"
+                    loading="lazy"
+                  ></div>
                   <!-- Kelas 'last' -->
                   <div class="timeline-panel">
                     <div class="timeline-heading">
                       <h3>Tunangan</h3>
-                      <span>1 Juni 2024</span>
                     </div>
                     <div class="timeline-body">
                       <p class="timeline-caption-last"></p>
@@ -385,76 +385,75 @@
             id="dataCarousel"
           ></div>
           <!-- END TESTIMONI -->
-          <div class="container">
-            <h1
-              class="text-center text-white transition-scale-scroll"
-              style="margin-top: 100px"
-            >
-              Wedding Gift
-            </h1>
-            <p class="text-center text-white transition-scale-scroll">
-              Doa dan restu Anda adalah anugerah yang sangat berarti bagi kami.
-              Namun, jika berkenan memberikan tanda kasih, Anda dapat
-              mengirimkannya secara cashless.
-            </p>
 
-            <!-- BCA -->
-            <div class="bank-content">
+          <h1
+            class="text-center text-white transition-scale-scroll"
+            style="margin-top: 100px"
+          >
+            Wedding Gift
+          </h1>
+          <p class="text-center text-white transition-scale-scroll">
+            Doa dan restu Anda adalah anugerah yang sangat berarti bagi kami.
+            Namun, jika berkenan memberikan tanda kasih, Anda dapat
+            mengirimkannya secara cashless.
+          </p>
+
+          <!-- BCA -->
+          <div class="bank-content">
+            <div
+              class="card text-center transition-flip-360"
+              style="margin-top: 50px"
+            >
+              <div class="card-header">
+                <img class="bank-logo" src="./img/bca.png" alt="BCA Logo" />
+              </div>
               <div
-                class="card text-center transition-flip-360"
-                style="margin-top: 50px"
+                class="card-body bg-transparent"
+                style="
+                  background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
+                "
               >
-                <div class="card-header">
-                  <img class="bank-logo" src="./img/bca.png" alt="BCA Logo" />
-                </div>
-                <div
-                  class="card-body bg-transparent"
-                  style="
-                    background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
-                  "
+                <h5 class="card-title bank-number"></h5>
+                <p class="card-text bank-name"></p>
+              </div>
+              <div
+                class="card-footer row justify-content-center text-body-secondary"
+              >
+                <button
+                  class="btn btn-dark btn-lg shadow-sm"
+                  onclick="copyAccountNumber()"
                 >
-                  <h5 class="card-title bank-number">3910096400</h5>
-                  <p class="card-text bank-name">Rizal Liyan Syah</p>
-                </div>
-                <div
-                  class="card-footer row justify-content-center text-body-secondary"
-                >
-                  <button
-                    class="btn btn-dark btn-lg shadow-sm"
-                    onclick="copyAccountNumber()"
-                  >
-                    <i class="fa-solid fa-copy"></i> Copy
-                  </button>
-                </div>
+                  <i class="fa-solid fa-copy"></i> Copy
+                </button>
               </div>
             </div>
+          </div>
 
-            <!-- DANA -->
-            <div class="bank-content">
+          <!-- DANA -->
+          <div class="bank-content">
+            <div
+              class="card text-center transition-flip-360"
+              style="margin-top: 50px"
+            >
+              <div class="card-header">
+                <img class="dana-logo" src="./img/dana.png" alt="DANA Logo" />
+              </div>
               <div
-                class="card text-center transition-flip-360"
-                style="margin-top: 50px"
+                class="card-body bg-transparent"
+                style="
+                  background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
+                "
               >
-                <div class="card-header">
-                  <img class="dana-logo" src="./img/dana.png" alt="DANA Logo" />
-                </div>
-                <div
-                  class="card-body bg-transparent"
-                  style="
-                    background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
-                  "
-                >
-                  <h5 class="card-title bank-number">3910096400</h5>
-                  <p class="card -text">Rizal Liyan Syah</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-                <div
-                  class="card-footer row justify-content-center text-body-secondary"
-                >
-                  <button class="btn btn-dark shadow-sm">
-                    <i class="fa-solid fa-copy"></i> Copy
-                  </button>
-                </div>
+                <h5 class="card-title bank-number">3910096400</h5>
+                <p class="card -text">Rizal Liyan Syah</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+              <div
+                class="card-footer row justify-content-center text-body-secondary"
+              >
+                <button class="btn btn-dark shadow-sm">
+                  <i class="fa-solid fa-copy"></i> Copy
+                </button>
               </div>
             </div>
           </div>
@@ -526,5 +525,6 @@
     <script src="./mempelai.js"></script>
     <script src="./sampul.js"></script>
     <script src="./story.js"></script>
+    <script type="module" src="./lazyLoad.js"></script>
   </body>
 </html>

@@ -1519,3 +1519,105 @@ document
       }
     }
   });
+
+// ********************************* REKENING SETTING ********************************* \\
+
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Extract data from the first item
+      const { id, namaRekening, nomorRekening } = data[0];
+
+      const namaInput = document.getElementById("namaFirstRekening");
+      const nomorInput = document.getElementById("nomorFirstRekening");
+      const idRek = document.getElementById("idFirstRekening");
+
+      namaInput.value = namaRekening;
+      nomorInput.value = nomorRekening;
+      idRek.value = id;
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+document
+  .getElementById("firstRekeningForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const namaRekening = document.getElementById("namaFirstRekening").value;
+    const nomorRekening = document.getElementById("nomorFirstRekening").value;
+    const id = document.getElementById("idFirstRekening").value;
+
+    // Basic validation to check if fields are filled
+    if (!id || !namaRekening || !nomorRekening) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    // Prepare the data to send in the update request
+    const updated = {
+      id,
+      namaRekening,
+      nomorRekening,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Maps Link?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Send a PUT request to update the data on the server
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateFirstRekening/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updated),
+          }
+        );
+
+        // Handle server response
+        const data = await response.json();
+        if (response.ok) {
+          console.log("Update successful:", data);
+          Swal.fire(
+            "Updated!",
+            "The BCA Rekening  has been updated successfully.",
+            "success"
+          );
+        } else {
+          // If response is not OK, display error
+          throw new Error(data.message || "Error updating data.");
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the Maps Link.",
+          "error"
+        );
+      }
+    }
+  });
