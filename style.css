@@ -751,6 +751,16 @@ h1 {
   font-weight: 500;
 }
 
+.bank-number-second {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 2rem;
+}
+
+.bank-name-second {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 500;
+}
+
 /* Responsive Settings */
 
 /* desktop */

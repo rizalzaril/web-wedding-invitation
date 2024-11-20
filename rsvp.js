@@ -158,6 +158,7 @@ fetchData();
 
 // ***************************************** GET REKENING ****************************** \\
 
+// FIRST REKENING \\
 fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
   .then((response) => {
     // Check if the response is OK (status 200)
@@ -173,6 +174,40 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
 
       const nama = document.querySelector(".bank-name");
       const nomor = document.querySelector(".bank-number");
+
+      // Update the text content of the elements
+      nama.textContent = namaRekening;
+      nomor.textContent = nomorRekening;
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire(
+      "Error!",
+      `There was an issue fetching the data: ${error.message}`,
+      "error"
+    );
+  });
+
+// SECOND REKENING \\
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getSecondRekening")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Extract data from the first item
+      const { namaRekening, nomorRekening } = data[0];
+
+      const nama = document.querySelector(".bank-name-second");
+      const nomor = document.querySelector(".bank-number-second");
 
       // Update the text content of the elements
       nama.textContent = namaRekening;
