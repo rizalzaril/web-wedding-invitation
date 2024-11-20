@@ -1522,6 +1522,7 @@ document
 
 // ********************************* REKENING SETTING ********************************* \\
 
+// FIRST REKENING \\
 fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
   .then((response) => {
     // Check if the response is OK (status 200)
@@ -1640,6 +1641,142 @@ document
           Swal.fire(
             "Updated!",
             "Rekening  has been updated successfully.",
+            "success"
+          );
+        } else {
+          // If response is not OK, display error
+          throw new Error(data.message || "Error updating data.");
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the Maps Link.",
+          "error"
+        );
+      }
+    }
+  });
+
+// SECOND REKENING \\
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getSecondRekening")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Extract data from the first item
+      const { id, namaRekening, nomorRekening, bankId } = data[0];
+
+      // Get references to the elements
+      const databank = document.getElementById("databanksecond");
+      const namaInput = document.getElementById("namaSecondRekening");
+      const nomorInput = document.getElementById("nomorSecondRekening");
+      const idRek = document.getElementById("idSecondRekening");
+
+      // Set values for inputs
+      namaInput.value = namaRekening;
+      nomorInput.value = nomorRekening;
+      idRek.value = id;
+
+      // Assuming you have a list of banks to populate the select options dynamically
+      fetch("https://backend-undangan-pernikahan-opang.vercel.app/getBank") // Replace this with the actual endpoint for fetching bank data
+        .then((response) => response.json())
+        .then((banks) => {
+          if (Array.isArray(banks)) {
+            // Loop through the list of banks and add them to the select element
+            banks.forEach((bank) => {
+              const option = document.createElement("option");
+              option.value = bank.id; // VALUE NYA ADALAH ID DARI BANK
+              option.textContent = bank.namaBank; // Display the bank name
+              // alert(`test: ${bank.id} nama bank : ${bank.namaBank}`);
+              databank.appendChild(option); // Add the option to the select
+            });
+
+            // Set the selected bankId
+            databank.value = bankId;
+          } else {
+            console.error("No bank data available.");
+            Swal.fire("Error!", "No bank data found.", "error");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching bank data:", error);
+          Swal.fire(
+            "Error!",
+            "There was an issue fetching the bank data.",
+            "error"
+          );
+        });
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+document
+  .getElementById("secondRekeningForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const namaRekening = document.getElementById("namaSecondRekening").value;
+    const nomorRekening = document.getElementById("nomorSecondRekening").value;
+    const id = document.getElementById("idSecondRekening").value;
+    const bankId = document.getElementById("databanksecond").value;
+
+    // Basic validation to check if fields are filled
+    if (!id || !namaRekening || !nomorRekening || !bankId) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    // Prepare the data to send in the update request
+    const updated = {
+      id,
+      namaRekening,
+      nomorRekening,
+      bankId,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Maps Link?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Send a PUT request to update the data on the server
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateSecondRekening/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updated),
+          }
+        );
+
+        // Handle server response
+        const data = await response.json();
+        if (response.ok) {
+          console.log("Update successful:", data);
+          Swal.fire(
+            "Updated!",
+            "Rekening kedua has been updated successfully.",
             "success"
           );
         } else {
