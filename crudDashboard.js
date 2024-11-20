@@ -1533,15 +1533,50 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
   .then((data) => {
     if (Array.isArray(data) && data.length > 0) {
       // Extract data from the first item
-      const { id, namaRekening, nomorRekening } = data[0];
+      const { id, namaRekening, nomorRekening, bankId } = data[0];
 
+      // Get references to the elements
+      const databank = document.getElementById("databank");
       const namaInput = document.getElementById("namaFirstRekening");
       const nomorInput = document.getElementById("nomorFirstRekening");
       const idRek = document.getElementById("idFirstRekening");
 
+      // Set values for inputs
       namaInput.value = namaRekening;
       nomorInput.value = nomorRekening;
       idRek.value = id;
+
+      // Assuming you have a list of banks to populate the select options dynamically
+      fetch(
+        "https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening"
+      ) // Replace this with the actual endpoint for fetching bank data
+        .then((response) => response.json())
+        .then((banks) => {
+          if (Array.isArray(banks)) {
+            // Loop through the list of banks and add them to the select element
+            banks.forEach((bank) => {
+              const option = document.createElement("option");
+              option.value = bank.id; // VALUE NYA ADALAH ID DARI BANK
+              option.textContent = bank.bankName; // Display the bank name
+              // alert(`test: ${bank.id} nama bank : ${bank.bankName}`);
+              databank.appendChild(option); // Add the option to the select
+            });
+
+            // Set the selected bankId
+            databank.value = bankId;
+          } else {
+            console.error("No bank data available.");
+            Swal.fire("Error!", "No bank data found.", "error");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching bank data:", error);
+          Swal.fire(
+            "Error!",
+            "There was an issue fetching the bank data.",
+            "error"
+          );
+        });
     } else {
       console.log("No map data available.");
       Swal.fire("Error!", "No map data found.", "error");
