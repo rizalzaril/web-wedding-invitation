@@ -21,6 +21,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria/")
       ); // Optional: To make the images responsive
 
       nama.innerHTML = mempelaiPria.nama;
+
       caption.innerHTML = mempelaiPria.caption;
 
       const colDiv = document.createElement("div");

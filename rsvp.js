@@ -110,7 +110,8 @@ async function fetchData() {
       const timeAgoText = timeAgo(new Date(timestamp)); // Get relative time
 
       dataCarousel.innerHTML += ` 
-        <div class="card p-3 mt-1 mb-5">
+      <div class="card p-3  text text-white" 
+      style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)); backdrop-filter: blur(3px); ">
             <p><strong>${nama}</strong> 
               <span> 
                 ${
@@ -132,7 +133,7 @@ async function fetchData() {
       margin: 30,
       dots: false,
       autoplay: false,
-      autoplayTimeout: 5000,
+      autoplayTimeout: 2000,
       autoplayHoverPause: true,
       nav: true, // Enable navigation arrows
       navText: [
@@ -140,7 +141,7 @@ async function fetchData() {
         "<span class='fa fa-chevron-right fa-xl'></span>", // Right arrow
       ],
       responsive: {
-        0: { items: 1 },
+        0: { items: 2 },
         600: { items: 2 },
         1000: { items: 3 },
       },

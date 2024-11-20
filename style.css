@@ -665,30 +665,11 @@ h1 {
   }
 }
 
-.love-story {
-  min-height: 100vh;
-}
-
 .scroll-container {
   display: flex;
   scroll-snap-type: x mandatory;
   width: 100vw;
   height: 100vh;
-}
-
-.love-story {
-  min-width: 100vw;
-  min-height: 100vh; /* Minimum height ensures it adapts to screen size */
-}
-
-.love-story {
-  flex: 0 0 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: start;
-  background-color: #333; /* Adjust background as needed */
 }
 
 /* Optional: Smooth scroll for non-GSAP supported browsers */
@@ -720,7 +701,6 @@ h1 {
   /* Center content within each item */
   min-width: 300px;
   padding: 0px 0px;
-  text-align: left;
 }
 
 .owl-carousel {
@@ -1012,14 +992,15 @@ h1 {
   }
 
   .pembukaan::before {
+    height: 110%;
   }
 
   .pembukaan {
-    min-height: 100vh;
+    min-height: 110vh;
   }
 
   .mempelai #imgMempelaiPria .img-thumbnail {
-    margin-left: 0px;
+    margin-left: 15px;
     width: 150px;
     height: 200px;
   }
@@ -1030,7 +1011,7 @@ h1 {
   }
 
   .mempelai::before {
-    height: 120%;
+    height: 100%;
   }
 
   .mempelai {
@@ -1059,8 +1040,12 @@ h1 {
     width: 300px;
   }
 
+  .info-acara {
+    min-height: 100vh;
+  }
+
   .info-acara::before {
-    height: 130%;
+    height: 100%;
   }
 
   .timeline li .timeline-img {
@@ -1086,11 +1071,11 @@ h1 {
   }
 
   .story::before {
-    height: 120%;
+    height: 100%;
   }
 
   .gallery {
-    min-height: 200vh;
+    min-height: 120vh;
   }
 
   .gallery::before {
@@ -1107,7 +1092,11 @@ h1 {
   }
 
   .rsvp::before {
-    height: 250%;
+    height: 200%;
+  }
+
+  .owl-carousel {
+    margin-top: 20px;
   }
 
   .closing {
@@ -1213,20 +1202,38 @@ h1 {
     width: 250px;
   }
 
+  .mempelai #imgMempelaiPria .img-thumbnail {
+    margin-left: 0px;
+    width: 150px;
+    height: 200px;
+  }
+
+  .story {
+    min-height: 100vh;
+  }
+
+  .story::before {
+    height: 100%;
+  }
+
   .gallery {
-    min-height: 200vh;
+    min-height: 130vh;
   }
 
   .gallery::before {
-    height: 180%;
+    height: 130%;
   }
 
   .rsvp {
-    min-height: 200vh;
+    min-height: 150vh;
   }
 
   .rsvp::before {
-    height: 220%;
+    height: 150%;
+  }
+
+  .owl-carousel {
+    margin-top: 20px;
   }
 
   .closing {
