@@ -1547,9 +1547,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
       idRek.value = id;
 
       // Assuming you have a list of banks to populate the select options dynamically
-      fetch(
-        "https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening"
-      ) // Replace this with the actual endpoint for fetching bank data
+      fetch("https://backend-undangan-pernikahan-opang.vercel.app/getBank") // Replace this with the actual endpoint for fetching bank data
         .then((response) => response.json())
         .then((banks) => {
           if (Array.isArray(banks)) {
@@ -1557,8 +1555,8 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
             banks.forEach((bank) => {
               const option = document.createElement("option");
               option.value = bank.id; // VALUE NYA ADALAH ID DARI BANK
-              option.textContent = bank.bankName; // Display the bank name
-              // alert(`test: ${bank.id} nama bank : ${bank.bankName}`);
+              option.textContent = bank.namaBank; // Display the bank name
+              // alert(`test: ${bank.id} nama bank : ${bank.namaBank}`);
               databank.appendChild(option); // Add the option to the select
             });
 
@@ -1595,9 +1593,10 @@ document
     const namaRekening = document.getElementById("namaFirstRekening").value;
     const nomorRekening = document.getElementById("nomorFirstRekening").value;
     const id = document.getElementById("idFirstRekening").value;
+    const bankId = document.getElementById("databank").value;
 
     // Basic validation to check if fields are filled
-    if (!id || !namaRekening || !nomorRekening) {
+    if (!id || !namaRekening || !nomorRekening || !bankId) {
       Swal.fire("Error!", "Please fill in all fields.", "error");
       return;
     }
@@ -1607,6 +1606,7 @@ document
       id,
       namaRekening,
       nomorRekening,
+      bankId,
     };
 
     // Show SweetAlert2 confirmation before updating
