@@ -760,7 +760,6 @@ h1 {
 .bank-name-second {
   font-family: "Share Tech Mono", monospace;
   font-weight: 500;
-  font-size: 2rem;
 }
 
 /* Responsive Settings */
@@ -955,7 +954,16 @@ h1 {
   }
 
   .bank-name {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .bank-number {
+    font-size: 2rem;
+  }
+
+  .bank-name {
+    font-size: 1.8rem;
     font-weight: 500;
   }
 
