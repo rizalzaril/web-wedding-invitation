@@ -1639,7 +1639,7 @@ document
           console.log("Update successful:", data);
           Swal.fire(
             "Updated!",
-            "The BCA Rekening  has been updated successfully.",
+            "Rekening  has been updated successfully.",
             "success"
           );
         } else {
