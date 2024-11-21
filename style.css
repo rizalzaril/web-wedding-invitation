@@ -1238,6 +1238,14 @@ h1 {
     width: 250px;
   }
 
+  .mempelai {
+    min-height: 100vh;
+  }
+
+  .mempelai::before {
+    height: 100%;
+  }
+
   .mempelai #imgMempelaiPria .img-thumbnail {
     margin-left: 0px;
     width: 150px;
