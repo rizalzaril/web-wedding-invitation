@@ -1330,22 +1330,6 @@ h1 {
     top: 25px;
   }
 
-  .timeline li .timeline-panel::before {
-  }
-
-  .timeline li .timeline-panel::after {
-  }
-
-  .timeline li.timeline-inverted .timeline-panel {
-    float: right;
-  }
-
-  .timeline li.timeline-inverted .timeline-panel::before {
-  }
-
-  .timeline li.timeline-inverted .timeline-panel::after {
-  }
-
   .gallery {
     min-height: 180vh;
   }
