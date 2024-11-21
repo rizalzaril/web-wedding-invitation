@@ -1273,7 +1273,7 @@ h1 {
   }
 
   .gallery::before {
-    height: 50%;
+    height: 90%;
   }
 
   .rsvp {
