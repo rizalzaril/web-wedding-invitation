@@ -394,7 +394,7 @@ h1 {
 }
 
 .story {
-  min-height: 125vh;
+  min-height: 150vh;
 }
 .story::before {
   content: "";
@@ -402,7 +402,7 @@ h1 {
   top: 1;
   left: 0;
   width: 100%; /* Full width */
-  height: 125%; /* Full height */
+  height: 150%; /* Full height */
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     /* Dark gradient overlay */ url("./img/river-yellow.png");
 
@@ -430,12 +430,12 @@ h1 {
   top: 0;
   bottom: 0;
   position: absolute;
-  width: 1px;
+  width: 3px;
   background-color: white;
 }
 
 .timeline li {
-  margin-bottom: 1.5rem;
+  margin-bottom: 10rem;
   position: relative;
 }
 
@@ -1266,6 +1266,70 @@ h1 {
 
   .story::before {
     height: 110%;
+  }
+
+  .timeline {
+    list-style: none;
+    padding: 1.4rem 0;
+    margin-top: 1rem;
+    position: relative;
+    color: #000;
+  }
+
+  .timeline::before {
+    content: "";
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 3px;
+    background-color: white;
+  }
+
+  .timeline li {
+    margin-bottom: 7rem;
+    position: relative;
+  }
+
+  .timeline li::before,
+  .timeline li::after {
+    content: "";
+    display: table;
+  }
+
+  .timeline li::after {
+    clear: both;
+  }
+
+  .timeline li .timeline-img {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left: 3%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .timeline li .timeline-panel {
+  }
+
+  .timeline li .timeline-panel::before {
+  }
+
+  .timeline li .timeline-panel::after {
+  }
+
+  .timeline li.timeline-inverted .timeline-panel {
+    float: right;
+  }
+
+  .timeline li.timeline-inverted .timeline-panel::before {
+  }
+
+  .timeline li.timeline-inverted .timeline-panel::after {
   }
 
   .gallery {
