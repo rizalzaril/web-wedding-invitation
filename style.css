@@ -973,7 +973,7 @@ h1 {
 /* Mobile */
 @media (max-width: 576px) {
   html {
-    font-size: 70%;
+    font-size: 80%;
   }
 
   .simply-countdown > .simply-section {
