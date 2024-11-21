@@ -1048,6 +1048,16 @@ h1 {
     height: 100%;
   }
 
+  .timeline::before {
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 2px;
+    position: absolute;
+    width: 1px;
+    background-color: white;
+  }
+
   .timeline li .timeline-img {
     width: 180px;
     height: 180px;
