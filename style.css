@@ -1226,6 +1226,10 @@ h1 {
     margin: 1;
   }
 
+  .pembukaan::before {
+    height: 10%;
+  }
+
   .card-info {
     width: 250px;
   }
