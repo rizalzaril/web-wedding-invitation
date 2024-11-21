@@ -330,7 +330,7 @@ h1 {
 }
 
 .info-acara {
-  min-height: 120vh;
+  min-height: 150vh;
 }
 
 .info-acara::before {
@@ -339,7 +339,7 @@ h1 {
   top: 1;
   left: 0;
   width: 100%; /* Full width */
-  height: 120%; /* Full height */
+  height: 150%; /* Full height */
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     /* Dark gradient overlay */ url("./img/harbour.png");
 
@@ -374,7 +374,7 @@ h1 {
   width: 300px;
   height: 400px;
   /* transform: translateX(100px); */
-  margin-left: 230px;
+  margin-left: 100px;
 }
 
 .mempelai #imgMempelaiPria img {
@@ -573,7 +573,7 @@ h1 {
 }
 
 .rsvp {
-  min-height: 200vh;
+  min-height: 230vh;
 }
 
 .rsvp::before {
@@ -582,7 +582,7 @@ h1 {
   top: 1;
   left: 0;
   width: 100%; /* Full width */
-  height: 200%; /* Full height */
+  height: 230%; /* Full height */
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     /* Dark gradient overlay */ url("./img/harbour.png");
 
