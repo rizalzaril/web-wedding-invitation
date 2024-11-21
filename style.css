@@ -1067,6 +1067,7 @@ h1 {
   .timeline li .timeline-panel {
     width: 65%;
     transform: translateX(-10px);
+    top: 45px;
   }
 
   .timeline li .timeline-panel::before {
