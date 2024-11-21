@@ -1269,7 +1269,7 @@ h1 {
   }
 
   .gallery {
-    min-height: 150vh;
+    min-height: 180vh;
   }
 
   .gallery::before {
