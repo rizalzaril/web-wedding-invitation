@@ -694,3 +694,136 @@ h1 {
 }
 
 /* Responsive Settings */
+
+/* MOBILE 378PX */
+
+@media (max-width: 378px) {
+  html {
+    font-size: 50%;
+  }
+
+  .simply-countdown > .simply-section {
+    padding: 25px;
+    margin: 1;
+  }
+
+  .pembukaan {
+    min-height: 100vh;
+  }
+
+  .pembukaan::before {
+    height: 110%;
+  }
+
+  .card-info {
+    width: 250px;
+  }
+
+  .mempelai {
+    min-height: 100vh;
+  }
+
+  .mempelai::before {
+    height: 110%;
+  }
+
+  .mempelai #imgMempelaiPria .img-thumbnail {
+    margin-left: 0px;
+    width: 150px;
+    height: 200px;
+  }
+
+  .info {
+    min-height: 140vh;
+  }
+
+  .info-acara::before {
+    height: 130%;
+  }
+
+  .story {
+    min-height: 150vh;
+  }
+
+  .story::before {
+    height: 165%;
+  }
+
+  .timeline {
+    list-style: none;
+    padding: 1.4rem 0;
+    margin-top: 1rem;
+    position: relative;
+    color: #000;
+  }
+
+  .timeline::before {
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 55px;
+    position: absolute;
+    width: 1px;
+    background-color: white;
+  }
+
+  .timeline li {
+    margin-bottom: 7rem;
+    position: relative;
+  }
+
+  .timeline li::before,
+  .timeline li::after {
+    content: "";
+    display: table;
+  }
+
+  .timeline li::after {
+    clear: both;
+  }
+
+  .timeline li .timeline-img {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left: 3%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .timeline li .timeline-panel {
+    top: 25px;
+  }
+
+  .gallery {
+    min-height: 180vh;
+  }
+
+  .gallery::before {
+    height: 100%;
+  }
+
+  .rsvp {
+    min-height: 180vh;
+  }
+
+  .rsvp::before {
+    height: 197%;
+  }
+
+  .owl-carousel {
+    margin-top: 20px;
+  }
+
+  .closing {
+    min-height: 50vh;
+  }
+
+  .closing::before {
+    height: 55%;
+  }
+}
