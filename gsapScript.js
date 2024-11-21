@@ -78,7 +78,7 @@ gsap.utils.toArray(".transition-scale-scroll").forEach((element, index) => {
   gsap.to(element, {
     scrollTrigger: {
       trigger: element,
-      start: "top 85%", // Starts animation slightly later for a softer entrance
+      // start: "top 85%", // Starts animation slightly later for a softer entrance
       toggleActions: "restart pause resume none",
       // markers: true, // Hide markers for a cleaner look
     },

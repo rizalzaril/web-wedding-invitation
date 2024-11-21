@@ -13,7 +13,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getGallery")
         "img-thumbnail",
         "rounded-lg",
         "col",
-        "mt-3",
+        "mt-5",
         "p-1",
         "gallery-shadow-img"
       ); // Optional: To make the images responsive
