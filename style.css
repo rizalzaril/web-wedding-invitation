@@ -1157,11 +1157,11 @@ h1 {
   }
 
   .story {
-    min-height: 120vh;
+    min-height: 150vh;
   }
 
   .story::before {
-    height: 96%;
+    height: 165%;
   }
 
   .gallery {
