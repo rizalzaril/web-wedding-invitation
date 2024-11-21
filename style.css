@@ -444,7 +444,7 @@ h1 {
   bottom: 0;
   left: 20%;
   position: absolute;
-  width: 2px;
+  width: 0px;
   background-color: white;
 }
 
@@ -660,12 +660,12 @@ h1 {
 }
 
 .bank-content {
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 }
 
 .bank-logo {
-  width: 10%;
+  width: 30%;
 }
 
 .dana-logo {
@@ -674,13 +674,13 @@ h1 {
 
 .bank-number {
   font-family: "Share Tech Mono", monospace;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .bank-name {
   font-family: "Share Tech Mono", monospace;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 .bank-number-second {
@@ -695,232 +695,7 @@ h1 {
 
 /* Responsive Settings */
 
-/* desktop */
-@media (max-width: 1024px) {
-  .bottom-nav {
-    display: none;
-  }
-}
-
-/* Laptop */
-@media (max-width: 992px) {
-  html {
-    font-size: 75%;
-  }
-
-  .simply-countdown > .simply-section {
-    padding: 70px;
-  }
-
-  .bottom-nav {
-    display: none;
-  }
-
-  .img-floral-story-up {
-    width: 30%;
-  }
-
-  .timeline::before {
-    left: 60px;
-  }
-
-  .timeline li .timeline-img {
-    left: 15px;
-    margin-left: 45px;
-    top: 16px;
-  }
-
-  .timeline li .timeline-panel {
-    width: calc((100% - 200px));
-    float: right;
-  }
-
-  .timeline li .timeline-panel::before {
-    border-left-width: 0;
-    border-right-width: 15px;
-    left: -15px;
-    right: auto;
-  }
-
-  .timeline li .timeline-panel::after {
-    border-left-width: 0;
-    border-right-width: 14px;
-    left: -13px;
-    right: auto;
-  }
-}
 /* Tablet */
-
-@media (max-width: 768px) {
-  html {
-    font-size: 65%;
-  }
-
-  .mempelai #imgMempelaiPria .img-thumbnail {
-    margin-left: 0px;
-    width: 200px;
-    height: 250px;
-  }
-
-  .mempelai #imgMempelaiWanita .img-thumbnail {
-    width: 200px;
-    height: 250px;
-  }
-
-  .simply-countdown > .simply-section {
-    padding: 60px;
-    margin: 5px;
-  }
-
-  .my-navbar .nav-link {
-    font-weight: 400;
-    font-size: 2rem;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .navbar-brand {
-    font-size: 4rem;
-  }
-
-  .navbar {
-    padding: 0px;
-  }
-
-  .bottom-nav {
-    display: none;
-  }
-
-  .bottom-nav ul li a {
-    text-decoration: none;
-    font-size: 2.5rem;
-  }
-
-  /* .info-acara {
-    min-height: 100vh;
-  }
-
-  .info-acara::before {
-    height: 100%;
-  } */
-
-  .gallery img {
-    width: 100%;
-  }
-
-  .gallery .img-thumbnail {
-    overflow: hidden;
-    height: 300px;
-    width: 200px;
-  }
-
-  .owl-carousel {
-    margin-top: 150px;
-  }
-
-  .heading-2-title {
-    font-size: 2.5rem;
-  }
-
-  .text-quotes {
-    width: 300px;
-    display: flex;
-    justify-content: center; /* Horizontal centering */
-    align-items: center; /* Vertical centering */
-    margin: 0 auto; /* Ensures it centers horizontally if the parent container has space */
-  }
-
-  .img-floral-story-up {
-    width: 40%;
-  }
-
-  .card-info {
-    height: 200px;
-    height: 250px;
-  }
-
-  .card-info .card-info-content {
-    width: 300px;
-  }
-
-  .scroll-container {
-    overflow-x: auto;
-  }
-
-  .love-story {
-    min-height: 100vh; /* Maintains full height */
-    padding: 2em 1em; /* Adds more padding on small screens */
-  }
-
-  .mempelai .img-thumbnail {
-    width: 100%;
-  }
-
-  /* fallback until better support for mask-border */
-  @supports not (-webkit-mask-box-image: var(--_m)) {
-    img {
-      --_m: radial-gradient(at 70% 31%, #000 29%, #0000 30%),
-        radial-gradient(at 30% 31%, #000 29%, #0000 30%),
-        linear-gradient(#000 0 0) bottom/100% 50% no-repeat;
-      -webkit-mask: var(--_m);
-      mask: var(--_m);
-    }
-  }
-
-  .timeline li .timeline-img {
-    width: 140px;
-    height: 140px;
-  }
-
-  .bank-content {
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  .bank-logo {
-    width: 20%;
-  }
-
-  .bank-number {
-    font-size: 2rem;
-  }
-
-  .bank-name {
-    font-size: 1.8rem;
-    font-weight: 500;
-  }
-
-  .bank-number-second {
-    font-size: 2rem;
-  }
-
-  .bank-name-second {
-    font-size: 1.8rem;
-    font-weight: 500;
-  }
-
-  .modal-backdrop {
-    position: fixed; /* Ensures it stays in place */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity for the overlay */
-    z-index: 1040; /* Behind modal content */
-  }
-
-  #imageModal .modal-dialog {
-    width: 90%;
-    max-width: 90%; /* Ensures it doesn't grow too large on very wide screens */
-    margin: 0 auto; /* Centers the modal horizontally */
-  }
-
-  #modalImage {
-    transition: transform 3s ease-in-out; /* Smooth slide effect */
-    width: 100%;
-    height: auto;
-  }
-}
 
 /* Mobile */
 @media (max-width: 576px) {
@@ -1006,7 +781,7 @@ h1 {
     bottom: 0;
     left: 80px;
     position: absolute;
-    width: 1px;
+    width: px;
     background-color: white;
   }
 
@@ -1131,6 +906,56 @@ h1 {
 
   .story::before {
     height: 165%;
+  }
+
+  .timeline {
+    list-style: none;
+    padding: 1.4rem 0;
+    margin-top: 1rem;
+    position: relative;
+    color: #000;
+  }
+
+  .timeline::before {
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 55px;
+    position: absolute;
+    width: 0px;
+    background-color: white;
+  }
+
+  .timeline li {
+    margin-bottom: 7rem;
+    position: relative;
+  }
+
+  .timeline li::before,
+  .timeline li::after {
+    content: "";
+    display: table;
+  }
+
+  .timeline li::after {
+    clear: both;
+  }
+
+  .timeline li .timeline-img {
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    position: absolute;
+    left: 3%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .timeline li .timeline-panel {
+    top: 30px;
   }
 
   .gallery {
