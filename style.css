@@ -1314,7 +1314,7 @@ h1 {
   }
 
   .timeline li .timeline-panel {
-    top: 20px;
+    top: 25px;
   }
 
   .timeline li .timeline-panel::before {
