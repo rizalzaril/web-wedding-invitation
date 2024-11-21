@@ -1113,6 +1113,10 @@ h1 {
     height: 80%;
   }
 
+  .mempelai #imgMempelaiPria .img-thumbnail {
+    margin-left: 0px;
+  }
+
   .info-acara {
     min-height: 120vh;
   }
