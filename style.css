@@ -1241,7 +1241,7 @@ h1 {
   }
 
   .story::before {
-    height: 80%;
+    height: 100%;
   }
 
   .gallery {
