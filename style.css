@@ -1261,11 +1261,11 @@ h1 {
   }
 
   .story {
-    min-height: 100vh;
+    min-height: 150vh;
   }
 
   .story::before {
-    height: 110%;
+    height: 160%;
   }
 
   .timeline {
@@ -1281,7 +1281,7 @@ h1 {
     top: 0;
     bottom: 0;
     position: absolute;
-    width: 3px;
+    width: 1px;
     background-color: white;
   }
 
