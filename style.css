@@ -1226,6 +1226,10 @@ h1 {
     margin: 1;
   }
 
+  .pembukaan {
+    min-height: 100vh;
+  }
+
   .pembukaan::before {
     height: 110%;
   }
