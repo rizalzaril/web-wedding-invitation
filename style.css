@@ -38,6 +38,13 @@ html {
   line-height: 0;
 }
 
+.butterfly-gif {
+  display: inline-block;
+  position: absolute;
+  top: 140px;
+  left: 50px;
+}
+
 /* Positioning the navigation arrows below the carousel items */
 .owl-carousel .owl-nav {
   position: absolute;
@@ -235,9 +242,6 @@ h1 {
   height: 500px;
   border-radius: 20px;
   box-shadow: var(--shadow);
-}
-
-.card-info::before {
 }
 
 .card-info .card-info-content {
@@ -503,7 +507,7 @@ h1 {
 
 .gallery {
   position: relative;
-  min-height: 230vh;
+  min-height: 300vh;
   overflow: hidden;
   max-width: 480px;
   top: 1;
@@ -874,6 +878,11 @@ h1 {
     height: 120%;
   }
 
+  .butterfly-gif {
+    top: 175px;
+    left: 50px;
+  }
+
   .mempelai {
     min-height: 100vh;
   }
@@ -887,11 +896,16 @@ h1 {
   }
 
   .info-acara {
-    min-height: 120vh;
+    min-height: 180vh;
   }
 
   .info-acara::before {
     height: 95%;
+  }
+
+  .card-info {
+    height: 500px;
+    width: 300px;
   }
 
   .story {
@@ -954,7 +968,7 @@ h1 {
   }
 
   .gallery {
-    min-height: 150vh;
+    min-height: 250vh;
   }
 
   .gallery::before {
@@ -989,11 +1003,11 @@ h1 {
   }
 
   .rsvp {
-    min-height: 190vh;
+    min-height: 220vh;
   }
 
   .rsvp::before {
-    height: 151%;
+    height: 100%;
   }
 
   .closing {
@@ -1021,6 +1035,11 @@ h1 {
 
   .pembukaan::before {
     height: 110%;
+  }
+
+  .butterfly-gif {
+    top: 115px;
+    left: 50px;
   }
 
   .card-info {
@@ -1109,7 +1128,7 @@ h1 {
   }
 
   .gallery {
-    min-height: 180vh;
+    min-height: 230vh;
   }
 
   .gallery::before {

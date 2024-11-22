@@ -29,6 +29,9 @@
       href="./assets/simplyCountdown.js-master/css/simplyCountdown.theme.default.css"
     />
     <link rel="stylesheet" href="./style.css" />
+
+    <link rel="stylesheet" href="./carousel.css" />
+
     <link href="https://unpkg.com/pattern.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -60,6 +63,9 @@
                 The wedding of
               </h4>
 
+              <div class="butterfly-gif">
+                <img src="./img/kupu.gif" alt="" />
+              </div>
               <div class="bg-img-oval-opening mb-5 mt-5">
                 <img class="oval-img" src="" alt="" id="sampul" />
               </div>
@@ -154,6 +160,7 @@
                 </h1>
                 <div class="card-info transition-flip-360 mb-4">
                   <div class="transition-scale-scroll p-4">
+                    <img class="mb-5" src="./img/flowers-info.gif" alt="" />
                     <h1 class="text-black" id="home">Akad Nikah</h1>
                     <hr class="text-black" />
                     <h4 id="tglAkad" class="text-black">
@@ -175,6 +182,7 @@
                 <!-- Resepsi Card -->
                 <div class="card-info col-home-scroll-up mt-4 ml-1">
                   <div class="transition-scale-scroll p-4">
+                    <img class="mb-5" src="./img/flowers-info.gif" alt="" />
                     <h1 class="text-black" id="home">Resepsi</h1>
                     <hr class="text-black" />
                     <h4 class="text-black" id="tglResepsi">
@@ -285,7 +293,7 @@
             <h1 class="heading-title text-center transition-scale-scroll">
               Our Gallery
             </h1>
-            <article class="col-sm-10">
+            <article class="col-sm-10 mb-5">
               <p class="text-center text-white transition-scale-scroll mt-3">
                 "Dengan penuh syukur, kami dipertemukan Allah di saat yang
                 paling indah. Saat ini, kami menanti hari penuh berkah kami."
@@ -293,12 +301,92 @@
             </article>
           </div>
 
+          <!-- CAROUSEL GALLERY -->
+
+          <div class="image-thumbnail-carousel transition-flip-360">
+            <section class="image-display">
+              <div class="screen"></div>
+            </section>
+            <section class="thumbnail-carousel">
+              <button
+                type="button"
+                class="carousel__btn prev"
+                aria-label="Previous slide"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="arrow-icon arrow-left-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
+                  />
+                </svg>
+              </button>
+              <ul class="carousel__slider">
+                <li class="carousel__slide">
+                  <div class="thumbnail">
+                    <img
+                      class="carousel-img"
+                      loading="lazy"
+                      src="https://picsum.photos/800/450"
+                      alt=""
+                    />
+                  </div>
+                </li>
+                <li class="carousel__slide">
+                  <div class="thumbnail">
+                    <img
+                      class="carousel-img"
+                      loading="lazy"
+                      src="https://picsum.photos/800/452"
+                      alt=""
+                    />
+                  </div>
+                </li>
+                <li class="carousel__slide">
+                  <div class="thumbnail">
+                    <img
+                      class="carousel-img"
+                      loading="lazy"
+                      src="https://picsum.photos/800/453"
+                      alt=""
+                    />
+                  </div>
+                </li>
+              </ul>
+              <button
+                type="button"
+                class="carousel__btn next"
+                aria-label="Next slide"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="arrow-icon arrow-right-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"
+                  />
+                </svg>
+              </button>
+            </section>
+          </div>
+
+          <!-- end CAROUSEL GALLERY -->
+
           <div
             class="row p-3 transition-flip-360 col-home-scroll-up row-cols-md-2 row-cols-sm-3 row-cols-2"
             id="imgGallery"
           ></div>
 
-          <div
+          <!-- <div
             class="modal fade"
             id="imageModal"
             tabindex="-1"
@@ -337,7 +425,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </section>
       <!-- End Gallery Section -->
@@ -554,5 +642,6 @@
     <script src="./sampul.js"></script>
     <script src="./story.js"></script>
     <script type="module" src="./lazyLoad.js"></script>
+    <script src="./carousel.js"></script>
   </body>
 </html>
