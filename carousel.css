@@ -18,6 +18,7 @@
   --fill-primary: hsl(204, 3%, 47%);
   --fill-active: hsl(204, 23%, 20%);
   --fill-disabled: hsl(204, 9%, 85%);
+  --fill-white: white;
 }
 
 html {
@@ -87,9 +88,9 @@ html {
   border: 0;
   scale: 1;
   display: inline grid;
-  width: max(80%, 1.5rem);
-  height: max(80%, 1.5rem);
-  fill: var(--fill-primary);
+  width: max(80%, 4rem);
+  height: max(80%, 4rem);
+  fill: var(--fill-white);
 }
 
 .carousel__btn:hover .arrow-icon {
