@@ -139,3 +139,15 @@ html {
     box-shadow: 0 0.375em 0.67em #0003, 0 0.5em 1.3em #0002;
   }
 }
+
+@media (max-width: 378px) {
+  .image-thumbnail-carousel {
+    padding: 1rem;
+    width: clamp(360px, 90vw, 425px);
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    position: relative;
+    margin: 0 auto;
+  }
+}
