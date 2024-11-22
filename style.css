@@ -1155,4 +1155,8 @@ h1 {
   .closing::before {
     height: 55%;
   }
+
+  .audio-icon-wrapper {
+    right: 6rem;
+  }
 }
