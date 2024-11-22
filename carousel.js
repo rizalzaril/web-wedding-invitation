@@ -106,3 +106,32 @@ const Carousel = (() => {
 
   initCarousel();
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Mengambil data dari endpoint API
+  fetch("https://backend-undangan-pernikahan-opang.vercel.app/getCarousel")
+    .then((response) => response.json())
+    .then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        const carouselSlider = document.querySelector(".carousel__slider");
+        carouselSlider.innerHTML = ""; // Kosongkan carousel sebelum menambahkan data
+
+        data.forEach((item, index) => {
+          const slide = document.createElement("div");
+          slide.className = `carousel__slide${index === 0 ? " active" : ""}`;
+          slide.innerHTML = `<img src="${item.imageUrl}" alt="Slide ${
+            index + 1
+          }" />`;
+          carouselSlider.appendChild(slide);
+        });
+
+        // Update carousel dengan slide pertama
+        Carousel.initCarousel();
+      } else {
+        console.error("Data API tidak valid atau kosong.");
+      }
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan saat mengambil data:", error);
+    });
+});

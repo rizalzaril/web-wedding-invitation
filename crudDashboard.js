@@ -166,6 +166,163 @@ async function deleteImageCard(card, imageId) {
   }
 }
 
+// ************************************************ DATA CAROUSEL ***********************************************\\\\\
+
+const MAX_FILE_SIZES = 5 * 1024 * 1024; // 5MB limit
+const uploadFormCarousel = document.getElementById("uploadFormCarousel");
+const fileInputCarousel = document.getElementById("imageUrlCarousel");
+const loaderSpinner = document.getElementById("loadingSpinnerCarousel");
+const galleryContainerCarousel = document.getElementById(
+  "galleryContainerCarousel"
+);
+
+// Load existing images when the page loads
+document.addEventListener("DOMContentLoaded", loadCarousel);
+
+uploadFormCarousel.addEventListener("submit", async function (event) {
+  event.preventDefault(); // Prevent form submission
+
+  const file = fileInputCarousel.files[0];
+  if (!file || file.size > MAX_FILE_SIZES) {
+    Swal.fire({
+      icon: "error",
+      title: "File Size Error",
+      text: "File size exceeds the 5MB limit.",
+      showConfirmButton: true,
+    });
+    return;
+  }
+
+  loaderSpinner.style.display = "block";
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/uploadCarousel",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      Swal.fire({
+        icon: "success",
+        title: "Uploaded Successfully",
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      // Add the uploaded image to the gallery
+      displayImageCardCarousel(data.imageUrl, data.id);
+
+      // Reset form
+      uploadFormCarousel.reset();
+    } else {
+      const errorData = await response.json();
+      Swal.fire({
+        icon: "error",
+        title: "Upload Failed",
+        text: errorData.message || "An error occurred during upload.",
+        showConfirmButton: true,
+      });
+    }
+  } catch (error) {
+    console.error("Error during upload:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong. Please try again.",
+      showConfirmButton: true,
+    });
+  } finally {
+    loaderSpinner.style.display = "none";
+  }
+});
+
+async function loadCarousel() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getCarousel"
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      galleryContainerCarousel.innerHTML = ""; // Clear existing gallery
+
+      data.forEach((image) => {
+        displayImageCardCarousel(image.imageUrl, image.id);
+      });
+    } else {
+      const errorData = await response.json();
+      console.error("Failed to load gallery:", errorData.message);
+    }
+  } catch (error) {
+    console.error("Error loading carousel:", error);
+  }
+}
+
+function displayImageCardCarousel(imageUrl, imageCarouselId) {
+  const card = document.createElement("div");
+  card.classList.add("col", "mb-3", "position-relative");
+
+  const img = document.createElement("img");
+  img.src = imageUrl;
+  img.alt = "Uploaded Image";
+  img.classList.add("img-thumbnail", "gallery-shadow-img");
+
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("btn", "btn-danger", "mt-2");
+  deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
+  deleteButton.addEventListener("click", async () => {
+    await deleteImageCarouselCard(card, imageCarouselId);
+  });
+
+  card.appendChild(img);
+  card.appendChild(deleteButton);
+  galleryContainerCarousel.appendChild(card);
+}
+
+async function deleteImageCarouselCard(card, imageCarouselId) {
+  try {
+    const response = await fetch(
+      `https://backend-undangan-pernikahan-opang.vercel.app/deleteCarouselData/${imageCarouselId}`,
+      { method: "DELETE" }
+    );
+
+    if (response.ok) {
+      card.remove();
+      Swal.fire({
+        icon: "success",
+        title: "Terhapus!",
+        text: "Photo berhasil di hapus",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      const data = await response.json();
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: data.message || "Failed to delete image.",
+        showConfirmButton: true,
+      });
+    }
+  } catch (error) {
+    console.error("Error deleting image:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Server Bermasalah.",
+      showConfirmButton: true,
+    });
+  }
+}
+
 // DATA UCAPAN ***********************************************************************************************\\\\\
 $(document).ready(function () {
   fetchData();
