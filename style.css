@@ -19,10 +19,6 @@ html {
   font-size: 80%;
 }
 
-main {
-  background-color: white;
-}
-
 .audio-icon-wrapper {
   position: fixed;
   width: 4rem;
