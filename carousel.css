@@ -143,6 +143,6 @@ html {
 @media (max-width: 378px) {
   .image-thumbnail-carousel {
     padding: 1rem;
-    width: clamp(360px, 90vw, 400px);
+    width: clamp(300px, 90vw, 400px);
   }
 }
