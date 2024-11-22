@@ -145,6 +145,6 @@ html {
   .image-thumbnail-carousel {
     padding: 1rem;
     width: clamp(300px, 90vw, 400px);
-    overflow: hidden;
+    overflow-y: hidden;
   }
 }
