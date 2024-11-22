@@ -1044,6 +1044,7 @@ h1 {
 
   .card-info {
     width: 250px;
+    height: 350px;
   }
 
   .mempelai {
@@ -1061,11 +1062,11 @@ h1 {
   }
 
   .info {
-    min-height: 140vh;
+    min-height: 100vh;
   }
 
   .info-acara::before {
-    height: 130%;
+    height: 100%;
   }
 
   .story {
