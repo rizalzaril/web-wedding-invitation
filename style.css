@@ -1150,11 +1150,11 @@ h1 {
   }
 
   .rsvp {
-    min-height: 180vh;
+    min-height: 200vh;
   }
 
   .rsvp::before {
-    height: 197%;
+    height: 100%;
   }
 
   .owl-carousel {
