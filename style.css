@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Ephesis&family=Share+Tech+Mono&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
+@font-face {
+  font-family: "Amiri";
+  src: url("https://cdn.jsdelivr.net/gh/google/fonts/ofl/amiri/Amiri-Regular.ttf")
+    format("truetype");
+}
+
 :root {
   --pink: #d4af37;
   --bg: #0a0a0a;
@@ -168,8 +174,8 @@ h1 {
 }
 
 .hero a {
-  color: var(--pink);
-  background-color: white;
+  color: white;
+  background-color: black;
 }
 
 .hero a:hover {
@@ -381,6 +387,13 @@ h1 {
 .mempelai::before {
   content: "";
   position: absolute;
+}
+
+.bismillah {
+  font-size: 3rem;
+  font-family: "Amiri", serif;
+  color: white;
+  text-align: center;
 }
 
 .mempelai #imgMempelaiPria .img-thumbnail {
@@ -1021,7 +1034,7 @@ h1 {
 
 @media (max-width: 378px) {
   html {
-    font-size: 50%;
+    font-size: 60%;
   }
 
   .simply-countdown > .simply-section {
@@ -1048,7 +1061,7 @@ h1 {
   }
 
   .mempelai {
-    min-height: 100vh;
+    min-height: 120vh;
   }
 
   .mempelai::before {
@@ -1061,8 +1074,8 @@ h1 {
     height: 200px;
   }
 
-  .info {
-    min-height: 100vh;
+  .info-acara {
+    min-height: 125vh;
   }
 
   .info-acara::before {
@@ -1070,11 +1083,11 @@ h1 {
   }
 
   .story {
-    min-height: 150vh;
+    min-height: 155vh;
   }
 
   .story::before {
-    height: 165%;
+    height: 100%;
   }
 
   .timeline {
@@ -1129,7 +1142,7 @@ h1 {
   }
 
   .gallery {
-    min-height: 230vh;
+    min-height: 250vh;
   }
 
   .gallery::before {
