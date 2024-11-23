@@ -1061,7 +1061,7 @@ h1 {
   }
 
   .mempelai {
-    min-height: 120vh;
+    min-height: 130vh;
   }
 
   .mempelai::before {
@@ -1075,7 +1075,7 @@ h1 {
   }
 
   .info-acara {
-    min-height: 125vh;
+    min-height: 135vh;
   }
 
   .info-acara::before {
@@ -1083,7 +1083,7 @@ h1 {
   }
 
   .story {
-    min-height: 155vh;
+    min-height: 175vh;
   }
 
   .story::before {
