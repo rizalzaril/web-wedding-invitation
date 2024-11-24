@@ -52,7 +52,7 @@ async function fetchJadwalAkad() {
       const txtTglAkad = document.getElementById("tglAkad");
       const txtJamAkad = document.getElementById("jamAkad");
       txtTglAkad.innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${formattedDate}`;
-      txtJamAkad.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam}`;
+      txtJamAkad.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam} - Selesai`;
     } else {
       document.getElementById("jadwal-akad").textContent =
         "Jadwal tidak ditemukan.";
@@ -114,12 +114,12 @@ async function fetchJadwalResepsi() {
 
     const data = await response.json();
     if (data && data.length > 0) {
-      const { jam, tanggal } = data[0];
+      const { jam, tanggal, jamSelesai } = data[0];
       const formattedDate = getFormattedDate(tanggal);
       const txtTglResepsi = document.getElementById("tglResepsi");
       const txtJamResepsi = document.getElementById("jamResepsi");
       txtTglResepsi.innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${formattedDate}`;
-      txtJamResepsi.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam}`;
+      txtJamResepsi.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam} - ${jamSelesai}`;
     } else {
       document.getElementById("jadwal-akad").textContent =
         "Jadwal tidak ditemukan.";

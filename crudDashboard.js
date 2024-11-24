@@ -692,11 +692,13 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
       const idInput = document.getElementById("idJadwalResepsi");
       const dateInput = document.getElementById("tglJadwalResepsi");
       const timeInput = document.getElementById("jamJadwalResepsi");
+      const timeEndInput = document.getElementById("jamJadwalSelesaiResepsi");
 
-      if (idInput && dateInput && timeInput) {
+      if (idInput && dateInput && timeInput && timeEndInput) {
         idInput.value = id;
         dateInput.value = formattedDate;
         timeInput.value = formattedTime;
+        timeEndInput.value = formattedTime;
       } else {
         console.warn("One or more form elements not found.");
       }
@@ -717,12 +719,14 @@ document
     const id = document.getElementById("idJadwalResepsi").value;
     const tanggal = document.getElementById("tglJadwalResepsi").value;
     const jam = document.getElementById("jamJadwalResepsi").value;
+    const jamSelesai = document.getElementById("jamJadwalSelesaiResepsi").value;
 
     // Prepare the data to send in the update request
     const updatedData = {
       id,
       tanggal,
       jam,
+      jamSelesai,
     };
 
     // Show SweetAlert2 confirmation before updating
