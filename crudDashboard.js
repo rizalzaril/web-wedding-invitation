@@ -595,7 +595,7 @@ function updateOGImage(invitationUrl) {
 
   const ogUrlMetaTag = document.querySelector('meta[property="og:url"]');
   if (ogUrlMetaTag) {
-    ogUrlMetaTag.setAttribute("content", invitationUrl);
+    ogUrlMetaTag.setAttribute("content", invitationUrl + `/${guestName}`);
   }
 }
 
