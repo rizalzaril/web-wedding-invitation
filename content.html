@@ -612,12 +612,22 @@
     <script type="module" src="./rsvp.js"></script>
     <script src="./gift.js"></script>
     <script>
-      // Cek apakah halaman dimuat ulang (reload)
+      // Ambil parameter query string saat ini
+      const urlParams = new URLSearchParams(window.location.search);
+      const toParam = urlParams.get("to"); // Ambil nilai dari parameter 'to'
+
+      // Arahkan kembali ke index.html dengan parameter yang sama jika ada
       if (performance.navigation.type == 1) {
-        // Jika ya, arahkan pengguna ke index.html
-        window.location.href = "index.html";
+        if (toParam) {
+          // Jika parameter 'to' ada, arahkan ke index.html dengan parameter yang sama
+          window.location.href = `index.html?to=${toParam}`;
+        } else {
+          // Jika parameter 'to' tidak ada, arahkan ke index.html tanpa parameter
+          window.location.href = "index.html";
+        }
       }
     </script>
+
     <script src="./info.js"></script>
     <script src="./mempelai.js"></script>
     <script src="./sampul.js"></script>
