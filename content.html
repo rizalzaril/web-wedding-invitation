@@ -611,6 +611,13 @@
     <script src="./script.js"></script>
     <script type="module" src="./rsvp.js"></script>
     <script src="./gift.js"></script>
+    <script>
+      // Cek apakah halaman dimuat ulang (reload)
+      if (performance.navigation.type == 1) {
+        // Jika ya, arahkan pengguna ke index.html
+        window.location.href = "index.html";
+      }
+    </script>
     <script src="./info.js"></script>
     <script src="./mempelai.js"></script>
     <script src="./sampul.js"></script>
