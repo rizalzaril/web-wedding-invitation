@@ -614,17 +614,17 @@
     <script>
       // Ambil parameter query string saat ini
       const urlParams = new URLSearchParams(window.location.search);
-      const toParam = urlParams.get("to"); // Ambil nilai dari parameter 'to'
 
-      // Arahkan kembali ke index.html dengan parameter yang sama jika ada
+      // Cek apakah ada parameter dalam URL dan jika ada, arahkan kembali ke URL yang sama
       if (performance.navigation.type == 1) {
-        if (toParam) {
-          // Jika parameter 'to' ada, arahkan ke index.html dengan parameter yang sama
-          window.location.href = `index.html?to=${toParam}`;
-        } else {
-          // Jika parameter 'to' tidak ada, arahkan ke index.html tanpa parameter
-          window.location.href = "index.html";
-        }
+        // Bangun URL baru dengan parameter yang sama
+        const currentUrl =
+          window.location.origin +
+          window.location.pathname +
+          window.location.search;
+
+        // Arahkan kembali ke URL sebelumnya
+        window.location.href = currentUrl;
       }
     </script>
 
