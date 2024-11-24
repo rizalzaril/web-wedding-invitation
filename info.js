@@ -147,7 +147,13 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMaps")
       const linkElement = document.createElement("a");
       linkElement.href = item.url; // Set the URL to the href attribute
       linkElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> Buka Maps `; // Set the text content
-      linkElement.classList.add("btn", "btn-dark", "mt-4", "btn-lg");
+      linkElement.classList.add(
+        "btn",
+        "btn-dark",
+        "mt-4",
+        "btn-lg",
+        "button-animate"
+      );
 
       // Append the link to the container
       linksContainer.appendChild(linkElement);

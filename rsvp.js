@@ -170,7 +170,6 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
   })
   .then((data) => {
     if (Array.isArray(data) && data.length > 0) {
-      // Extract data from the first item
       const { namaRekening, nomorRekening, bankLogo } = data[0];
 
       const nama = document.querySelector(".bank-name");
@@ -178,7 +177,6 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getFirstRekening")
       const logoElement = document.createElement("img");
       const logoBankContainer = document.getElementById("logoBankContainer");
 
-      // Update the text content of the elements
       nama.textContent = namaRekening;
       nomor.textContent = nomorRekening;
       logoElement.src = bankLogo;

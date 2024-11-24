@@ -671,7 +671,6 @@ if (!isTimeInputSupported()) {
 // Fetch data from the API and populate the form
 fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
   .then((response) => {
-    // Check if the response is OK (status 200)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -679,7 +678,6 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
   })
   .then((data) => {
     if (data && data.length > 0) {
-      // Extract data from the first item
       const { id, tanggal, jam, jamSelesai } = data[0];
 
       // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
