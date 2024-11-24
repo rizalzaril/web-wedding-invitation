@@ -501,24 +501,25 @@ function populateTableWithDataTables(data) {
       const guestName = btn.dataset.name;
       const invitationUrl = btn.dataset.url;
 
+      // Update OG meta tags dynamically
+      updateOGTitleAndDescription(guestName);
+      updateOGImage(invitationUrl);
+
+      // Set the share message
       const shareMessage = `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n${guestName}\n\nAssalamu'alaikum Wr. Wb.\nBismillahirahmanirrahim.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\nBerikut link untuk info lengkap dari acara kami:\n\n${invitationUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nWassalamu'alaikum Wr. Wb.\n\nTerima Kasih..\n\nHormat kami,\nNaufal & Anggi`;
 
       document.getElementById(
         "modalMessage"
       ).innerText = `Share this invitation to ${guestName}`;
 
+      // Update the share buttons
       document.getElementById("whatsappShareBtn").onclick = () => {
         window.open(
-          `https://wa.me/?text=${encodeURIComponent(
-            shareMessage +
-              " " +
-              invitationUrl +
-              " " +
-              document.getElementById("og-image").content
-          )}`,
+          `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
           "_blank"
         );
       };
+
       document.getElementById("facebookShareBtn").onclick = () => {
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -529,6 +530,7 @@ function populateTableWithDataTables(data) {
           "_blank"
         );
       };
+
       document.getElementById("instagramShareBtn").onclick = () => {
         Swal.fire(
           "Instagram",
@@ -559,23 +561,43 @@ function copyToClipboard(url) {
     .catch(() => Swal.fire("Error", "Failed to copy invitation URL.", "error"));
 }
 
-function updateOGImage(imageUrl) {
+function updateOGTitleAndDescription(guestName) {
+  const ogTitleMetaTag = document.querySelector('meta[property="og:title"]');
+  const ogDescriptionMetaTag = document.querySelector(
+    'meta[property="og:description"]'
+  );
+
+  if (ogTitleMetaTag) {
+    ogTitleMetaTag.setAttribute("content", `The Wedding of ${guestName}`);
+  }
+  if (ogDescriptionMetaTag) {
+    ogDescriptionMetaTag.setAttribute(
+      "content",
+      "Dengan memohon Rahmat dan Ridho Allah SWT, Kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dalam pernikahan kami"
+    );
+  }
+}
+
+function updateOGImage(invitationUrl) {
   const ogImageMetaTag = document.getElementById("og-image");
   const twitterImageMetaTag = document.querySelector(
     'meta[name="twitter:image"]'
   );
 
+  const dynamicImageUrl = `https://res.cloudinary.com/djgr3hq5k/image/upload/v1732463390/gd8fyaby9bvavvq5ecwv.jpg`; // Replace this with a dynamic image URL if needed
+
   if (ogImageMetaTag) {
-    ogImageMetaTag.setAttribute("content", imageUrl);
+    ogImageMetaTag.setAttribute("content", dynamicImageUrl);
   }
   if (twitterImageMetaTag) {
-    twitterImageMetaTag.setAttribute("content", imageUrl);
+    twitterImageMetaTag.setAttribute("content", dynamicImageUrl);
+  }
+
+  const ogUrlMetaTag = document.querySelector('meta[property="og:url"]');
+  if (ogUrlMetaTag) {
+    ogUrlMetaTag.setAttribute("content", invitationUrl);
   }
 }
-
-const imageUrl =
-  "https://res.cloudinary.com/djgr3hq5k/image/upload/v1732463390/gd8fyaby9bvavvq5ecwv.jpg"; // Replace with actual image URL
-updateOGImage(imageUrl);
 
 // Initial Data Fetch
 fetchDataUndangan();
