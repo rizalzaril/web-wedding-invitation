@@ -550,7 +550,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalAkad")
   .then((data) => {
     if (data && data.length > 0) {
       // Extract data from the first item
-      const { id, tanggal, jam } = data[0];
+      const { id, tanggal, jam, alamat } = data[0];
 
       // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
       const [day, month, year] = tanggal.split("-");
@@ -562,11 +562,13 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalAkad")
       const idInput = document.getElementById("idJadwalAkad");
       const dateInput = document.getElementById("tglJadwalAkad");
       const timeInput = document.getElementById("jamJadwalAkad");
+      const alamatInput = document.getElementById("alamatJadwalAkad");
 
       if (idInput && dateInput && timeInput) {
         idInput.value = id;
         dateInput.value = formattedDate;
         timeInput.value = formattedTime;
+        alamatInput.value = alamat;
       } else {
         console.warn("One or more form elements not found.");
       }
@@ -587,12 +589,14 @@ document
     const id = document.getElementById("idJadwalAkad").value;
     const tanggal = document.getElementById("tglJadwalAkad").value;
     const jam = document.getElementById("jamJadwalAkad").value;
+    const alamat = document.getElementById("alamatJadwalAkad").value;
 
     // Prepare the data to send in the update request
     const updatedData = {
       id,
       tanggal,
       jam,
+      alamat,
     };
 
     // Show SweetAlert2 confirmation before updating
@@ -678,7 +682,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
   })
   .then((data) => {
     if (data && data.length > 0) {
-      const { id, tanggal, jam, jamSelesai } = data[0];
+      const { id, tanggal, jam, jamSelesai, alamat } = data[0];
 
       // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
       const [day, month, year] = tanggal.split("-");
@@ -692,12 +696,14 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
       const dateInput = document.getElementById("tglJadwalResepsi");
       const timeInput = document.getElementById("jamJadwalResepsi");
       const timeEndInput = document.getElementById("jamJadwalSelesaiResepsi");
+      const alamatResepsiInput = document.getElementById("alamatJadwalResepsi");
 
       if (idInput && dateInput && timeInput && timeEndInput) {
         idInput.value = id;
         dateInput.value = formattedDate;
         timeInput.value = formattedTime;
         timeEndInput.value = formattedEndTime;
+        alamatResepsiInput.value = alamat;
       } else {
         console.warn("One or more form elements not found.");
       }
@@ -718,6 +724,7 @@ document
     const id = document.getElementById("idJadwalResepsi").value;
     const tanggal = document.getElementById("tglJadwalResepsi").value;
     const jam = document.getElementById("jamJadwalResepsi").value;
+    const alamatResepsi = document.getElementById("alamatJadwalResepsi").value;
     const jamSelesai = document.getElementById("jamJadwalSelesaiResepsi").value;
 
     // Prepare the data to send in the update request
@@ -726,6 +733,7 @@ document
       tanggal,
       jam,
       jamSelesai,
+      alamatResepsi,
     };
 
     // Show SweetAlert2 confirmation before updating
@@ -865,6 +873,103 @@ document
         // Send a PUT request to update the data on the server
         const response = await fetch(
           `https://backend-undangan-pernikahan-opang.vercel.app/updateMaps/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedMaps),
+          }
+        );
+
+        // Handle server response
+        const data = await response.json();
+        if (response.ok) {
+          console.log("Update successful:", data);
+          Swal.fire(
+            "Updated!",
+            "The Maps Link has been updated successfully.",
+            "success"
+          );
+        } else {
+          // If response is not OK, display error
+          throw new Error(data.message || "Error updating data.");
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire(
+          "Error!",
+          "There was an error updating the Maps Link.",
+          "error"
+        );
+      }
+    }
+  });
+
+// **************** MAPS AKAD ******************* \\
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMapsAkad")
+  .then((response) => {
+    // Check if the response is OK (status 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (Array.isArray(data) && data.length > 0) {
+      // Extract data from the first item
+      const { url, id } = data[0];
+
+      const lokasiInput = document.getElementById("lokasiAkad");
+      const idLokasi = document.getElementById("idLokasiAkad");
+
+      lokasiInput.value = url;
+      idLokasi.value = id;
+    } else {
+      console.log("No map data available.");
+      Swal.fire("Error!", "No map data found.", "error");
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    Swal.fire("Error!", "There was an issue fetching the data.", "error");
+  });
+
+document
+  .getElementById("formLokasiAkad")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const id = document.getElementById("idLokasiAkad").value;
+    const url = document.getElementById("lokasiAkad").value;
+
+    // Basic validation to check if fields are filled
+    if (!id || !url) {
+      Swal.fire("Error!", "Please fill in all fields.", "error");
+      return;
+    }
+
+    // Prepare the data to send in the update request
+    const updatedMaps = {
+      id,
+      url,
+    };
+
+    // Show SweetAlert2 confirmation before updating
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to update the Maps Link?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Send a PUT request to update the data on the server
+        const response = await fetch(
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateMapsAkad/${id}`,
           {
             method: "PUT",
             headers: {

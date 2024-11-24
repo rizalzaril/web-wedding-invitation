@@ -47,12 +47,14 @@ async function fetchJadwalAkad() {
 
     const data = await response.json();
     if (data && data.length > 0) {
-      const { jam, tanggal } = data[0];
+      const { jam, tanggal, alamat } = data[0];
       const formattedDate = getFormattedDate(tanggal);
       const txtTglAkad = document.getElementById("tglAkad");
       const txtJamAkad = document.getElementById("jamAkad");
+      const txtAlamatAkad = document.getElementById("alamatAkad");
       txtTglAkad.innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${formattedDate}`;
       txtJamAkad.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam} - Selesai`;
+      txtAlamatAkad.innerHTML = `<i fa-solid fa-location-dot></i>  ${alamat}`;
     } else {
       document.getElementById("jadwal-akad").textContent =
         "Jadwal tidak ditemukan.";
@@ -114,12 +116,14 @@ async function fetchJadwalResepsi() {
 
     const data = await response.json();
     if (data && data.length > 0) {
-      const { jam, tanggal, jamSelesai } = data[0];
+      const { jam, tanggal, jamSelesai, alamat } = data[0];
       const formattedDate = getFormattedDate(tanggal);
       const txtTglResepsi = document.getElementById("tglResepsi");
       const txtJamResepsi = document.getElementById("jamResepsi");
+      const txtAlamatResepsi = document.getElementById("alamatResepsi");
       txtTglResepsi.innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${formattedDate}`;
       txtJamResepsi.innerHTML = `<i class="fa-regular fa-clock"></i> ${jam} - ${jamSelesai}`;
+      txtAlamatResepsi.innerHTML = `<i fa-solid fa-location-dot></i>  ${alamat}`;
     } else {
       document.getElementById("jadwal-akad").textContent =
         "Jadwal tidak ditemukan.";
@@ -133,7 +137,40 @@ async function fetchJadwalResepsi() {
 
 fetchJadwalResepsi();
 
-// *************** MAPS ************** //
+// *************** MAPS  AKAD ************** //
+
+// Fetch data from the API
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMapsAkad")
+  .then((response) => response.json())
+  .then((data) => {
+    const linksContainer = document.getElementById("maps-links-akad");
+
+    // Iterate over the data and create an anchor tag for each map URL
+    data.forEach((item) => {
+      // Create an anchor tag
+      const linkElement = document.createElement("a");
+      linkElement.href = item.url; // Set the URL to the href attribute
+      linkElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> Buka Maps `; // Set the text content
+      linkElement.classList.add(
+        "btn",
+        "btn-dark",
+        "mt-4",
+        "btn-lg",
+        "button-animate"
+      );
+
+      // Append the link to the container
+      linksContainer.appendChild(linkElement);
+
+      // Add a line break for better readability
+      linksContainer.appendChild(document.createElement("br"));
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+  });
+
+// *************** MAPS RESEPSI ************** //
 
 // Fetch data from the API
 fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMaps")
