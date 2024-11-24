@@ -617,8 +617,11 @@
         // Ambil URL lengkap saat ini beserta parameter query string
         const currentUrl = window.location.href;
 
-        // Arahkan kembali ke halaman yang sama jika sedang di-refresh
-        window.location.href = currentUrl;
+        // Cek apakah URL sudah memiliki parameter query
+        if (!currentUrl.includes("?")) {
+          // Jika tidak ada parameter query, arahkan kembali ke halaman utama tanpa perubahan
+          window.location.href = currentUrl;
+        }
       }
     </script>
 
