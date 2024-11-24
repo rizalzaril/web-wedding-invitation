@@ -471,7 +471,7 @@ function populateTableWithDataTables(data) {
   <td>${nama_tamu}</td>
   <td>
     <a href="${url}" target="_blank">${url}</a>
-    <button class="copy-btn btn btn-sm btn-dark" data-url="${url}">
+    <button class="copy-btn btn btn-sm btn-dark" data-url="${url} ${shareMessage}">
       Copy <i class="fa fa-copy"></i>
     </button>
     <button class="share-btn btn btn-sm btn-info" data-name="${nama_tamu}" data-url="${url}">
@@ -595,7 +595,7 @@ function updateOGImage(invitationUrl) {
 
   const ogUrlMetaTag = document.querySelector('meta[property="og:url"]');
   if (ogUrlMetaTag) {
-    ogUrlMetaTag.setAttribute("content", invitationUrl + guestName);
+    ogUrlMetaTag.setAttribute("content", invitationUrl);
   }
 }
 
