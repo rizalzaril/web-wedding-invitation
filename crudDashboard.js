@@ -515,7 +515,11 @@ function populateTableWithDataTables(data) {
       // Update the share buttons
       document.getElementById("whatsappShareBtn").onclick = () => {
         window.open(
-          `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
+          `https://wa.me/?text=${encodeURIComponent(
+            shareMessage,
+            updateOGImage(),
+            updateOGTitleAndDescription()
+          )}`,
           "_blank"
         );
       };
