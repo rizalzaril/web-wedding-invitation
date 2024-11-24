@@ -171,6 +171,21 @@
             Gifts <i class="fa-solid fa-gear"></i>
           </button>
         </li>
+
+        <li class="nav-item bg-dark" role="presentation">
+          <button
+            class="nav-link"
+            id="sound-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#sound-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="sound-tab-pane"
+            aria-selected="false"
+          >
+            Sound <i class="fa-solid fa-gear"></i>
+          </button>
+        </li>
       </ul>
 
       <!-- TAB CONTENT -->
@@ -1272,6 +1287,70 @@
               </div>
 
               <div style="margin-top: 200px">.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- data lagu -->
+        <div
+          class="tab-pane fade"
+          id="sound-tab-pane"
+          role="tabpanel"
+          aria-labelledby="sound-tab"
+          tabindex="0"
+        >
+          <div class="container mt-mobile" style="margin-top: 150px">
+            <div class="card">
+              <div class="card-body">
+                <h2>Update Backsound</h2>
+                <form id="uploadSound" enctype="multipart/form-data">
+                  <div class="mb-3">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="idSound"
+                      name="idSound"
+                      required
+                    />
+
+                    <label for="soundUrl" class="form-label"
+                      >Pilih sound dengan dari perangkat anda
+                      <span>
+                        <b>"Maksimal ukuran file 5MB dengan format MP3/WAV "</b>
+                      </span></label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="soundUrl"
+                      name="soundUrl"
+                      required
+                    />
+                  </div>
+                  <div class="d-flex">
+                    <button type="submit" class="btn h-100 btn-primary">
+                      Submit
+                    </button>
+
+                    <div
+                      id="loadingSpinner"
+                      class="loader"
+                      style="display: none"
+                    >
+                      <div class="loader"></div>
+                    </div>
+                  </div>
+                </form>
+
+                <section class="soundUpload">
+                  <div class="mt-4 mb-4">
+                    <a class="mt-5" href="./index.html"
+                      >Kunjungi Halaman <i class="fa-solid fa-eye"></i
+                    ></a>
+                  </div>
+                  <div id="soundContainer" class=""></div>
+                </section>
+              </div>
             </div>
           </div>
         </div>

@@ -2058,3 +2058,160 @@ document
       }
     }
   });
+
+// ************************************ SOUND ******************************* \\
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("uploadSound");
+  const soundContainer = document.getElementById("soundContainer");
+  const idSoundInput = document.getElementById("idSound"); // The input field to display the sound ID
+  const loadingSpinner = document.getElementById("loadingSpinner");
+
+  // Fungsi untuk mengambil data backsound dari server
+  async function fetchSoundData() {
+    try {
+      const response = await fetch(
+        "https://backend-undangan-pernikahan-opang.vercel.app/getSound"
+      );
+
+      if (!response.ok) {
+        throw new Error("Gagal mengambil data backsound.");
+      }
+
+      const soundData = await response.json();
+
+      // Tampilkan data backsound
+      soundContainer.innerHTML = soundData
+        .map(
+          (sound, index) => ` 
+            <div class="sound-item">
+              <p><a>${sound.fileUrl}</a></p>
+              <audio id="audio-${index}" src="${sound.fileUrl}" preload="none"></audio>
+              <button class="btn btn-primary play-button" data-index="${index}">
+                Play
+              </button>
+            </div>
+          `
+        )
+        .join("");
+
+      // Set the ID of the first sound automatically in the input field
+      if (soundData.length > 0) {
+        idSoundInput.value = soundData[0].id; // Automatically set the first sound ID
+      }
+
+      // Tambahkan event listener ke tombol Play
+      attachPlayButtonListeners();
+    } catch (error) {
+      console.error("Error:", error);
+      soundContainer.innerHTML = "<p>Gagal memuat data backsound.</p>";
+    }
+  }
+
+  // Fungsi untuk memperbarui backsound berdasarkan ID
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const soundFile = document.getElementById("soundUrl").files[0];
+
+    // Validasi file (size dan type)
+    if (!soundFile) {
+      alert("Pilih file terlebih dahulu.");
+      return;
+    }
+
+    const validTypes = ["audio/mpeg", "audio/wav"];
+    if (!validTypes.includes(soundFile.type)) {
+      alert("Hanya file dengan format MP3 atau WAV yang diperbolehkan.");
+      return;
+    }
+
+    if (soundFile.size > 5 * 1024 * 1024) {
+      alert("Ukuran file maksimal adalah 5MB.");
+      return;
+    }
+
+    // Ambil ID yang dipilih untuk update (dari input field)
+    const soundId = idSoundInput.value;
+
+    if (!soundId) {
+      alert("Pilih file yang ingin diperbarui.");
+      return;
+    }
+
+    // Siapkan data untuk dikirim
+    const formData = new FormData();
+    formData.append("soundUrl", soundFile);
+
+    // Tampilkan loader
+    if (loadingSpinner) loadingSpinner.style.display = "block";
+
+    try {
+      const response = await fetch(
+        `https://backend-undangan-pernikahan-opang.vercel.app/updateSound/${soundId}`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Gagal memperbarui file.");
+      }
+
+      const result = await response.json();
+      console.log(result); // Log the response to inspect for any issues
+
+      // Sembunyikan loader
+      if (loadingSpinner) loadingSpinner.style.display = "none";
+
+      // Refresh daftar backsound
+      fetchSoundData();
+
+      alert("File berhasil diperbarui!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan saat memperbarui file.");
+    } finally {
+      // Sembunyikan loader
+      if (loadingSpinner) loadingSpinner.style.display = "none";
+    }
+  });
+
+  // Fungsi untuk menambahkan event listener ke tombol Play
+  function attachPlayButtonListeners() {
+    const playButtons = document.querySelectorAll(".play-button");
+
+    playButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const index = event.target.dataset.index;
+        const audioElement = document.getElementById(`audio-${index}`);
+
+        // Stop all other audios
+        document.querySelectorAll("audio").forEach((audio) => {
+          if (audio !== audioElement) {
+            audio.pause();
+            audio.currentTime = 0; // Reset to start
+          }
+        });
+
+        // Play or Pause the clicked audio
+        if (audioElement.paused) {
+          audioElement.play();
+          button.textContent = "Pause";
+        } else {
+          audioElement.pause();
+          button.textContent = "Play";
+        }
+
+        // Update button text based on playback state
+        audioElement.addEventListener("ended", () => {
+          button.textContent = "Play";
+        });
+      });
+    });
+  }
+
+  // Panggil fetchSoundData saat halaman dimuat
+  fetchSoundData();
+});
