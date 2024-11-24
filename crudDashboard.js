@@ -517,8 +517,8 @@ function populateTableWithDataTables(data) {
         window.open(
           `https://wa.me/?text=${encodeURIComponent(
             shareMessage,
-            updateOGImage(),
-            updateOGTitleAndDescription()
+            updateOGImage(invitationUrl),
+            updateOGTitleAndDescription(guestName)
           )}`,
           "_blank"
         );
