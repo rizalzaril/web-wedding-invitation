@@ -615,6 +615,26 @@ h1 {
   background-repeat: no-repeat; /* Prevent repeating the image */
 }
 
+.copyright {
+  overflow: hidden;
+  min-height: 15vh;
+  margin: 0 auto;
+  max-width: 480px;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
 .img-rose-story-up {
   width: 50%;
   position: relative;
