@@ -654,19 +654,20 @@ h1 {
 
 @keyframes sway {
   0% {
-    transform: rotate(0deg) scale(1.4);
+    transform: rotate(0deg) scale(1.2);
   }
   25% {
-    transform: rotate(2deg) scale(1.02);
+    transform: rotate(0deg) scale(1.02);
   }
   50% {
-    transform: rotate(0deg) scale(1.4);
+    transform: rotate(0deg) scale(1.2);
+    color: red;
   }
   75% {
-    transform: rotate(-2deg) scale(1.02);
+    transform: rotate(0deg) scale(1.02);
   }
   100% {
-    transform: rotate(0deg) scale(1.4);
+    transform: rotate(0deg) scale(1.2);
   }
 }
 
