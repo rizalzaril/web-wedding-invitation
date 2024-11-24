@@ -680,7 +680,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
   .then((data) => {
     if (data && data.length > 0) {
       // Extract data from the first item
-      const { id, tanggal, jam } = data[0];
+      const { id, tanggal, jam, jamSelesai } = data[0];
 
       // Convert "tanggal" from "DD-MM-YYYY" to "YYYY-MM-DD"
       const [day, month, year] = tanggal.split("-");
@@ -688,6 +688,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
 
       // Convert time format from "HH.MM" to "HH:MM"
       const formattedTime = jam.replace(".", ":");
+      const formattedEndTime = jamSelesai.replace(".", ":");
 
       const idInput = document.getElementById("idJadwalResepsi");
       const dateInput = document.getElementById("tglJadwalResepsi");
@@ -698,7 +699,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
         idInput.value = id;
         dateInput.value = formattedDate;
         timeInput.value = formattedTime;
-        timeEndInput.value = formattedTime;
+        timeEndInput.value = formattedEndTime;
       } else {
         console.warn("One or more form elements not found.");
       }
