@@ -615,16 +615,15 @@
       // Ambil parameter query string saat ini
       const urlParams = new URLSearchParams(window.location.search);
 
-      // Cek apakah ada parameter dalam URL dan jika ada, arahkan kembali ke URL yang sama
+      // Cek apakah halaman di-refresh
       if (performance.navigation.type == 1) {
-        // Bangun URL baru dengan parameter yang sama
-        const currentUrl =
-          window.location.origin +
-          window.location.pathname +
-          window.location.search;
+        // Ambil nilai parameter 'to' jika ada
+        const toParam = urlParams.get("to");
 
-        // Arahkan kembali ke URL sebelumnya
-        window.location.href = currentUrl;
+        // Jika ada parameter 'to', arahkan ke index.html dengan parameter yang sama
+        if (toParam) {
+          window.location.href = `index.html?to=${toParam}`;
+        }
       }
     </script>
 
