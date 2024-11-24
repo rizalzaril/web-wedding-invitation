@@ -458,83 +458,127 @@ async function fetchDataUndangan() {
 function populateTableWithDataTables(data) {
   const tableId = "#tbUndangan";
 
-  // Check if DataTable instance exists and destroy it
   if ($.fn.DataTable.isDataTable(tableId)) {
     $(tableId).DataTable().clear().destroy();
   }
 
-  // Populate the table body
   const tableBody = document.querySelector(`${tableId} tbody`);
   tableBody.innerHTML = data.length
     ? data
         .map(
           ({ nama_tamu, url, timestamp }) => `
-      <tr>
-        <td>${nama_tamu}</td>
-        <td>
-          <a href="${url}" target="_blank">${url}</a>
-          <button class="copy-btn btn btn-sm btn-dark" data-url="${url}">
-            Copy <i class="fa fa-copy"></i>
-          </button>
-        </td>
-        <td>${new Date(timestamp).toLocaleDateString("id-ID", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}</td>
-      </tr>`
+<tr>
+  <td>${nama_tamu}</td>
+  <td>
+    <a href="${url}" target="_blank">${url}</a>
+    <button class="copy-btn btn btn-sm btn-dark" data-url="${url}">
+      Copy <i class="fa fa-copy"></i>
+    </button>
+    <button class="share-btn btn btn-sm btn-info" data-name="${nama_tamu}" data-url="${url}">
+      Share <i class="fa fa-share-alt"></i>
+    </button>
+  </td>
+  <td>${new Date(timestamp).toLocaleDateString("id-ID", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })}</td>
+</tr>`
         )
         .join("")
     : `<tr><td colspan="3" class="text-center">No invitations yet.</td></tr>`;
 
-  // Reinitialize DataTable
   $(tableId).DataTable();
 
-  // Add copy functionality to buttons
   document
     .querySelectorAll(".copy-btn")
     .forEach((btn) =>
       btn.addEventListener("click", () => copyToClipboard(btn.dataset.url))
     );
-}
 
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    Swal.fire("Copied!", "URL successfully copied to clipboard.", "success");
+  document.querySelectorAll(".share-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const guestName = btn.dataset.name;
+      const invitationUrl = btn.dataset.url;
+
+      const shareMessage = `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n${guestName}\n\nAssalamu'alaikum Wr. Wb.\nBismillahirahmanirrahim.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\nBerikut link untuk info lengkap dari acara kami:\n\n${invitationUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nWassalamu'alaikum Wr. Wb.\n\nTerima Kasih..\n\nHormat kami,\nNaufal & Anggi`;
+
+      document.getElementById(
+        "modalMessage"
+      ).innerText = `Share this invitation to ${guestName}`;
+
+      document.getElementById("whatsappShareBtn").onclick = () => {
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(
+            shareMessage +
+              " " +
+              invitationUrl +
+              " " +
+              document.getElementById("og-image").content
+          )}`,
+          "_blank"
+        );
+      };
+      document.getElementById("facebookShareBtn").onclick = () => {
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            invitationUrl
+          )}&quote=${encodeURIComponent(shareMessage)}&picture=${
+            document.getElementById("og-image").content
+          }`,
+          "_blank"
+        );
+      };
+      document.getElementById("instagramShareBtn").onclick = () => {
+        Swal.fire(
+          "Instagram",
+          "Sharing via Instagram is not directly supported.",
+          "info"
+        );
+      };
+
+      new bootstrap.Modal(document.getElementById("shareModal")).show();
+    });
   });
 }
 
 function showLoading() {
-  document.getElementById("loadingSpinner").style.display = "block";
+  document.getElementById("loading").style.display = "block";
 }
 
 function hideLoading() {
-  document.getElementById("loadingSpinner").style.display = "none";
+  document.getElementById("loading").style.display = "none";
 }
 
-document.addEventListener("DOMContentLoaded", fetchDataUndangan);
+function copyToClipboard(url) {
+  navigator.clipboard
+    .writeText(url)
+    .then(() =>
+      Swal.fire("Copied!", "Invitation URL copied to clipboard.", "success")
+    )
+    .catch(() => Swal.fire("Error", "Failed to copy invitation URL.", "error"));
+}
 
-// DATA SORTIR ///////////////////////////
+function updateOGImage(imageUrl) {
+  const ogImageMetaTag = document.getElementById("og-image");
+  const twitterImageMetaTag = document.querySelector(
+    'meta[name="twitter:image"]'
+  );
 
-let currentData = []; // To store fetched data for sorting purposes
-
-// Update the fetch function to save data locally
-async function fetchDataUndangan() {
-  showLoading();
-
-  try {
-    const response = await fetch(API_ENDPOINTS.getGuests);
-    if (!response.ok) throw new Error("Failed to fetch data");
-
-    const data = await response.json();
-    currentData = data; // Store the data for sorting
-    populateTableWithDataTables(data);
-  } catch (error) {
-    console.error("Fetch error:", error);
-  } finally {
-    hideLoading();
+  if (ogImageMetaTag) {
+    ogImageMetaTag.setAttribute("content", imageUrl);
+  }
+  if (twitterImageMetaTag) {
+    twitterImageMetaTag.setAttribute("content", imageUrl);
   }
 }
+
+const imageUrl =
+  "https://res.cloudinary.com/djgr3hq5k/image/upload/v1732463390/gd8fyaby9bvavvq5ecwv.jpg"; // Replace with actual image URL
+updateOGImage(imageUrl);
+
+// Initial Data Fetch
+fetchDataUndangan();
 
 // ***************************************** JADWAL AKAD SETTINGS ************************************ \\
 
