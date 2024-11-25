@@ -135,14 +135,14 @@ html {
   .image-display {
     border-radius: var(--border-xl);
     overflow: hidden;
-    min-height: 100vmin;
+    min-height: 50vmin;
     /* aspect-ratio: 16 / 9; */
     box-shadow: 0 0.375em 0.67em #0003, 0 0.5em 1.3em #0002;
   }
 
   .image-thumbnail-carousel {
     padding: 1rem;
-    width: clamp(200px, 90vw, 300px);
+    width: clamp(300px, 90vw, 400px);
     overflow-y: hidden;
   }
 }
