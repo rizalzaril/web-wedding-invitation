@@ -155,8 +155,7 @@ html {
 
 @media (max-width: 378px) {
   .image-display {
-    width: 300px;
-    width: 200px;
+    width: 100%;
   }
 
   .image-thumbnail-carousel {
