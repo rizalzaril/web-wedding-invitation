@@ -1210,7 +1210,7 @@ h1 {
   }
 
   .closing {
-    min-height: 50vh;
+    min-height: 60vh;
   }
 
   .closing::before {
