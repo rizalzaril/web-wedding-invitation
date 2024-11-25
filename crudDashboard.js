@@ -449,7 +449,7 @@ async function fetchDataUndangan() {
     if (!response.ok) throw new Error("Failed to fetch data");
 
     const data = await response.json();
-    populateTableWithDataTables(data);
+    populateTableWithData(data);
   } catch (error) {
     console.error("Fetch error:", error);
   } finally {
@@ -457,7 +457,7 @@ async function fetchDataUndangan() {
   }
 }
 
-function populateTableWithDataTables(data) {
+function populateTableWithData(data) {
   const tableId = "#tbUndangan";
 
   if ($.fn.DataTable.isDataTable(tableId)) {
@@ -508,64 +508,56 @@ function populateTableWithDataTables(data) {
       const guestName = btn.dataset.name;
       const invitationUrl = btn.dataset.url;
 
-      // Update OG meta tags dynamically
       updateOGTitleAndDescription(guestName);
       updateOGImage(invitationUrl);
 
-      // Set the share message
-      const shareMessage = `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n${guestName}\n\nAssalamu'alaikum Wr. Wb.\nBismillahirahmanirrahim.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\nBerikut link untuk info lengkap dari acara kami:\n\n${invitationUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nWassalamu'alaikum Wr. Wb.\n\nTerima Kasih..\n\nHormat kami,\nNaufal & Anggi`;
-
+      const shareMessage = generateShareMessage(guestName, invitationUrl);
       document.getElementById(
         "modalMessage"
       ).innerText = `Share this invitation to ${guestName}`;
 
-      // Update the share buttons
-      document.getElementById("whatsappShareBtn").onclick = () => {
-        window.open(
-          `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
-          "_blank"
-        );
-      };
-
-      document.getElementById("facebookShareBtn").onclick = () => {
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            invitationUrl
-          )}&quote=${encodeURIComponent(shareMessage)}&picture=${
-            document.getElementById("og-image").content
-          }`,
-          "_blank"
-        );
-      };
-
-      document.getElementById("instagramShareBtn").onclick = () => {
-        Swal.fire(
-          "Instagram",
-          "Sharing via Instagram is not directly supported.",
-          "info"
-        );
-      };
-
+      setupShareButtons(shareMessage, invitationUrl);
       new bootstrap.Modal(document.getElementById("shareModal")).show();
     });
   });
+
+  document
+    .querySelectorAll(".delete-btn")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => deleteInvitation(btn.dataset.id))
+    );
 }
 
-function showLoading() {
-  document.getElementById("loading").style.display = "block";
+function generateShareMessage(guestName, invitationUrl) {
+  return `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n${guestName}\n\nAssalamu'alaikum Wr. Wb.\nBismillahirahmanirrahim.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\nBerikut link untuk info lengkap dari acara kami:\n\n${invitationUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nWassalamu'alaikum Wr. Wb.\n\nTerima Kasih..\n\nHormat kami,\nNaufal & Anggi`;
 }
 
-function hideLoading() {
-  document.getElementById("loading").style.display = "none";
-}
+function setupShareButtons(shareMessage, invitationUrl) {
+  document.getElementById("whatsappShareBtn").onclick = () => {
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
+      "_blank"
+    );
+  };
 
-function copyToClipboard(url) {
-  navigator.clipboard
-    .writeText(url)
-    .then(() =>
-      Swal.fire("Copied!", "Invitation URL copied to clipboard.", "success")
-    )
-    .catch(() => Swal.fire("Error", "Failed to copy invitation URL.", "error"));
+  document.getElementById("facebookShareBtn").onclick = () => {
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        invitationUrl
+      )}&quote=${encodeURIComponent(shareMessage)}&picture=${
+        document.getElementById("og-image").content
+      }`,
+      "_blank"
+    );
+  };
+
+  document.getElementById("instagramShareBtn").onclick = () => {
+    Swal.fire(
+      "Instagram",
+      "Sharing via Instagram is not directly supported.",
+      "info"
+    );
+  };
 }
 
 async function deleteInvitation(guestId) {
@@ -584,6 +576,23 @@ async function deleteInvitation(guestId) {
     console.error("Delete error:", error);
     Swal.fire("Error", "Failed to delete guest. Try again later.", "error");
   }
+}
+
+function showLoading() {
+  document.getElementById("loading").style.display = "block";
+}
+
+function hideLoading() {
+  document.getElementById("loading").style.display = "none";
+}
+
+function copyToClipboard(url) {
+  navigator.clipboard
+    .writeText(url)
+    .then(() =>
+      Swal.fire("Copied!", "Invitation URL copied to clipboard.", "success")
+    )
+    .catch(() => Swal.fire("Error", "Failed to copy invitation URL.", "error"));
 }
 
 function updateOGTitleAndDescription(guestName) {
@@ -609,7 +618,8 @@ function updateOGImage(invitationUrl) {
     'meta[name="twitter:image"]'
   );
 
-  const dynamicImageUrl = `https://res.cloudinary.com/djgr3hq5k/image/upload/v1732463390/gd8fyaby9bvavvq5ecwv.jpg`; // Replace this with a dynamic image URL if needed
+  const dynamicImageUrl =
+    "https://res.cloudinary.com/djgr3hq5k/image/upload/v1732463390/gd8fyaby9bvavvq5ecwv.jpg";
 
   if (ogImageMetaTag) {
     ogImageMetaTag.setAttribute("content", dynamicImageUrl);
