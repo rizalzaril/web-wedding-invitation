@@ -126,7 +126,7 @@ html {
 @media (max-width: 440px) {
   .image-display {
     height: 350px;
-    width: 85vw;
+    width: 80vw;
     border-radius: var(--border-m);
   }
 
