@@ -468,7 +468,7 @@ function populateTableWithDataTables(data) {
   tableBody.innerHTML = data.length
     ? data
         .map(
-          ({ nama_tamu, url, timestamp }) => `
+          ({ id, nama_tamu, url, timestamp }) => `
 <tr>
   <td>${nama_tamu}</td>
   <td>
