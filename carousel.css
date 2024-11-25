@@ -135,7 +135,7 @@ html {
   .image-display {
     border-radius: var(--border-xl);
     overflow: hidden;
-    min-height: 50vmin;
+    min-height: 70vmin;
     /* aspect-ratio: 16 / 9; */
     box-shadow: 0 0.375em 0.67em #0003, 0 0.5em 1.3em #0002;
   }
@@ -144,6 +144,14 @@ html {
     padding: 1rem;
     width: clamp(300px, 90vw, 400px);
     overflow-y: hidden;
+  }
+
+  .carousel-img {
+    height: 10%;
+    width: 10%;
+    max-width: 10%;
+    object-fit: cover;
+    display: block;
   }
 }
 
