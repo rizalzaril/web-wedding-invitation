@@ -155,7 +155,7 @@ html {
 
 @media (max-width: 378px) {
   .image-display {
-    min-height: 100vmin;
+    min-height: 80vmin;
   }
 
   .image-thumbnail-carousel {
