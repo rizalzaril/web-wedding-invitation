@@ -945,11 +945,11 @@ h1 {
   }
 
   .mempelai {
-    min-height: 130vh;
+    min-height: 135vh;
   }
 
   .mempelai::before {
-    height: 120%;
+    height: 100%;
   }
 
   .mempelai #imgMempelaiPria .img-thumbnail {
@@ -1109,7 +1109,7 @@ h1 {
   }
 
   .mempelai {
-    min-height: 130vh;
+    min-height: 140vh;
   }
 
   .mempelai::before {
@@ -1214,7 +1214,7 @@ h1 {
   }
 
   .closing::before {
-    height: 55%;
+    height: 75%;
   }
 
   .audio-icon-wrapper {
