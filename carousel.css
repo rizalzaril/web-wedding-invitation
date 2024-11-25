@@ -142,7 +142,7 @@ html {
 
   .image-thumbnail-carousel {
     padding: 1rem;
-    width: clamp(200px, 50vw, 300px);
+    width: clamp(200px, 90vw, 300px);
     overflow-y: hidden;
   }
 
