@@ -486,8 +486,8 @@ function populateTableWithDataTables(data) {
     day: "numeric",
   })}</td>
   <td>
-    <button class="delete-btn btn btn-sm btn-danger" data-id="${id}">
-      Delete <i class="fa fa-trash"></i>
+    <button class="delete-btn btn btn-sm btn-danger" data-id="${nama_tamu}">
+      <i class="fa fa-trash"></i>
     </button>
   </td>
 </tr>`
