@@ -129,13 +129,13 @@ html {
 
 @media (max-width: 440px) {
   .image-display {
-    height: 350px;
-    width: 80vw;
+    width: 100%;
     border-radius: var(--border-m);
   }
 
   .image-thumbnail-carousel {
-    width: clamp(240px, 90vw, 340px);
+    width: 90vw;
+    padding: 0.5rem;
   }
 
   .carousel__btn {
