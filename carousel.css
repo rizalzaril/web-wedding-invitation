@@ -101,7 +101,7 @@ html {
   display: flex;
   gap: var(--gap);
   padding: 0.5rem;
-  overflow-x: hidden;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -142,6 +142,14 @@ html {
     width: max(70%, 3rem);
     height: max(70%, 3rem);
   }
+
+  body {
+    overflow: hidden; /* Menyembunyikan scroll pada layar kecil */
+  }
+
+  .carousel__slider {
+    overflow-x: hidden; /* Menghentikan scroll horizontal di carousel */
+  }
 }
 
 @media (max-width: 320px) {
@@ -161,5 +169,13 @@ html {
   .carousel__slider {
     gap: 0.25rem;
     padding: 0.25rem;
+  }
+
+  body {
+    overflow: hidden; /* Menyembunyikan scroll pada layar kecil */
+  }
+
+  .carousel__slider {
+    overflow-x: hidden; /* Menghentikan scroll horizontal di carousel */
   }
 }
