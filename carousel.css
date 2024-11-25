@@ -125,7 +125,7 @@ html {
 
 @media (max-width: 440px) {
   .image-display {
-    min-height: 70vmin;
+    min-height: 20vmin;
     border-radius: var(--border-m);
   }
 
