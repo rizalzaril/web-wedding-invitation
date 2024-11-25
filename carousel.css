@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-y: hidden;
+}
+
 :root {
   --items: 5;
   --gap: 0.75rem;
@@ -170,6 +174,5 @@ html {
 
   .carousel__slider {
     overflow-x: hidden; /* Menghentikan scroll horizontal di carousel */
-    overflow-y: hidden;
   }
 }
