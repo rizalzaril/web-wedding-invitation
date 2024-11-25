@@ -145,6 +145,7 @@ html {
 
   .carousel__slider {
     overflow-x: hidden; /* Menghentikan scroll horizontal di carousel */
+    overflow-y: hidden;
   }
 }
 
@@ -169,5 +170,6 @@ html {
 
   .carousel__slider {
     overflow-x: hidden; /* Menghentikan scroll horizontal di carousel */
+    overflow-y: hidden;
   }
 }
