@@ -486,7 +486,7 @@ function populateTableWithDataTables(data) {
     day: "numeric",
   })}</td>
   <td>
-    <button class="delete-btn btn btn-sm btn-danger" data-id="${nama_tamu}">
+    <button class="delete-btn btn btn-sm btn-danger" data-id="${id}">
       <i class="fa fa-trash"></i>
     </button>
   </td>
@@ -521,10 +521,9 @@ function populateTableWithDataTables(data) {
 
 async function deleteInvitation(guestId) {
   try {
-    const response = await fetch(API_ENDPOINTS.deleteGuest, {
+    const response = await fetch(`${API_ENDPOINTS.deleteGuest}/${guestId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: guestId }),
     });
 
     if (!response.ok) throw new Error("Failed to delete guest.");
