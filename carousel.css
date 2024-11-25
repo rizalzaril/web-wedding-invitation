@@ -130,7 +130,7 @@ html {
   }
 
   .image-thumbnail-carousel {
-    width: clamp(240px, 90vw, 220px);
+    width: clamp(300px, 90vw, 400px);
   }
 
   .carousel__btn {
