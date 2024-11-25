@@ -148,7 +148,7 @@ html {
 
   .carousel-img {
     height: 10%;
-    width: 10%;
+    width: 100%;
     max-width: 10%;
     object-fit: cover;
     display: block;
