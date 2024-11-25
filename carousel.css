@@ -153,13 +153,13 @@ html {
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 378px) {
   .image-display {
-    min-height: 80vmin;
+    min-height: 100vmin;
   }
 
   .image-thumbnail-carousel {
-    width: 95vw;
+    width: 100vw;
     padding: 0.5rem;
   }
 
