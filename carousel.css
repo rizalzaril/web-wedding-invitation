@@ -33,14 +33,6 @@ html {
   display: block;
 }
 
-/* body {
-  min-block-size: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: hsla(194, 6%, 73%);
-} */
-
 .image-thumbnail-carousel {
   padding: 1rem;
   width: clamp(360px, 90vw, 450px);
@@ -133,30 +125,40 @@ html {
 
 @media (max-width: 440px) {
   .image-display {
-    border-radius: var(--border-xl);
-    overflow: hidden;
-    min-height: 80vmin;
-    /* aspect-ratio: 16 / 9; */
-    box-shadow: 0 0.375em 0.67em #0003, 0 0.5em 1.3em #0002;
+    min-height: 70vmin;
+    border-radius: var(--border-m);
   }
 
   .image-thumbnail-carousel {
-    padding: 1rem;
-    width: clamp(200px, 90vw, 300px);
-    overflow-y: hidden;
+    width: clamp(240px, 90vw, 320px);
   }
 
-  .carousel-img {
-    height: 100%;
-    width: 100%;
-    max-width: 100%;
+  .carousel__btn {
+    flex: 1 0 max(2rem, 5%);
+  }
+
+  .arrow-icon {
+    width: max(70%, 3rem);
+    height: max(70%, 3rem);
   }
 }
 
-@media (max-width: 378px) {
+@media (max-width: 320px) {
+  .image-display {
+    min-height: 80vmin;
+  }
+
   .image-thumbnail-carousel {
-    padding: 1rem;
-    width: clamp(300px, 90vw, 400px);
-    overflow-y: hidden;
+    width: 95vw;
+    padding: 0.5rem;
+  }
+
+  .carousel__slide {
+    flex: 1 0 calc((100% / var(--items)) - 5px);
+  }
+
+  .carousel__slider {
+    gap: 0.25rem;
+    padding: 0.25rem;
   }
 }
