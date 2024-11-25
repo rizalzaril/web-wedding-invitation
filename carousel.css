@@ -135,7 +135,7 @@ html {
   .image-display {
     border-radius: var(--border-xl);
     overflow: hidden;
-    min-height: 70vmin;
+    min-height: 80vmin;
     /* aspect-ratio: 16 / 9; */
     box-shadow: 0 0.375em 0.67em #0003, 0 0.5em 1.3em #0002;
   }
@@ -147,8 +147,8 @@ html {
   }
 
   .carousel-img {
-    height: 80%;
-    width: 80%;
+    height: 100%;
+    width: 100%;
     max-width: 100%;
     object-fit: cover;
     display: block;
