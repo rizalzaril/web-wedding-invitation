@@ -101,7 +101,7 @@ html {
   display: flex;
   gap: var(--gap);
   padding: 0.5rem;
-  overflow-x: auto;
+  overflow-x: hidden;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
