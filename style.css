@@ -932,11 +932,11 @@ h1 {
   }
 
   .pembukaan {
-    min-height: 120vh;
+    min-height: 100vh;
   }
 
   .pembukaan::before {
-    height: 120%;
+    height: 100%;
   }
 
   .butterfly-gif {
