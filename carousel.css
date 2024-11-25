@@ -143,10 +143,6 @@ html {
     height: max(70%, 3rem);
   }
 
-  body {
-    overflow: hidden; /* Menyembunyikan scroll pada layar kecil */
-  }
-
   .carousel__slider {
     overflow-x: hidden; /* Menghentikan scroll horizontal di carousel */
   }
@@ -169,10 +165,6 @@ html {
   .carousel__slider {
     gap: 0.25rem;
     padding: 0.25rem;
-  }
-
-  body {
-    overflow: hidden; /* Menyembunyikan scroll pada layar kecil */
   }
 
   .carousel__slider {
