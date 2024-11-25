@@ -388,6 +388,8 @@ async function fetchData() {
 const API_ENDPOINTS = {
   saveInvitation: "https://backend-undangan-pernikahan-opang.vercel.app/tamu",
   getGuests: "https://backend-undangan-pernikahan-opang.vercel.app/getTamu",
+  deleteGuest:
+    "https://backend-undangan-pernikahan-opang.vercel.app/deleteTamu",
 };
 
 function generateInvitationUrl(name) {
@@ -466,7 +468,7 @@ function populateTableWithDataTables(data) {
   tableBody.innerHTML = data.length
     ? data
         .map(
-          ({ nama_tamu, url, timestamp }) => `
+          ({ id, nama_tamu, url, timestamp }) => `
 <tr>
   <td>${nama_tamu}</td>
   <td>
@@ -483,10 +485,15 @@ function populateTableWithDataTables(data) {
     month: "long",
     day: "numeric",
   })}</td>
+  <td>
+    <button class="delete-btn btn btn-sm btn-danger" data-id="${id}">
+      Delete <i class="fa fa-trash"></i>
+    </button>
+  </td>
 </tr>`
         )
         .join("")
-    : `<tr><td colspan="3" class="text-center">No invitations yet.</td></tr>`;
+    : `<tr><td colspan="4" class="text-center">No invitations yet.</td></tr>`;
 
   $(tableId).DataTable();
 
@@ -500,48 +507,45 @@ function populateTableWithDataTables(data) {
     btn.addEventListener("click", () => {
       const guestName = btn.dataset.name;
       const invitationUrl = btn.dataset.url;
-
-      // Update OG meta tags dynamically
-      updateOGTitleAndDescription(guestName);
-      updateOGImage(invitationUrl);
-
-      // Set the share message
-      const shareMessage = `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n${guestName}\n\nAssalamu'alaikum Wr. Wb.\nBismillahirahmanirrahim.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\nBerikut link untuk info lengkap dari acara kami:\n\n${invitationUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nWassalamu'alaikum Wr. Wb.\n\nTerima Kasih..\n\nHormat kami,\nNaufal & Anggi`;
-
-      document.getElementById(
-        "modalMessage"
-      ).innerText = `Share this invitation to ${guestName}`;
-
-      // Update the share buttons
-      document.getElementById("whatsappShareBtn").onclick = () => {
-        window.open(
-          `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
-          "_blank"
-        );
-      };
-
-      document.getElementById("facebookShareBtn").onclick = () => {
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            invitationUrl
-          )}&quote=${encodeURIComponent(shareMessage)}&picture=${
-            document.getElementById("og-image").content
-          }`,
-          "_blank"
-        );
-      };
-
-      document.getElementById("instagramShareBtn").onclick = () => {
-        Swal.fire(
-          "Instagram",
-          "Sharing via Instagram is not directly supported.",
-          "info"
-        );
-      };
-
-      new bootstrap.Modal(document.getElementById("shareModal")).show();
+      shareInvitation(guestName, invitationUrl);
     });
   });
+
+  document.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const guestId = btn.dataset.id;
+      deleteInvitation(guestId);
+    });
+  });
+}
+
+async function deleteInvitation(guestId) {
+  try {
+    const response = await fetch(API_ENDPOINTS.deleteGuest, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: guestId }),
+    });
+
+    if (!response.ok) throw new Error("Failed to delete guest.");
+
+    await fetchDataUndangan();
+
+    Swal.fire("Success", "Guest deleted successfully!", "success");
+  } catch (error) {
+    console.error("Delete error:", error);
+    Swal.fire("Error", "Failed to delete guest. Try again later.", "error");
+  }
+}
+
+function shareInvitation(guestName, invitationUrl) {
+  const shareMessage = `Kepada Yth.\nBapak/Ibu/Saudara/i\n\n${guestName}\n\nAssalamu'alaikum Wr. Wb.\nBismillahirahmanirrahim.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.\n\nBerikut link untuk info lengkap dari acara kami:\n\n${invitationUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nWassalamu'alaikum Wr. Wb.\n\nTerima Kasih..\n\nHormat kami,\nNaufal & Anggi`;
+
+  Swal.fire(
+    "Share Invitation",
+    `Share this invitation to ${guestName} using WhatsApp or other platforms.`,
+    "info"
+  );
 }
 
 function showLoading() {
@@ -559,44 +563,6 @@ function copyToClipboard(url) {
       Swal.fire("Copied!", "Invitation URL copied to clipboard.", "success")
     )
     .catch(() => Swal.fire("Error", "Failed to copy invitation URL.", "error"));
-}
-
-function updateOGTitleAndDescription(guestName) {
-  const ogTitleMetaTag = document.querySelector('meta[property="og:title"]');
-  const ogDescriptionMetaTag = document.querySelector(
-    'meta[property="og:description"]'
-  );
-
-  if (ogTitleMetaTag) {
-    ogTitleMetaTag.setAttribute("content", `The Wedding of ${guestName}`);
-  }
-  if (ogDescriptionMetaTag) {
-    ogDescriptionMetaTag.setAttribute(
-      "content",
-      "Dengan memohon Rahmat dan Ridho Allah SWT, Kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dalam pernikahan kami"
-    );
-  }
-}
-
-function updateOGImage(invitationUrl) {
-  const ogImageMetaTag = document.getElementById("og-image");
-  const twitterImageMetaTag = document.querySelector(
-    'meta[name="twitter:image"]'
-  );
-
-  const dynamicImageUrl = `https://res.cloudinary.com/djgr3hq5k/image/upload/v1732463390/gd8fyaby9bvavvq5ecwv.jpg`; // Replace this with a dynamic image URL if needed
-
-  if (ogImageMetaTag) {
-    ogImageMetaTag.setAttribute("content", dynamicImageUrl);
-  }
-  if (twitterImageMetaTag) {
-    twitterImageMetaTag.setAttribute("content", dynamicImageUrl);
-  }
-
-  const ogUrlMetaTag = document.querySelector('meta[property="og:url"]');
-  if (ogUrlMetaTag) {
-    ogUrlMetaTag.setAttribute("content", invitationUrl);
-  }
 }
 
 // Initial Data Fetch
