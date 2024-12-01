@@ -36,20 +36,19 @@ gsap.utils.toArray(".transition-scale-scroll").forEach((element, index) => {
   gsap.to(element, {
     scrollTrigger: {
       trigger: element,
-      // start: "top 85%", // Starts animation slightly later for a softer entrance
+      // start: "top 85%", //
       toggleActions: "restart pause resume none",
-      // markers: true, // Hide markers for a cleaner look
+      // markers: true,
     },
-    scale: 1, // Full scale at the end
-    opacity: 1, // Full visibility at the end
-    duration: 1, // Longer duration for smoother animation
-    ease: "power2.out", // Softer easing for smoothness
+    scale: 1,
+    opacity: 1,
+    duration: 1,
+    ease: "power2.out",
     display: "block",
-    // delay: index * 0.15, // Less delay for more continuity
+    // delay: index * 0.15,
   });
 });
 
-// Select all elements with the class '.col-home-scroll-up'
 document.querySelectorAll(".col-home-scroll-up").forEach((element) => {
   gsap.to(element, {
     scrollTrigger: {
