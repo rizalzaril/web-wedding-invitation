@@ -46,8 +46,8 @@ html {
 
 .butterfly-gif {
   display: inline-block;
-  position: absolute;
-  top: 140px;
+  position: relative;
+  top: 90px;
   left: 50px;
 }
 
@@ -940,8 +940,7 @@ h1 {
   }
 
   .butterfly-gif {
-    top: 175px;
-    left: 50px;
+    position: inline-block;
   }
 
   .mempelai {

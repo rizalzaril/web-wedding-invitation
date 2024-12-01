@@ -74,55 +74,51 @@
 //   });
 // });
 
-// Get references to the audio element and icon
 const audio = document.querySelector("#song");
 const audioIcon = document.querySelector("#audio-icon");
 
-// Function to update the icon based on audio state
-function updateIcon() {
-  if (!audio.paused) {
+// Function to toggle audio play/pause and update icon
+function toggleAudio() {
+  if (audio.paused) {
+    audio.play();
+    updateIcon("playing");
+  } else {
+    audio.pause();
+    updateIcon("paused");
+  }
+}
+
+// Function to update icon and animation based on audio state
+function updateIcon(state) {
+  if (state === "playing") {
     audioIcon.classList.remove("fa-play");
-    audioIcon.classList.add("fa-pause"); // Change icon to pause when playing
-    audioIcon.style.animation = "spin 2s linear infinite"; // Add spinning animation when playing
+    audioIcon.classList.add("fa-pause");
+    audioIcon.style.animation = "spin 2s linear infinite";
   } else {
     audioIcon.classList.remove("fa-pause");
-    audioIcon.classList.add("fa-play"); // Change icon to play when paused
-    audioIcon.style.animation = "none"; // Remove spinning animation when paused
+    audioIcon.classList.add("fa-play");
+    audioIcon.style.animation = "none";
   }
 }
 
-// Function to toggle audio play/pause state
-function toggleAudio() {
-  if (!audio.paused) {
-    audio.pause();
-  } else {
-    audio.play().catch((error) => {
-      console.warn("Audio play failed. Interaction is required.");
-    });
-  }
-  updateIcon();
-}
-
-// Wait for DOM to load
+// Load audio source dynamically from API
 window.addEventListener("DOMContentLoaded", () => {
-  // Fetch the audio file URL from the API and set it as the source
   fetch("https://backend-undangan-pernikahan-opang.vercel.app/getSound")
     .then((response) => response.json())
     .then((data) => {
-      const audioUrl = data[0].fileUrl; // Access the first item in the array and get the fileUrl
+      const audioUrl = data[0].fileUrl; // Set the first file URL as the source
       const audioSource = document.querySelector("#song source");
-      audioSource.src = audioUrl; // Set the src of the <source> element
-      audio.load(); // Reload the audio element to apply the new source
+      audioSource.src = audioUrl;
+      audio.load(); // Reload the audio element with new source
+
+      // Attempt autoplay
+      audio
+        .play()
+        .then(() => updateIcon("playing"))
+        .catch(() => {
+          // Autoplay blocked, wait for user interaction
+          updateIcon("paused");
+        });
     })
-    .catch((error) => {
-      console.error("Error fetching audio URL:", error);
-    });
-
-  // Attach event listener to the audio icon for toggling playback
-  audioIcon.addEventListener("click", () => {
-    toggleAudio();
-  });
-
-  // Update the icon initially
-  updateIcon();
+    .catch((error) => console.error("Error fetching audio URL:", error));
 });
