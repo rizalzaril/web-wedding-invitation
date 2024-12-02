@@ -17,6 +17,7 @@
 // }
 
 // disableScroll();
+const hero = document.querySelector("#heroSection");
 const song = document.querySelector("#song");
 const audioIcon = document.querySelector("#audio-icon");
 const rootElement = document.querySelector("body");
@@ -45,6 +46,7 @@ function enableScroll() {
   rootElement.style.left = "";
   rootElement.style.width = "";
   audioIcon.style.display = "block";
+  hero.style.display = "none";
 
   // Kembalikan ke posisi scroll sebelumnya
   window.scrollTo(scrollLeft, scrollTop);
