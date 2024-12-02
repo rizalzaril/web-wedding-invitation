@@ -1,23 +1,5 @@
-// const rootElement = document.querySelector("body");
-// function disableScroll() {
-//   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-//   scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
-//   window.onscroll = function () {
-//     window.scrollTo(screenTop, scrollLeft);
-//   };
-
-//   rootElement.style.scrollBehavior = "unset";
-// }
-
-// function enableScroll() {
-//   window.onscroll = function () {
-//     rootElement.style.scrollBehavior = "smooth";
-//   };
-// }
-
 // disableScroll();
-// const hero = document.querySelector(".hero");
+
 const song = document.querySelector("#song");
 const audioIcon = document.querySelector("#audio-icon");
 const rootElement = document.querySelector("body");
@@ -46,7 +28,6 @@ function enableScroll() {
   rootElement.style.left = "";
   rootElement.style.width = "";
   audioIcon.style.display = "block";
-  //   hero.style.display = "none";
 
   // Kembalikan ke posisi scroll sebelumnya
   window.scrollTo(scrollLeft, scrollTop);
@@ -74,3 +55,9 @@ function toggleAudio() {
 }
 
 disableScroll();
+
+// if (enableScroll()) {
+//   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//   scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+//   hero.style.display = "none";
+// }

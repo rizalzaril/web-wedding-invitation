@@ -36,7 +36,7 @@ gsap.utils.toArray(".transition-scale-scroll").forEach((element, index) => {
   gsap.to(element, {
     scrollTrigger: {
       trigger: element,
-      // start: "top 85%", //
+      // start: "top -100px",
       toggleActions: "restart pause resume none",
       // markers: true,
     },
