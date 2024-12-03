@@ -24,6 +24,10 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria/")
 
       caption.innerHTML = mempelaiPria.caption;
 
+      const instagramPria = document.getElementById("linkInstagramPria");
+
+      instagramPria.setAttribute("href", mempelaiPria.linkInstagram);
+
       const colDiv = document.createElement("div");
       colDiv.classList.add("col"); // This ensures the images are responsive based on the grid
 
@@ -56,6 +60,10 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiWanita/")
       ); // Optional: To make the images responsive
       namaWanita.innerHTML = mempelaiWanita.nama;
       captionWanita.innerHTML = mempelaiWanita.caption;
+
+      const instagramWanita = document.getElementById("linkInstagramWanita");
+
+      instagramWanita.setAttribute("href", mempelaiWanita.linkInstagram);
 
       const colDiv = document.createElement("div");
       colDiv.classList.add("col"); // This ensures the images are responsive based on the grid

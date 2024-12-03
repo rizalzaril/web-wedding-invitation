@@ -33,3 +33,18 @@ function copyAccountNumberSecond() {
       console.error("Gagal menyalin teks: ", err);
     });
 }
+
+// GIFT TOGGLE //
+
+$(document).ready(function () {
+  $("#toggleGift").click(function () {
+    const giftContent = $("#gift-content");
+    if (giftContent.is(":visible")) {
+      giftContent.animate({ opacity: 0 }, 500, function () {
+        giftContent.hide();
+      });
+    } else {
+      giftContent.show().animate({ opacity: 1 }, 300);
+    }
+  });
+});

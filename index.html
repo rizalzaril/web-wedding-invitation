@@ -180,7 +180,11 @@
             </article>
 
             <div class="d-flex justify-content-center align-items-center">
-              <a class="btn btn-lg btn-dark button-animate" href="http://"
+              <a
+                class="btn btn-lg btn-dark button-animate"
+                target="_blank"
+                id="linkInstagramPria"
+                href=""
                 ><i class="fa-brands fa-instagram"></i> Instagram</a
               >
             </div>
@@ -196,7 +200,11 @@
             </article>
 
             <div class="d-flex justify-content-center align-items-center">
-              <a class="btn btn-lg btn-dark button-animate" href="http://"
+              <a
+                class="btn btn-lg btn-dark button-animate"
+                target="_blank"
+                id="linkInstagramWanita"
+                href=""
                 ><i class="fa-brands fa-instagram"></i> Instagram</a
               >
             </div>
@@ -505,58 +513,66 @@
             pemberian Anda secara cashless."
           </p>
 
-          <!-- FIRST BANK -->
-          <div class="bank-content">
-            <div class="card text-center" style="margin-top: 50px">
-              <div class="card-header">
-                <div id="logoBankContainer"></div>
-              </div>
-              <div
-                class="card-body bg-transparent"
-                style="
-                  background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
-                "
-              >
-                <h5 class="card-title bank-number"></h5>
-                <p class="card-text bank-name"></p>
-              </div>
-              <div
-                class="card-footer row justify-content-center text-body-secondary"
-              >
-                <button
-                  class="btn btn-dark btn-lg shadow-sm"
-                  onclick="copyAccountNumber()"
+          <!-- GIFTS TOGGLE -->
+          <button id="toggleGift" class="btn btn-lg btn-dark button-animate">
+            Kirim Hadiah
+          </button>
+
+          <div id="gift-content" style="display: none">
+            <!-- FIRST BANK -->
+
+            <div class="bank-content">
+              <div class="card text-center" style="margin-top: 50px">
+                <div class="card-header">
+                  <div id="logoBankContainer"></div>
+                </div>
+                <div
+                  class="card-body bg-transparent"
+                  style="
+                    background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
+                  "
                 >
-                  <i class="fa-solid fa-copy"></i> Copy
-                </button>
+                  <h5 class="card-title bank-number"></h5>
+                  <p class="card-text bank-name"></p>
+                </div>
+                <div
+                  class="card-footer row justify-content-center text-body-secondary"
+                >
+                  <button
+                    class="btn btn-dark btn-lg shadow-sm"
+                    onclick="copyAccountNumber()"
+                  >
+                    <i class="fa-solid fa-copy"></i> Copy
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- SECOND BANK -->
-          <div class="bank-content">
-            <div class="card text-center" style="margin-top: 50px">
-              <div class="card-header">
-                <div id="logoBankContainerSecond"></div>
-              </div>
-              <div
-                class="card-body bg-transparent"
-                style="
-                  background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
-                "
-              >
-                <h5 class="card-title bank-number-second"></h5>
-                <p class="card-text bank-name-second"></p>
-              </div>
-              <div
-                class="card-footer row justify-content-center text-body-secondary"
-              >
-                <button
-                  class="btn btn-dark btn-lg shadow-sm"
-                  onclick="copyAccountNumberSecond()"
+            <!-- SECOND BANK -->
+            <div class="bank-content">
+              <div class="card text-center" style="margin-top: 50px">
+                <div class="card-header">
+                  <div id="logoBankContainerSecond"></div>
+                </div>
+                <div
+                  class="card-body bg-transparent"
+                  style="
+                    background-image: url('https://i.pinimg.com/564x/f1/fb/f2/f1fbf23b2307cec772995f48436c2f02.jpg');
+                  "
                 >
-                  <i class="fa-solid fa-copy"></i> Copy
-                </button>
+                  <h5 class="card-title bank-number-second"></h5>
+                  <p class="card-text bank-name-second"></p>
+                </div>
+                <div
+                  class="card-footer row justify-content-center text-body-secondary"
+                >
+                  <button
+                    class="btn btn-dark btn-lg shadow-sm"
+                    onclick="copyAccountNumberSecond()"
+                  >
+                    <i class="fa-solid fa-copy"></i> Copy
+                  </button>
+                </div>
               </div>
             </div>
           </div>
