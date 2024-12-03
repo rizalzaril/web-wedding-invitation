@@ -825,7 +825,7 @@ document
     const id = document.getElementById("idJadwalResepsi").value;
     const tanggal = document.getElementById("tglJadwalResepsi").value;
     const jam = document.getElementById("jamJadwalResepsi").value;
-    const alamatResepsi = document.getElementById("alamatJadwalResepsi").value;
+    const alamat = document.getElementById("alamatJadwalResepsi").value;
     const jamSelesai = document.getElementById("jamJadwalSelesaiResepsi").value;
 
     // Prepare the data to send in the update request
@@ -834,7 +834,7 @@ document
       tanggal,
       jam,
       jamSelesai,
-      alamatResepsi,
+      alamat,
     };
 
     // Show SweetAlert2 confirmation before updating
