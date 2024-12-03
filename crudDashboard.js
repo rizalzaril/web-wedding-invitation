@@ -822,7 +822,7 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission
 
-    const idResepsi = document.getElementById("idJadwalResepsi").value;
+    const id = document.getElementById("idJadwalResepsi").value;
     const tanggal = document.getElementById("tglJadwalResepsi").value;
     const jam = document.getElementById("jamJadwalResepsi").value;
     const alamatResepsi = document.getElementById("alamatJadwalResepsi").value;
@@ -830,7 +830,7 @@ document
 
     // Prepare the data to send in the update request
     const updatedData = {
-      idResepsi,
+      id,
       tanggal,
       jam,
       jamSelesai,
@@ -849,7 +849,7 @@ document
       if (result.isConfirmed) {
         // Send a PUT request to update the data on the server
         fetch(
-          `https://backend-undangan-pernikahan-opang.vercel.app/updateJadwalResepsi/${idResepsi}`,
+          `https://backend-undangan-pernikahan-opang.vercel.app/updateJadwalResepsi/${id}`,
           {
             method: "PUT",
             headers: {
