@@ -820,19 +820,15 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getJadwalResepsi")
 document
   .getElementById("jadwalResepsiForm")
   .addEventListener("submit", function (event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent the default form submission
 
     const id = document.getElementById("idJadwalResepsi").value;
     const tanggal = document.getElementById("tglJadwalResepsi").value;
     const jam = document.getElementById("jamJadwalResepsi").value;
-    const jamSelesai = document.getElementById("jamJadwalSelesaiResepsi").value;
     const alamatResepsi = document.getElementById("alamatJadwalResepsi").value;
+    const jamSelesai = document.getElementById("jamJadwalSelesaiResepsi").value;
 
-    if (!tanggal || !jam || !jamSelesai || !alamatResepsi) {
-      Swal.fire("Error!", "Harap isi semua data sebelum melanjutkan.", "error");
-      return;
-    }
-
+    // Prepare the data to send in the update request
     const updatedData = {
       id,
       tanggal,
@@ -841,15 +837,17 @@ document
       alamatResepsi,
     };
 
+    // Show SweetAlert2 confirmation before updating
     Swal.fire({
-      title: "Apakah Anda yakin?",
-      text: "Anda akan memperbarui Jadwal Resepsi.",
+      title: "Are you sure?",
+      text: "Do you want to update the Jadwal Resepsi?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Ya, perbarui!",
-      cancelButtonText: "Batal",
+      confirmButtonText: "Yes, update it!",
+      cancelButtonText: "No, cancel!",
     }).then((result) => {
       if (result.isConfirmed) {
+        // Send a PUT request to update the data on the server
         fetch(
           `https://backend-undangan-pernikahan-opang.vercel.app/updateJadwalResepsi/${id}`,
           {
@@ -860,25 +858,20 @@ document
             body: JSON.stringify(updatedData),
           }
         )
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Gagal memperbarui data.");
-            }
-            return response.json();
-          })
+          .then((response) => response.json())
           .then((data) => {
-            console.log("Berhasil diperbarui:", data);
+            console.log("Update successful:", data);
             Swal.fire(
-              "Berhasil!",
-              "Jadwal Resepsi berhasil diperbarui.",
+              "Updated!",
+              "The Jadwal Resepsi has been updated successfully.",
               "success"
             );
           })
           .catch((error) => {
-            console.error("Terjadi kesalahan:", error);
+            console.error("Error updating data:", error);
             Swal.fire(
               "Error!",
-              "Terjadi kesalahan saat memperbarui data.",
+              "There was an error updating the Resepsi Akad.",
               "error"
             );
           });
