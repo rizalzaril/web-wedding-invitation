@@ -1117,10 +1117,13 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria")
   })
   .then((data) => {
     if (Array.isArray(data) && data.length > 0) {
-      const { imageUrl, id, caption, nama } = data[0];
+      const { imageUrl, id, caption, nama, linkInstagram } = data[0];
 
       const imgElement = document.getElementById("imagePreview");
       const namaMempelaiPria = document.getElementById("namaMempelaiPria");
+      const linkInstagramMempelaiPria = document.getElementById(
+        "linkInstagramMempelaiPria"
+      );
       const idMempelaiPria = document.getElementById("idMempelaiPria");
       const captionMempelaiPria = document.getElementById(
         "captionMempelaiPria"
@@ -1129,6 +1132,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiPria")
       // Set initial image source
       imgElement.src = imageUrl;
       idMempelaiPria.value = id;
+      linkInstagramMempelaiPria.value = linkInstagram;
       captionMempelaiPria.value = caption;
       namaMempelaiPria.value = nama;
     } else {
@@ -1167,10 +1171,13 @@ document
     const id = document.getElementById("idMempelaiPria").value;
     const caption = document.getElementById("captionMempelaiPria").value;
     const nama = document.getElementById("namaMempelaiPria").value;
+    const linkInstagram = document.getElementById(
+      "linkInstagramMempelaiPria"
+    ).value;
     const imageInput = document.getElementById("imageMempelaiPria");
 
     // Basic validation
-    if (!id || !caption || !nama) {
+    if (!id || !caption || !nama || !linkInstagram) {
       Swal.fire("Error!", "Please fill in all fields.", "error");
       return;
     }
@@ -1179,6 +1186,7 @@ document
     formData.append("id", id);
     formData.append("caption", caption);
     formData.append("nama", nama);
+    formData.append("linkInstagram", linkInstagram);
 
     // If an image file is selected, append it to the formData
     const file = imageInput.files[0];
@@ -1253,10 +1261,13 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiWanita")
   })
   .then((data) => {
     if (Array.isArray(data) && data.length > 0) {
-      const { imageUrl, id, caption, nama } = data[0];
+      const { imageUrl, id, caption, nama, linkInstagram } = data[0];
 
       const imgElement = document.getElementById("imagePreview2");
       const namaMempelaiWanita = document.getElementById("namaMempelaiWanita");
+      const linkInstagramMempelaiWanita = document.getElementById(
+        "linkInstagramMempelaiWanita"
+      );
       const idMempelaiPria = document.getElementById("idMempelaiWanita");
       const captionMempelaiWanita = document.getElementById(
         "captionMempelaiWanita"
@@ -1266,6 +1277,7 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getMempelaiWanita")
       imgElement.src = imageUrl;
       idMempelaiPria.value = id;
       captionMempelaiWanita.value = caption;
+      linkInstagramMempelaiWanita.value = linkInstagram;
       namaMempelaiWanita.value = nama;
     } else {
       console.log("No map data available.");
@@ -1303,10 +1315,13 @@ document
     const id = document.getElementById("idMempelaiWanita").value;
     const caption = document.getElementById("captionMempelaiWanita").value;
     const nama = document.getElementById("namaMempelaiWanita").value;
+    const linkInstagram = document.getElementById(
+      "linkInstagramMempelaiWanita"
+    ).value;
     const imageInput = document.getElementById("imageMempelaiWanita");
 
     // Basic validation
-    if (!id || !caption || !nama) {
+    if (!id || !caption || !nama || !linkInstagram) {
       Swal.fire("Error!", "Please fill in all fields.", "error");
       return;
     }
@@ -1315,6 +1330,7 @@ document
     formData.append("id", id);
     formData.append("caption", caption);
     formData.append("nama", nama);
+    formData.append("linkInstagram", linkInstagram);
 
     // If an image file is selected, append it to the formData
     const file = imageInput.files[0];
