@@ -822,7 +822,7 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission
 
-    const id = document.getElementById("idJadwalResepsi").value;
+    const idResepsi = document.getElementById("idJadwalResepsi").value;
     const tanggal = document.getElementById("tglJadwalResepsi").value;
     const jam = document.getElementById("jamJadwalResepsi").value;
     const alamatResepsi = document.getElementById("alamatJadwalResepsi").value;
@@ -830,7 +830,7 @@ document
 
     // Prepare the data to send in the update request
     const updatedData = {
-      id,
+      idResepsi,
       tanggal,
       jam,
       jamSelesai,
