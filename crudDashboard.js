@@ -2332,3 +2332,170 @@ document.addEventListener("DOMContentLoaded", () => {
   // Panggil fetchSoundData saat halaman dimuat
   fetchSoundData();
 });
+
+// ***************************** GIFT BARANG FUNCTION ************************************* \\
+
+$(document).ready(function () {
+  fetchData();
+});
+
+async function fetchData() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getBarang"
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data = await response.json();
+    console.log("Fetched data:", data); // Log fetched data for verification
+
+    const tableBody = $("#tbGiftBarang tbody");
+    tableBody.empty();
+
+    if (data.length === 0) {
+      console.warn("No data to display in table");
+      return;
+    }
+
+    data.forEach((item) => {
+      const date = new Date(item.timestamp);
+      const formattedDate = date.toLocaleDateString("id-ID", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      const row = `<tr>
+      <td style="font-size:12px">${item.namaBarang}</td>
+      <td><img class="img-thumbnail" style="width:50px; height:50px" src="${item.imageUrl}" /></td>
+      <td style="font-size:10px" class="shopee-link">${item.linkShopee} &nbsp;
+      </td>
+      <td>
+        <a class="btn btn-danger btn-sm" href="${item.linkShopee}">Visit</a>
+      </td>
+      <td>
+        <div class="d-flex gap-2">
+          <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+          <button class="btn btn-primary"><i class="fa-solid fa-edit"></i></button>
+        </div>
+      </td>
+    </tr>`;
+
+      tableBody.append(row);
+
+      // Truncate Shopee Link after appending to the table
+      document.querySelectorAll(".shopee-link").forEach((td) => {
+        const linkText = td.childNodes[0].textContent.trim(); // Get the raw text
+        if (linkText.length > 20) {
+          td.childNodes[0].textContent = linkText.substring(0, 20) + "..."; // Truncate and append ellipsis
+        }
+      });
+    });
+
+    // Destroy any existing DataTable instance, then initialize a new one
+    if ($.fn.DataTable.isDataTable("#tbGiftBarang")) {
+      $("#tbGiftBarang").DataTable().destroy();
+    }
+
+    $("#tbGiftBarang").DataTable();
+  } catch (error) {
+    console.error("Error fetching or processing data:", error);
+  }
+}
+
+// post data barang \\
+// Function to post data
+async function postData(formData) {
+  try {
+    // Tampilkan dialog konfirmasi sebelum mengirim data
+    const confirmation = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to add this item?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    });
+
+    // Jika pengguna memilih "No", hentikan eksekusi
+    if (!confirmation.isConfirmed) {
+      return Swal.fire({
+        icon: "info",
+        title: "Cancelled",
+        text: "Item addition cancelled.",
+      });
+    }
+
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/postBarang",
+      {
+        method: "POST",
+        body: formData, // Do not set Content-Type manually
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to post data");
+    }
+
+    const result = await response.json();
+    console.log("Data successfully posted:", result);
+
+    // Show success notification
+    await Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: `Barang "${result.namaBarang}" has been successfully added!`,
+    });
+
+    // Append the new data to the table
+
+    // Clear form for next input
+    document.querySelector("#addbarangForm").reset();
+  } catch (error) {}
+}
+
+// Event listener for form submission
+document.addEventListener("DOMContentLoaded", () => {
+  document
+    .querySelector("#addbarangForm")
+    .addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const fileInput = document.querySelector("#imageBarang");
+      if (!fileInput || fileInput.files.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          title: "No Image Selected",
+          text: "Please select an image to upload.",
+        });
+        return;
+      }
+
+      const namaBarang = document.querySelector("#namaBarang").value;
+      const linkShopee = document.querySelector("#linkShopee").value;
+
+      if (!namaBarang || !linkShopee) {
+        Swal.fire({
+          icon: "warning",
+          title: "Incomplete Form",
+          text: "Please fill out all fields.",
+        });
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("namaBarang", namaBarang);
+      formData.append("linkShopee", linkShopee);
+      formData.append("file", fileInput.files[0]); // File upload
+
+      try {
+        await postData(formData); // Post data and handle success
+      } catch (error) {
+        console.error("Error posting data:", error);
+      }
+    });
+});

@@ -110,6 +110,10 @@ body {
     font-size: 0.9rem; /* Smaller on mobile-sized screens */
   }
 
+  body {
+    font-size: 0.9rem;
+  }
+
   .mt-mobile {
     margin-top: 150px;
   }

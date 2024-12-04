@@ -569,7 +569,7 @@ h1 {
 .rsvp {
   max-width: 480px;
   overflow: hidden;
-  min-height: 230vh;
+  min-height: 150vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("./img/harbour.png");
   top: 1;
@@ -751,6 +751,42 @@ h1 {
 .bank-name-second {
   font-family: "Share Tech Mono", monospace;
   font-weight: 500;
+}
+
+#product-container {
+  max-height: 600px; /* Set a maximum height for the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 0;
+}
+
+/* Customizing the scrollbar */
+#product-container::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+#product-container::-webkit-scrollbar-thumb {
+  background-color: rgb(187, 55, 66); /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 0px dotted #d47332; /* Border around the thumb */
+}
+
+#product-container::-webkit-scrollbar-track {
+  background-color: #ffffff; /* Color of the track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+.img-shopee-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  background-color: #000;
+  border: solid 1px white;
+  display: inline-block;
+}
+
+.img-shopee-container .img-shopee {
+  object-fit: cover;
+  width: 100%;
 }
 
 /* Responsive Settings */
@@ -1071,6 +1107,26 @@ h1 {
     height: 100%;
   }
 
+  #product-container {
+    max-height: 500px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 0;
+  }
+
+  .img-shopee-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    background-color: #000;
+    border: solid 1px white;
+    display: inline-block;
+  }
+
+  .img-shopee-container .img-shopee {
+    object-fit: cover;
+    width: 100%;
+  }
+
   .closing {
     min-height: 70vh;
   }
@@ -1207,6 +1263,20 @@ h1 {
 
   .owl-carousel {
     margin-top: 20px;
+  }
+
+  .img-shopee-container {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    background-color: #000;
+    border: solid 1px white;
+    display: inline-block;
+  }
+
+  .img-shopee-container .img-shopee {
+    object-fit: cover;
+    width: 100%;
   }
 
   .closing {

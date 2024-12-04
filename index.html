@@ -510,7 +510,7 @@
           <p class="text-center text-white">
             "Doa dan restu Anda adalah berkah yang tak ternilai bagi kami. Jika
             Anda ingin memberi tanda kasih, kami dengan rendah hati menerima
-            pemberian Anda secara cashless."
+            pemberian Anda."
           </p>
 
           <!-- GIFTS TOGGLE -->
@@ -518,7 +518,7 @@
             Kirim Hadiah
           </button>
 
-          <div id="gift-content" style="display: none">
+          <div id="gift-content" style="opacity: 0; display: none">
             <!-- FIRST BANK -->
 
             <div class="bank-content">
@@ -575,6 +575,49 @@
                 </div>
               </div>
             </div>
+
+            <!-- Belanja Shopee -->
+            <div class="p-3 mt-5">
+              <div
+                class="card col-md-10"
+                style="
+                  margin: 0 auto;
+                  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+                  backdrop-filter: blur(10px); /* Blur effect */
+                  -webkit-backdrop-filter: blur(10px);
+                  border-radius: 10px;
+                "
+              >
+                <div class="text-white p-3">
+                  <p class="mt-5">
+                    Hadiah berupa fisik bisa dikirim melalui alamat yg tertera
+                    dibawah ini
+                  </p>
+
+                  <div
+                    class="card mt-3"
+                    style="
+                      margin: 0 auto;
+                      background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+                      backdrop-filter: blur(10px); /* Blur effect */
+                      -webkit-backdrop-filter: blur(10px);
+                      border-radius: 5px;
+                      border: 2px dotted white;
+                    "
+                  >
+                    <div class="card-body">
+                      <p class="text-white">
+                        JI. Raya Babelan No.175, Kebalen, Kec. Babelan,
+                        Kabupaten Bekasi, Jawa Barat 17610
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div id="product-container" class="row p-3 mt-3 flex-shopee">
+                  <!-- Product details will be populated here -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -620,7 +663,7 @@
     <!-- AUDIO -->
     <div id="audio-container">
       <audio id="song" autoplay loop>
-        <source src="./audio/satu-shaf.mp3" type="audio/mp3" />
+        <source src="./audio/satu-shaf.mp" type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>
 

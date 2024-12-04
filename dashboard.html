@@ -1233,7 +1233,7 @@
           aria-labelledby="disabled-tab"
           tabindex="0"
         >
-          <div class="container mt-mobile">
+          <div class="mt-mobile">
             <div class="container" style="margin-top: 120px">
               <a class="mb-3 btn btn-dark" href="./content.html"
                 >Lihat perubahan <i class="fa-solid fa-eye"></i>
@@ -1383,10 +1383,191 @@
                 </div>
               </div>
 
+              <!-- tab gift barang -->
+
+              <div class="card mt-5">
+                <div class="card-body bg-light">
+                  <div class="d-flex gap-3">
+                    <h3>Gift Barang</h3>
+
+                    <div>
+                      <!-- Button trigger modal barang -->
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        Add barang <i class="fa-solid fa-plus-circle"></i>
+                      </button>
+
+                      <!-- Modal add barang -->
+
+                      <div
+                        class="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1
+                                class="modal-title fs-5"
+                                id="exampleModalLabel"
+                              >
+                                Add Barang
+                              </h1>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="addbarangForm">
+                                <div class="mb-3">
+                                  <label for="namaBarang" class="form-label"
+                                    >Nama Barang</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="namaBarang"
+                                    name="namaBarang"
+                                  />
+                                </div>
+                                <div class="mb-3">
+                                  <label for="imageBarang" class="form-label"
+                                    >Image</label
+                                  >
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="imageBarang"
+                                    name="imageBarang"
+                                    accept="image/*"
+                                    required
+                                  />
+                                </div>
+                                <div class="mb-3">
+                                  <label for="linkShopee" class="form-label"
+                                    >Link Shopee</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="linkShopee"
+                                    name="linkShopee"
+                                  />
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                  Submit
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <!-- Button trigger modal alamat -->
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal2"
+                      >
+                        Alamat Penerima
+                        <i class="fa-solid fa-edit"></i>
+                      </button>
+
+                      <!-- Modal set alamat -->
+                      <div
+                        class="modal fade"
+                        id="exampleModal2"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1
+                                class="modal-title fs-5"
+                                id="exampleModalLabel"
+                              >
+                                Update Alamat Penerima
+                              </h1>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <form>
+                                <div class="mb-3">
+                                  <label for="namaBarang" class="form-label"
+                                    >Alamat Lengkap</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="alamatKirim"
+                                    name="alamatKirim"
+                                    aria-describedby="emailHelp"
+                                  />
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">
+                                  Submit
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <table
+                    id="tbGiftBarang"
+                    class="mt-3 table table-sm table-striped table-responsive"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Nama Barang</th>
+                        <th>Image</th>
+                        <th>Link Shopee</th>
+                        <th>#</th>
+                        <th>#</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                      <tr>
+                        <th>Nama Barang</th>
+                        <th>Image</th>
+                        <th>Link Shopee</th>
+                        <th>#</th>
+                        <th>#</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <div style="margin-top: 200px">.</div>
+
               <div style="margin-top: 200px">.</div>
             </div>
           </div>
         </div>
+
+        <!-- data gift barang -->
 
         <!-- data lagu -->
         <div
