@@ -1134,6 +1134,10 @@ h1 {
   .closing::before {
     height: 40%;
   }
+
+  .audio-icon-wrapper {
+    right: 1.5rem;
+  }
 }
 
 @media (max-width: 378px) {
