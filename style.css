@@ -147,7 +147,7 @@ h1 {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("./img/wedding.jpg");
+    url("./img/coverdepan.jpg");
   background-size: cover; /* Scales image to cover the area */
   background-position: center; /* Centers the background image */ /* Adjusts transparency for better readability */
   z-index: -1;
