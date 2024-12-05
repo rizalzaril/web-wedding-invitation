@@ -2339,6 +2339,44 @@ $(document).ready(function () {
   fetchData();
 });
 
+async function deleteData(id) {
+  try {
+    // Send DELETE request to the server with the item's ID
+    const response = await fetch(
+      `https://backend-undangan-pernikahan-opang.vercel.app/deleteBarang/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to delete data");
+    }
+
+    // SweetAlert to confirm successful deletion
+    Swal.fire({
+      icon: "success",
+      title: "Data deleted successfully!",
+      text: "The item has been removed from the list.",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      // After successful deletion, refresh the page
+      location.reload(); // This will refresh the page
+    });
+  } catch (error) {
+    console.error("Error deleting data:", error);
+
+    // SweetAlert for error handling
+    Swal.fire({
+      icon: "error",
+      title: "Failed to delete data!",
+      text: "There was an error while deleting the item.",
+      confirmButtonText: "Try Again",
+    });
+  }
+}
+
 async function fetchData() {
   try {
     const response = await fetch(
@@ -2368,7 +2406,7 @@ async function fetchData() {
         day: "numeric",
       });
 
-      const row = `<tr>
+      const row = `<tr id="${item._id}">
       <td style="font-size:12px">${item.namaBarang}</td>
       <td><img class="img-thumbnail" style="width:50px; height:50px" src="${item.imageUrl}" /></td>
       <td style="font-size:10px" class="shopee-link">${item.linkShopee} &nbsp;
@@ -2378,8 +2416,9 @@ async function fetchData() {
       </td>
       <td>
         <div class="d-flex gap-2">
-          <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-          <button class="btn btn-primary"><i class="fa-solid fa-edit"></i></button>
+          <button class="btn btn-danger" onclick="deleteData('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+          <!-- Edit button that navigates to a different page with the item's ID as a parameter -->
+          <button class="btn btn-primary" onclick="window.location.href = './src/edit_barang.html?id=${item.id}'"><i class="fa-solid fa-edit"></i></button>
         </div>
       </td>
     </tr>`;
@@ -2405,6 +2444,50 @@ async function fetchData() {
     console.error("Error fetching or processing data:", error);
   }
 }
+
+async function fetchBarangById(id) {
+  try {
+    const response = await fetch(
+      `https://backend-undangan-pernikahan-opang.vercel.app/getBarang/${id}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+async function populateForm() {
+  // Get ID from the query parameter in the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+
+  if (id) {
+    const barang = await fetchBarangById(id);
+
+    if (barang) {
+      // Populate the form with data
+      document.getElementById("namaBarangEdit").value = barang.nama;
+      document.getElementById("linkShopeeEdit").value = barang.linkShopee;
+
+      // Optional: Handle displaying the image (if needed)
+      console.log("Fetched data:", barang);
+    } else {
+      console.error("Failed to load data for the given ID");
+    }
+  } else {
+    console.error("No ID found in the URL");
+  }
+}
+
+// Populate the form when the page loads
+window.onload = populateForm;
 
 // post data barang \\
 // Function to post data
@@ -2449,6 +2532,9 @@ async function postData(formData) {
       icon: "success",
       title: "Success",
       text: `Barang "${result.namaBarang}" has been successfully added!`,
+    }).then(() => {
+      // After successful deletion, refresh the page
+      location.reload(); // This will refresh the page
     });
 
     // Append the new data to the table
@@ -2499,3 +2585,82 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 });
+
+// ALAMAT BARANG \\
+
+let selectedAlamatId = null; // Variable to store selected alamat ID
+
+// Function to fetch data and populate the modal
+async function fetchAlamatBarang() {
+  try {
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getAlamatBarang"
+    );
+    const data = await response.json();
+
+    if (data.message === "AlamatBarang fetched successfully") {
+      // Assuming the data has multiple records, and you want to populate the first one
+      const alamatBarang = data.data[0]; // Change this if you need a specific entry
+
+      // Store the ID of the selected alamat
+      selectedAlamatId = alamatBarang.id;
+
+      // Populate the modal fields
+      document.getElementById("alamatKirim").value = alamatBarang.alamatBarang;
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// Function to update alamatBarang
+async function updateAlamatBarang(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  const alamatKirim = document.getElementById("alamatKirim").value;
+
+  if (!alamatKirim) {
+    alert("Alamat Lengkap is required.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://backend-undangan-pernikahan-opang.vercel.app/updateAlamatBarang/${selectedAlamatId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          alamatBarang: alamatKirim,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.message === "Rekening Kedua updated successfully") {
+      alert("Alamat updated successfully.");
+      // Optionally, close the modal after update
+      $("#exampleModal2").modal("hide");
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "success update data!",
+        text: "oke",
+      });
+    }
+  } catch (error) {
+    console.error("Error updating data:", error);
+    alert("Failed to update data.");
+  }
+}
+
+// Call fetchAlamatBarang when the modal is shown
+const modal = document.getElementById("exampleModal2");
+modal.addEventListener("show.bs.modal", fetchAlamatBarang);
+
+// Add an event listener to handle the form submission
+const form = document.getElementById("updateAlamatForm");
+form.addEventListener("submit", updateAlamatBarang);
