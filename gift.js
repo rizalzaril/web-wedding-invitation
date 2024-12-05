@@ -81,3 +81,16 @@ fetch("https://backend-undangan-pernikahan-opang.vercel.app/getBarang")
     });
   })
   .catch((error) => console.error("Error fetching data:", error));
+
+// get alamat kirim \\
+// Fetch data from the API
+fetch("https://backend-undangan-pernikahan-opang.vercel.app/getAlamatBarang")
+  .then((response) => response.json())
+  .then((data) => {
+    // Access the alamatBarang from the first item in the data array
+    const alamat = data.data[0].alamatBarang;
+    document.getElementById("alamatKirim").innerText = alamat;
+  })
+  .catch((error) => {
+    console.error("Error fetching data: ", error);
+  });
