@@ -521,11 +521,15 @@ function populateTableWithData(data) {
     });
   });
 
+  // Use event delegation for the delete button
   document
-    .querySelectorAll(".delete-btn")
-    .forEach((btn) =>
-      btn.addEventListener("click", () => deleteInvitation(btn.dataset.id))
-    );
+    .querySelector(`${tableId} tbody`)
+    .addEventListener("click", (event) => {
+      if (event.target.closest(".delete-btn")) {
+        const guestId = event.target.closest(".delete-btn").dataset.id;
+        deleteInvitation(guestId);
+      }
+    });
 }
 
 function generateShareMessage(guestName, invitationUrl) {
@@ -562,19 +566,40 @@ function setupShareButtons(shareMessage, invitationUrl) {
 
 async function deleteInvitation(guestId) {
   try {
+    // Confirm the deletion with the user
+    const confirmation = await Swal.fire({
+      title: "Are you sure?",
+      text: "This guest will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!confirmation.isConfirmed) return; // If user cancels, do nothing.
+
+    // Send delete request to API
     const response = await fetch(`${API_ENDPOINTS.deleteGuest}/${guestId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
 
-    if (!response.ok) throw new Error("Failed to delete guest.");
+    if (!response.ok) {
+      const errorMessage = await response.text(); // Capture error message from response
+      throw new Error(errorMessage || "Failed to delete guest.");
+    }
 
+    // Re-fetch the guest list after deletion
     await fetchDataUndangan();
 
+    // Success alert
     Swal.fire("Success", "Guest deleted successfully!", "success");
   } catch (error) {
+    // Log the detailed error for debugging
     console.error("Delete error:", error);
-    Swal.fire("Error", "Failed to delete guest. Try again later.", "error");
+
+    // Show user-friendly error message
+    Swal.fire("Error", `Failed to delete guest. ${error.message}`, "error");
   }
 }
 
