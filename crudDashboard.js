@@ -472,14 +472,13 @@ function populateTableWithData(data) {
 <tr>
   <td>${nama_tamu}</td>
   <td>
-    <a href="${url}" target="_blank">${url}</a>
-    <button class="copy-btn btn btn-sm btn-dark" data-url="${url}">
-      Copy <i class="fa fa-copy"></i>
-    </button>
+    <a href="${url}" target="_blank" style="font-size:10px">${url}</a>
+   
     <button class="share-btn btn btn-sm btn-info" data-name="${nama_tamu}" data-url="${url}">
       Share <i class="fa fa-share-alt"></i>
     </button>
   </td>
+  
   <td>${new Date(timestamp).toLocaleDateString("id-ID", {
     year: "numeric",
     month: "long",
