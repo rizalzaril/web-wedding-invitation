@@ -497,39 +497,67 @@ function populateTableWithData(data) {
 
   $(tableId).DataTable();
 
-  document
-    .querySelectorAll(".copy-btn")
-    .forEach((btn) =>
-      btn.addEventListener("click", () => copyToClipboard(btn.dataset.url))
-    );
-
-  document.querySelectorAll(".share-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const guestName = btn.dataset.name;
-      const invitationUrl = btn.dataset.url;
-
-      updateOGTitleAndDescription(guestName);
-      updateOGImage(invitationUrl);
-
-      const shareMessage = generateShareMessage(guestName, invitationUrl);
-      document.getElementById(
-        "modalMessage"
-      ).innerText = `Share this invitation to ${guestName}`;
-
-      setupShareButtons(shareMessage, invitationUrl);
-      new bootstrap.Modal(document.getElementById("shareModal")).show();
-    });
-  });
-
-  // Use event delegation for the delete button
+  // Event delegation for copy buttons
   document
     .querySelector(`${tableId} tbody`)
     .addEventListener("click", (event) => {
+      if (event.target.closest(".copy-btn")) {
+        copyToClipboard(event.target.closest(".copy-btn").dataset.url);
+      }
+
+      if (event.target.closest(".share-btn")) {
+        const btn = event.target.closest(".share-btn");
+        const guestName = btn.dataset.name;
+        const invitationUrl = btn.dataset.url;
+
+        updateOGTitleAndDescription(guestName);
+        updateOGImage(invitationUrl);
+
+        const shareMessage = generateShareMessage(guestName, invitationUrl);
+        document.getElementById(
+          "modalMessage"
+        ).innerText = `Share this invitation to ${guestName}`;
+
+        setupShareButtons(shareMessage, invitationUrl);
+        new bootstrap.Modal(document.getElementById("shareModal")).show();
+      }
+
       if (event.target.closest(".delete-btn")) {
         const guestId = event.target.closest(".delete-btn").dataset.id;
         deleteInvitation(guestId);
       }
     });
+
+  // debounce function for share buttons to prevent overload
+  function debounce(fn, delay) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn(...args), delay);
+    };
+  }
+
+  const debouncedShareHandler = debounce((guestName, invitationUrl) => {
+    updateOGTitleAndDescription(guestName);
+    updateOGImage(invitationUrl);
+
+    const shareMessage = generateShareMessage(guestName, invitationUrl);
+    document.getElementById(
+      "modalMessage"
+    ).innerText = `Share this invitation to ${guestName}`;
+
+    setupShareButtons(shareMessage, invitationUrl);
+    new bootstrap.Modal(document.getElementById("shareModal")).show();
+  }, 300);
+
+  // Attach the debounced share button handler
+  document.querySelectorAll(".share-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const guestName = btn.dataset.name;
+      const invitationUrl = btn.dataset.url;
+      debouncedShareHandler(guestName, invitationUrl);
+    });
+  });
 }
 
 function generateShareMessage(guestName, invitationUrl) {
