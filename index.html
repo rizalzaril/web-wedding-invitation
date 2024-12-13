@@ -631,6 +631,17 @@
                         Untuk konfirmasi pengiriman hadiah, mohon untuk klik
                         tombol di bawah ini
                       </p>
+
+                      <div class="form-group mb-3 mt-2">
+                        <select
+                          name="barang"
+                          class="form-control"
+                          id="barangSelect"
+                          style="font-size: 1.3rem"
+                        >
+                          <option value="">Pilih Barang yang dikirim</option>
+                        </select>
+                      </div>
                       <a
                         id="confirmation-link"
                         class="btn btn-dark btn-lg button-animate mt-2 mb-4"
@@ -739,7 +750,7 @@
         }
       }
     </script>
-
+    <script src="./fetchBarangDropdown.js"></script>
     <script src="./info.js"></script>
     <script src="./mempelai.js"></script>
     <script src="./sampul.js"></script>
@@ -749,28 +760,85 @@
     <script src="./disableScroll.js"></script>
     <script src="./crudDashboard.js"></script>
     <script>
-      // Function to get the query parameter value
+      // Mendapatkan elemen select dan link konfirmasi
+      const selectElement = document.getElementById("barangSelect");
+      const confirmationLink = document.getElementById("confirmation-link");
+
+      // URL API untuk mendapatkan daftar barang
+      const dtApi =
+        "https://backend-undangan-pernikahan-opang.vercel.app/getBarang";
+
+      // Fungsi untuk mengambil data barang dari API
+      async function fetchBarang() {
+        try {
+          const response = await fetch(dtApi);
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data dari API");
+          }
+          const data = await response.json();
+
+          // Menambahkan item barang sebagai opsi di dropdown
+          data.forEach((item) => {
+            const option = document.createElement("option");
+            option.value = item.namaBarang; // Menyimpan nama barang
+            option.textContent = item.namaBarang; // Menampilkan nama barang
+            selectElement.appendChild(option);
+          });
+        } catch (error) {
+          console.error("Error:", error.message);
+
+          // Menampilkan opsi jika gagal mengambil data
+          const option = document.createElement("option");
+          option.value = "";
+          option.textContent = "Gagal memuat barang";
+          selectElement.appendChild(option);
+        }
+      }
+
+      // Memanggil fungsi fetchBarang saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", fetchBarang);
+
+      // Fungsi untuk mengambil parameter 'to' dari URL
       function getQueryParameter(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
       }
 
-      // Get the value of 'to' parameter from the URL
-      const invitationName = getQueryParameter("to");
+      // Fungsi untuk memperbarui tautan WhatsApp
+      function updateWhatsAppLink() {
+        const invitationName = getQueryParameter("to"); // Nama undangan dari URL
 
-      // Set the content of the <h2> tag with the extracted name
-      if (invitationName) {
-        const decodedName = decodeURIComponent(
-          invitationName.replace(/\+/g, " ")
-        );
-        document.getElementById("invitation-name").textContent = decodedName;
+        // Pastikan nama undangan ada
+        if (invitationName) {
+          const decodedName = decodeURIComponent(
+            invitationName.replace(/\+/g, " ")
+          ); // Decode nama
+          const selectedBarang = selectElement.value; // Ambil barang yang dipilih
 
-        // Update WhatsApp link with the name
-        const confirmationLink = document.getElementById("confirmation-link");
-        confirmationLink.href = `https://wa.me/+6282213814460?text=Halo%20saya%20${encodeURIComponent(
-          decodedName
-        )}%20ingin%20mengonfirmasi%20bahwa%20saya%20telah%20mengirimkan%20hadiah%20pernikahan.%20Terima%20kasih!`;
+          // Perbarui tautan WhatsApp jika barang dipilih
+          if (selectedBarang) {
+            confirmationLink.href = `https://wa.me/+6282213814460?text=Halo%20saya%20${encodeURIComponent(
+              decodedName
+            )}%20ingin%20mengonfirmasi%20bahwa%20saya%20telah%20mengirimkan%20${encodeURIComponent(
+              selectedBarang
+            )}%20sebagai%20hadiah%20pernikahan.%20Terima%20kasih!`;
+          } else {
+            confirmationLink.href = "#"; // Jika barang belum dipilih, tautan kosong
+          }
+        }
       }
+
+      // Event listener untuk mendeteksi perubahan pilihan barang
+      selectElement.addEventListener("change", updateWhatsAppLink);
+
+      // Event listener untuk tombol konfirmasi
+      confirmationLink.addEventListener("click", (e) => {
+        // Jika barang belum dipilih, cegah redirect dan tampilkan alert
+        if (!selectElement.value) {
+          e.preventDefault();
+          alert("Silakan pilih barang terlebih dahulu.");
+        }
+      });
     </script>
   </body>
 </html>
