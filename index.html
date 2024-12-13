@@ -613,6 +613,36 @@
                 <div id="product-container" class="row p-3 mt-3 flex-shopee">
                   <!-- Product details will be populated here -->
                 </div>
+
+                <div class="mt-4 p-3">
+                  <div
+                    class="card mt-3"
+                    style="
+                      margin: 0 auto;
+                      background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+                      backdrop-filter: blur(10px); /* Blur effect */
+                      -webkit-backdrop-filter: blur(10px);
+                      border-radius: 5px;
+                      border: 2px dotted white;
+                    "
+                  >
+                    <div class="card-body">
+                      <p class="text-white">
+                        Untuk konfirmasi pengiriman hadiah, mohon untuk klik
+                        tombol di bawah ini
+                      </p>
+                      <a
+                        id="confirmation-link"
+                        class="btn btn-dark btn-lg button-animate mt-2 mb-4"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Konfirmasi
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -728,10 +758,18 @@
       // Get the value of 'to' parameter from the URL
       const invitationName = getQueryParameter("to");
 
-      // Set the content of the <h1> tag with the extracted name
+      // Set the content of the <h2> tag with the extracted name
       if (invitationName) {
-        document.getElementById("invitation-name").textContent =
-          decodeURIComponent(invitationName.replace(/\+/g, " "));
+        const decodedName = decodeURIComponent(
+          invitationName.replace(/\+/g, " ")
+        );
+        document.getElementById("invitation-name").textContent = decodedName;
+
+        // Update WhatsApp link with the name
+        const confirmationLink = document.getElementById("confirmation-link");
+        confirmationLink.href = `https://wa.me/082213814460?text=Halo%20saya%20${encodeURIComponent(
+          decodedName
+        )}%20ingin%20mengonfirmasi%20bahwa%20saya%20telah%20mengirimkan%20hadiah%20pernikahan.%20Terima%20kasih!`;
       }
     </script>
   </body>
