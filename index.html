@@ -850,5 +850,23 @@
         }
       });
     </script>
+
+    <script>
+      // Fungsi untuk mengambil parameter URL
+      function getURLParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // Ambil nama tamu dari URL dan tampilkan di elemen
+      const guestName = getURLParameter("to");
+      if (guestName) {
+        document.getElementById("invitation-name").textContent =
+          decodeURIComponent(guestName);
+      } else {
+        document.getElementById("invitation-name").textContent =
+          "Tamu tidak ada";
+      }
+    </script>
   </body>
 </html>
